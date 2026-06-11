@@ -37,21 +37,46 @@ Feeds the weekly public build-log posts. Newest entries first.
 - 79 tests (extractor wiring faked at the client boundary, job against a
   structural FakeBackend), mypy --strict clean, CI green.
 
-**Evals:** none yet — no extractions exist until the key lands.
+**First live extractions (key landed same day).** `--limit 3` →
+CBA profit announcement + both WES half-year docs, ~60s, ~20s/filing.
+Results strong: every numeric value correct against the parsed text, the two
+WES documents (media release vs statutory 4D) agree with each other on all
+four metrics — a free cross-document consistency check — and confidence
+looks calibrated (0.99 on WES's clean tables, 0.92–0.97 on CBA's denser
+statutory pages).
+
+**Audit-trail verification (now `scripts/verify_quotes.py`) found the real
+lesson:** strict byte-matching flagged 6/27 quotes "missing", but diagnosis
+showed ZERO hallucinations — 5 were quotes spanning a line break (model joins
+"label:\nvalue row" with a space; a faithful quote the parser's line breaks
+can't byte-match) and 1 was a wrong page number (right quote, page 1 not 7).
+Whitespace-normalized matching: 26/27 pass. The eval harness must compare
+quotes whitespace-normalized or it will measure the parser, not the model.
+
+**Two conventions the first 3 filings surfaced that earnings_v1 does NOT pin
+(golden labels must decide; candidates for v2):**
+1. **EPS basis:** CBA reports basic EPS "from continuing operations" (323.7c)
+   AND "including discontinued operations" (321.0c). Model chose including-
+   discontinued. Pick one and label consistently.
+2. **Bank "revenue":** banks report no conventional revenue line; the model
+   chose "total net operating income before operating expenses and
+   impairment" ($15,000m) at conf 0.96. Decide what revenue means for
+   financials — or whether it's null for banks.
+
+**Evals:** none yet — first accuracy number needs golden labels.
 
 ### ⏸ PARKED HERE (2026-06-12) — state of play for next session
 
-**One blocker, owner's hands:** put `ANTHROPIC_API_KEY` in `.env`
-(console.anthropic.com → API Keys; see `.env.example`). Then:
-
-1. `uv run python -m asx_engine.extraction.job --limit 3` — extract a
-   handful, eyeball payloads against the PDFs (BHP is in the corpus and
-   reports USD: expect nulls there by design).
-2. If sane, drop `--limit` and run all 26.
-3. Step 8 in parallel (owner): golden labels per `golden/README.md`, using
-   the SAME conventions earnings_v1 pins (statutory, group, AUD-only-null,
-   cents). Exclude the RIO Q4 production report — not an earnings doc.
-4. Then eval harness v1 (step 9): per-field accuracy, results to BQ.
+1. Owner: eyeball the 3 payloads (`uv run python scripts/eyeball_extractions.py`),
+   then decide the two conventions above.
+2. Run the remaining 23: `uv run python -m asx_engine.extraction.job`
+   (idempotent — re-running skips the done 3). BHP/RIO are USD reporters:
+   expect nulls by design.
+3. Step 8 in parallel (owner): golden labels per `golden/README.md`, same
+   conventions as the prompt (statutory, group, AUD-only-null, cents, plus
+   the two new decisions). Exclude the RIO Q4 production report.
+4. Then eval harness v1 (step 9): per-field accuracy vs goldens, results to
+   BQ; `scripts/verify_quotes.py` grows into the quote-audit metric.
 
 ---
 
