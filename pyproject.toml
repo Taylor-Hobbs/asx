@@ -1,0 +1,59 @@
+[project]
+name = "asx-engine"
+version = "0.1.0"
+description = "ASX Announcement Intelligence Engine — ingestion, extraction, and evaluation pipeline over ASX company announcements"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Taylor Hobbs" }]
+dependencies = [
+    "anthropic>=0.40",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "httpx>=0.27",
+    "pdfplumber>=0.11",
+    "google-cloud-storage>=2.18",
+    "google-cloud-bigquery>=3.26",
+    "polars>=1.12",
+    "structlog>=24.4",
+]
+
+[dependency-groups]
+# Dev-only tools live in a PEP 735 dependency group: installed by `uv sync`
+# locally and in CI, but never shipped as package requirements.
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.8",
+    "mypy>=1.13",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# The src/ layout (code under src/asx_engine rather than asx_engine at the
+# repo root) forces tests to import the *installed* package, not whatever
+# happens to be in the working directory — catching packaging mistakes early.
+[tool.hatch.build.targets.wheel]
+packages = ["src/asx_engine"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+# A curated-but-strict baseline: pycodestyle/pyflakes (E,W,F), import sorting
+# (I), naming (N), modernization (UP), bugbear's likely-bugs (B), comprehension
+# cleanups (C4), and pathlib-over-os.path (PTH).
+select = ["E", "W", "F", "I", "N", "UP", "B", "C4", "PTH"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["asx_engine"]
+mypy_path = "src"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
