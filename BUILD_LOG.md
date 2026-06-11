@@ -102,5 +102,39 @@ text is clean Unicode (console mojibake during inspection was display-only). The
 extraction risk is now ambiguity (statutory vs underlying rows, segment vs group
 tables), not parse quality. 71 tests.
 
-**Next:** extraction v1 — `prompts/earnings_v1.md` + Anthropic API → `EarningsResult`.
-Needs the owner's ANTHROPIC_API_KEY.
+---
+
+### ⏸ PARKED HERE (2026-06-11) — state of play for next session
+
+**Where we are:** Q1 vertical slice, steps 1–6 of 9 done in one day. The pipeline is
+live end-to-end up to parsed text: ASX → private GCS bucket → BigQuery → parsed pages
+with quality flags. 71 tests, mypy --strict, CI green, everything pushed.
+
+**What exists and works:**
+- 26 real earnings filings (10 tickers, Feb–May 2026 results season) in
+  `gs://asx-scanner-499110-raw-pdfs/raw/{hash}.pdf` + `asx_engine.announcements`
+- All 26 parsed `good` → `parsed/pdfplumber_v1/{hash}.json` + `asx_engine.parsed_documents`
+- CLI entry points: `python -m asx_engine.ingestion.manual` (dry-run + --exclude
+  curation) and `python -m asx_engine.parsing.job` (idempotent)
+
+**Next step (7 — extraction v1), blocked on ONE thing:** owner's `ANTHROPIC_API_KEY`
+in the local `.env` (console.anthropic.com → API Keys). Then, in order:
+1. `prompts/earnings_v1.md` — versioned prompt with unit-normalization rules
+   ($1,234.5m → 1234500000; EPS/DPS in cents; statutory vs underlying: capture as stated)
+2. Extraction module: parsed text → Claude → validated `EarningsResult`
+   (per-field confidence + source quotes) → `extraction_records` BQ table
+3. Run a handful of the 26 live; eyeball before building the harness
+
+**Also unblocked, owner's hands (step 8):** golden labels for the 26 — read each filing,
+record true revenue/NPAT/EPS/DPS per `golden/README.md` format. The long pole to the
+first accuracy number; parallelizes with step 7.
+
+**Watch out for:**
+- Extraction's real difficulty is ambiguity (statutory vs underlying, group vs segment
+  tables), not parse quality — the prompt must pin which number wins and the golden
+  labels must record the same convention, or accuracy numbers will measure label
+  disagreement instead of model quality.
+- Big statutory docs run ~100K+ tokens; fine for v1, batch/caching optimizations are
+  Q4 scope — don't build them now.
+- RIO Q4-production filing in the corpus is not an earnings doc — exclude from the
+  earnings golden set at labeling time.
