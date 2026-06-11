@@ -55,5 +55,16 @@ field names (`revenue_aud`, `eps_cents`) with normalization at extraction time.
 with direct-PDF short-circuit. Tests (15) run against verbatim captured payloads via
 httpx.MockTransport — zero network in CI. 41 tests total.
 
-**Next:** GCP project setup (owner), then manual ingestion of ~20 hand-picked earnings
-PDFs in the final schema shape — verifying the ⚠️ mapping concern on the first few.
+**GCP stood up** (project `asx-scanner-499110`, billing linked, budget alert set):
+- Private bucket `asx-scanner-499110-raw-pdfs` in australia-southeast2 — uniform
+  bucket-level access + public-access prevention *enforced* (public ACLs impossible,
+  enforcing the redistribution rule at the infrastructure level).
+- BQ dataset `asx_engine` + `announcements` table; schema versioned in
+  `infra/bq/announcements.schema.json`, field descriptions carry the invariants
+  (immutability, announced_at vs ingested_at separation).
+- Auth via ADC only — no service-account key files anywhere.
+- Verified end-to-end from Python: settings → storage.Client → bigquery.Client all
+  resolve against live resources.
+
+**Next:** manual ingestion of ~20 hand-picked earnings PDFs in the final schema shape —
+verifying the ⚠️ documentKey→PDF mapping concern on the first few.

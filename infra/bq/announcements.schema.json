@@ -1,0 +1,54 @@
+[
+  {
+    "name": "content_hash",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "SHA-256 hex of the raw PDF bytes. Primary key; announcements are immutable, amendments are new rows."
+  },
+  {
+    "name": "announcement_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "ASX documentKey, e.g. 2924-03081111-3A691768. With ticker+date, lets the public golden dataset cite filings without republishing them."
+  },
+  {
+    "name": "ticker",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "ASX code, uppercase."
+  },
+  {
+    "name": "headline",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "document_type",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "ASX announcementType, e.g. PERIODIC REPORTS."
+  },
+  {
+    "name": "price_sensitive",
+    "type": "BOOLEAN",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "document_url",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Resolved announcements.asx.com.au PDF URL the bytes were fetched from."
+  },
+  {
+    "name": "announced_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When the market learned the information (ASX release timestamp, UTC). Point-in-time joins key on this."
+  },
+  {
+    "name": "ingested_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED",
+    "description": "When WE stored it (UTC). Kept separate from announced_at for leakage-audit hygiene."
+  }
+]
