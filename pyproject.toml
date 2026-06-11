@@ -48,6 +48,11 @@ src = ["src", "tests"]
 # cleanups (C4), and pathlib-over-os.path (PTH).
 select = ["E", "W", "F", "I", "N", "UP", "B", "C4", "PTH"]
 
+[tool.ruff.lint.per-file-ignores]
+# Verbatim API captures must not be reflowed to satisfy line length —
+# fixture fidelity beats style in test data.
+"tests/test_asx_client.py" = ["E501"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true

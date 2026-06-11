@@ -29,8 +29,9 @@ BigQuery: extractions, eval runs   ──►   Eval harness vs golden dataset
 | Module | Responsibility | Status |
 |---|---|---|
 | `asx_engine.config` | Typed env-driven settings | ✅ built |
-| `asx_engine.schemas` | Announcement metadata + extraction models | *(planned — next)* |
-| `asx_engine.ingestion` | Poller, rate limiter, GCS/BQ writers | *(planned)* |
+| `asx_engine.schemas` | Announcement metadata + extraction models | ✅ built |
+| `asx_engine.ingestion.asx_client` | Rate-limited, fail-loud ASX API client (metadata → interstitial → PDF) | ✅ built |
+| `asx_engine.ingestion` (job) | Poller orchestration, GCS/BQ writers | *(planned)* |
 | `asx_engine.parsing` | PDF → text, quality flags | *(planned)* |
 | `asx_engine.extraction` | Prompt loading, Anthropic client, typed outputs | *(planned)* |
 | `evals/` | Golden-set accuracy runs, logged to BQ | *(planned)* |

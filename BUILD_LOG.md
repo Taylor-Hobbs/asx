@@ -34,5 +34,26 @@ Feeds the weekly public build-log posts. Newest entries first.
 source spans as quoted text not char offsets (parser-version proof); units encoded in
 field names (`revenue_aud`, `eps_cents`) with normalization at extraction time.
 
+**ASX data source de-risked (the big Q1 unknown).** Probed live, politely (~8 requests,
+3s spacing, identifying UA):
+- The pyasx-era endpoint (`asx.com.au/asx/1/...`) is **dead** — 404. pyasx is stale.
+- Live chain verified end-to-end: (1) metadata JSON from
+  `asx.api.markitdigital.com/asx-research/1.0/companies/{ticker}/announcements`;
+  (2) PDF resolution via legacy `displayAnnouncement.do?display=pdf&idsId={middle
+  segment of documentKey}` → terms interstitial with hidden `pdfURL` input;
+  (3) direct PDF download from `announcements.asx.com.au` → 200 application/pdf.
+- Quirks: `itemsPerPage` is a suggestion (asked 3, got 5); metadata `url` field is
+  empty; markitdigital cdn-api file-gateway patterns from older scrapers also 404.
+- ⚠️ To verify during manual ingestion: the resolved pdfURL for idsId 03081111 had a
+  date-path (20260409) that didn't match the announcement date (2026-04-21) — confirm
+  the documentKey→idsId→PDF mapping lands on the right document before trusting it
+  at scale.
+
+**Built (continued):** `AsxClient` — rate-limited (injectable clock/sleep), fail-loud
+(`AsxApiChangedError` with payload snippets on any drift), exponential backoff on
+429/5xx/transport errors only (hard 4xx never retried), interstitial pdfURL extraction
+with direct-PDF short-circuit. Tests (15) run against verbatim captured payloads via
+httpx.MockTransport — zero network in CI. 41 tests total.
+
 **Next:** GCP project setup (owner), then manual ingestion of ~20 hand-picked earnings
-PDFs in the final schema shape.
+PDFs in the final schema shape — verifying the ⚠️ mapping concern on the first few.
