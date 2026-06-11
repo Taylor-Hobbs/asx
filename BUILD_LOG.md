@@ -86,5 +86,21 @@ confirmed reachable. Lesson: exclusions free limit slots that refill with the ne
 candidate (by design) — re-run dry-run after excluding to see the final list; one RIO
 production report slipped in this way (harmless: label-set curation happens later).
 
-**Next:** parsing — PDF → text + parse-quality flags across the 26, find out how bad
-the tables really are.
+**Parsing built and run over all 26.** `parse_pdf` (pdfplumber, native text only) +
+versioned `ParsedDocument` with computed quality flags (page_count, empty_page_count,
+total_chars, quality good/partial/empty). Storage: full text →
+GCS `parsed/{parser_version}/{content_hash}.json`, flags row → BQ `parsed_documents`.
+Job is idempotent via set-difference against BQ — crash-safe, resumable, and bumping
+PARSER_VERSION re-parses naturally. Tests build minimal-but-valid PDFs byte-by-byte
+(correct xref offsets) so the real pdfplumber path is exercised without fixture files;
+an "empty page" in tests is genuinely a page with no text operators.
+
+**Parse results:** 26/26 `good`, zero empty pages across 1,630 pages / ~3.2M chars —
+all born-digital, OCR correctly deferred. Tables linearize better than feared:
+`Revenue 24,212 23,490 3.1` keeps label/current/prior/variance on one line. Stored
+text is clean Unicode (console mojibake during inspection was display-only). The real
+extraction risk is now ambiguity (statutory vs underlying rows, segment vs group
+tables), not parse quality. 71 tests.
+
+**Next:** extraction v1 — `prompts/earnings_v1.md` + Anthropic API → `EarningsResult`.
+Needs the owner's ANTHROPIC_API_KEY.

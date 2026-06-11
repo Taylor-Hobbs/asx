@@ -1,0 +1,41 @@
+[
+  {
+    "name": "content_hash",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "SHA-256 of the source PDF; joins to announcements.content_hash."
+  },
+  {
+    "name": "parser_version",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Versioned parser identifier, e.g. pdfplumber_v1. (content_hash, parser_version) is unique; new parser versions append, never overwrite."
+  },
+  {
+    "name": "parsed_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "page_count",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "empty_page_count",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Pages yielding under ~20 chars - blank or scanned (image-only) pages."
+  },
+  {
+    "name": "total_chars",
+    "type": "INTEGER",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "quality",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "good = all pages have text; partial = some empty pages; empty = no text at all (OCR queue). Text itself lives in GCS at parsed/{parser_version}/{content_hash}.json."
+  }
+]
