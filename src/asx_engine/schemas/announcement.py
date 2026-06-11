@@ -28,14 +28,16 @@ class Announcement(BaseModel):
     # differently and becomes a new record.
     content_hash: str = Field(pattern=r"^[a-f0-9]{64}$")
 
-    # ASX's own announcement identifier, kept for cross-referencing and for
-    # the public golden dataset (which cites ticker + date + this ID instead
-    # of republishing documents).
+    # ASX's idsId — the identifier that resolves to the PDF, kept for
+    # cross-referencing and for the public golden dataset (which cites
+    # ticker + date + this ID instead of republishing documents).
     announcement_id: str = Field(min_length=1)
 
     ticker: str = Field(pattern=r"^[A-Z0-9]{3,6}$")
     headline: str = Field(min_length=1)
-    document_type: str = Field(min_length=1)
+    # Only the JSON endpoint exposes a type taxonomy; the HTML listing (the
+    # source of truth we ingest from) does not — hence optional.
+    document_type: str | None = None
     price_sensitive: bool
     document_url: str = Field(min_length=1)
 

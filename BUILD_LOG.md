@@ -66,5 +66,25 @@ httpx.MockTransport — zero network in CI. 41 tests total.
 - Verified end-to-end from Python: settings → storage.Client → bigquery.Client all
   resolve against live resources.
 
-**Next:** manual ingestion of ~20 hand-picked earnings PDFs in the final schema shape —
-verifying the ⚠️ documentKey→PDF mapping concern on the first few.
+**⚠️ RESOLVED — and it was a real bug.** The JSON documentKey's middle segment is NOT an
+idsId: for BHP's 2026-04-21 quarterly it gave 03081111, which resolves to a *different
+document* (2026-04-09); the correct idsId is 03084954. Worse, the JSON endpoint returns
+only the 5 most recent items — pagination and fromDate/toDate are silently ignored.
+**Pivot:** the legacy announcements.do HTML listing is the source of truth (full calendar
+year per request, correct idsIds, price-sensitive marker, Sydney-local times). The JSON
+endpoint is demoted to forward-polling metadata only. Client rewritten accordingly:
+bs4-parsed listing with verbatim-capture fixtures, AEST/AEDT→UTC conversion pinned by
+tests on both sides of the daylight-saving boundary.
+
+**First real ingestion (26 filings).** `python -m asx_engine.ingestion.manual` with
+dry-run curation + `--exclude` hand-picking. 10 tickers (BHP CBA NAB ANZ WBC CSL WES TLS
+WOW RIO), Feb–May 2026 results season: statutory 4Ds, media releases, investor decks.
+26 PDFs → GCS (hash-addressed), 26 metadata rows → BQ, ~4.5 min at polite pacing, zero
+errors. Spot-checked BHP/ANZ/WES PDFs against stored metadata: contents match headlines;
+WES's first page shows Revenue/NPAT/EPS in clean native text — extraction targets
+confirmed reachable. Lesson: exclusions free limit slots that refill with the next
+candidate (by design) — re-run dry-run after excluding to see the final list; one RIO
+production report slipped in this way (harmless: label-set curation happens later).
+
+**Next:** parsing — PDF → text + parse-quality flags across the 26, find out how bad
+the tables really are.

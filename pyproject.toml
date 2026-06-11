@@ -16,6 +16,10 @@ dependencies = [
     "google-cloud-bigquery>=3.26",
     "polars>=1.12",
     "structlog>=24.4",
+    "beautifulsoup4>=4.12",
+    # IANA timezone database for zoneinfo — bundled on Linux, absent on
+    # Windows; announcement times are published in Australia/Sydney local.
+    "tzdata>=2024.2",
 ]
 
 [dependency-groups]
@@ -25,6 +29,7 @@ dev = [
     "pytest>=8.3",
     "ruff>=0.8",
     "mypy>=1.13",
+    "types-beautifulsoup4>=4.12",
 ]
 
 [build-system]
@@ -58,6 +63,13 @@ python_version = "3.12"
 strict = true
 packages = ["asx_engine"]
 mypy_path = "src"
+
+# google-cloud-storage ships no py.typed (unlike google-cloud-bigquery), so
+# its objects are Any. Acceptable: our wrapper around it is thin and the
+# integration is exercised against the real service.
+[[tool.mypy.overrides]]
+module = ["google.cloud.storage.*", "google.cloud.storage"]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

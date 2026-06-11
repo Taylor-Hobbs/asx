@@ -9,7 +9,7 @@
     "name": "announcement_id",
     "type": "STRING",
     "mode": "REQUIRED",
-    "description": "ASX documentKey, e.g. 2924-03081111-3A691768. With ticker+date, lets the public golden dataset cite filings without republishing them."
+    "description": "ASX idsId, e.g. 03084954 - the identifier that resolves to the PDF. With ticker+date, lets the public golden dataset cite filings without republishing them."
   },
   {
     "name": "ticker",
@@ -25,8 +25,8 @@
   {
     "name": "document_type",
     "type": "STRING",
-    "mode": "REQUIRED",
-    "description": "ASX announcementType, e.g. PERIODIC REPORTS."
+    "mode": "NULLABLE",
+    "description": "ASX announcementType, e.g. PERIODIC REPORTS. Only the JSON endpoint exposes this; rows ingested from the HTML listing have NULL."
   },
   {
     "name": "price_sensitive",
