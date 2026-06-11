@@ -5,6 +5,56 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-06-12 — Extraction v1 built (live run still gated on the API key)
+
+**Built (step 7, everything except the live call):**
+- `prompts/earnings_v1.md` — first versioned prompt. It pins the two conventions
+  the golden labels MUST share, or accuracy numbers will measure label
+  disagreement instead of model quality:
+  1. **Statutory beats underlying** (and group beats segment) when both appear.
+  2. **AUD only, never convert** — USD reporters (BHP, RIO) get `value: null`
+     for non-AUD figures. Honest gap for v1; revisit at schema level if it
+     costs too much corpus.
+  Plus unit normalization ($1,234.5m → 1234500000; EPS/DPS in cents), losses
+  as negatives, no derived figures (null beats computing EPS from NPAT), and
+  per-field verbatim quote + `[page N]` + calibrated confidence.
+- `extraction/earnings.py` — parsed text → Claude (claude-opus-4-8, adaptive
+  thinking) → validated `EarningsResult` via the SDK's `messages.parse()`:
+  the Pydantic schema is the structured-output constraint AND the validator;
+  constraints the API can't enforce (confidence 0–1 bounds) are checked
+  client-side by the SDK. prompt_version = prompt file stem.
+- `extraction/job.py` — idempotent like parsing: pending = good-quality parses
+  minus extraction_records rows for the current (model, prompt_version);
+  `--limit N` for eyeball-first runs (extraction costs real tokens). Records
+  land in BQ only — payload is a JSON string column; no GCS artifact needed
+  at ~2KB/record.
+- `infra/bq/extraction_records.schema.json` + live table created. Backend
+  smoke-tested against real GCS/BQ: 26 good parses pending, 0 extracted,
+  text loads with page markers intact.
+- `.env.example` documenting required env vars. Gotcha found: pydantic-settings
+  reads `.env` privately — the anthropic client reads the PROCESS environment,
+  so the job calls `load_dotenv()` explicitly (python-dotenv now a declared dep).
+- 79 tests (extractor wiring faked at the client boundary, job against a
+  structural FakeBackend), mypy --strict clean, CI green.
+
+**Evals:** none yet — no extractions exist until the key lands.
+
+### ⏸ PARKED HERE (2026-06-12) — state of play for next session
+
+**One blocker, owner's hands:** put `ANTHROPIC_API_KEY` in `.env`
+(console.anthropic.com → API Keys; see `.env.example`). Then:
+
+1. `uv run python -m asx_engine.extraction.job --limit 3` — extract a
+   handful, eyeball payloads against the PDFs (BHP is in the corpus and
+   reports USD: expect nulls there by design).
+2. If sane, drop `--limit` and run all 26.
+3. Step 8 in parallel (owner): golden labels per `golden/README.md`, using
+   the SAME conventions earnings_v1 pins (statutory, group, AUD-only-null,
+   cents). Exclude the RIO Q4 production report — not an earnings doc.
+4. Then eval harness v1 (step 9): per-field accuracy, results to BQ.
+
+---
+
 ## 2026-06-11 — Repo setup + scaffold
 
 **Built:**
@@ -104,7 +154,7 @@ tables), not parse quality. 71 tests.
 
 ---
 
-### ⏸ PARKED HERE (2026-06-11) — state of play for next session
+### State of play at end of 2026-06-11 (superseded by the entry above)
 
 **Where we are:** Q1 vertical slice, steps 1–6 of 9 done in one day. The pipeline is
 live end-to-end up to parsed text: ASX → private GCS bucket → BigQuery → parsed pages

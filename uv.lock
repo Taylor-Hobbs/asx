@@ -103,6 +103,7 @@ dependencies = [
     { name = "polars" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
+    { name = "python-dotenv" },
     { name = "structlog" },
     { name = "tzdata" },
 ]
@@ -117,7 +118,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "anthropic", specifier = ">=0.40" },
+    { name = "anthropic", specifier = ">=0.69" },
     { name = "beautifulsoup4", specifier = ">=4.12" },
     { name = "google-cloud-bigquery", specifier = ">=3.26" },
     { name = "google-cloud-storage", specifier = ">=2.18" },
@@ -126,6 +127,7 @@ requires-dist = [
     { name = "polars", specifier = ">=1.12" },
     { name = "pydantic", specifier = ">=2.9" },
     { name = "pydantic-settings", specifier = ">=2.6" },
+    { name = "python-dotenv", specifier = ">=1.0" },
     { name = "structlog", specifier = ">=24.4" },
     { name = "tzdata", specifier = ">=2024.2" },
 ]

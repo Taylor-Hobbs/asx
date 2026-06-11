@@ -1,0 +1,194 @@
+"""Extraction job: run the earnings extractor over parsed announcements.
+
+    uv run python -m asx_engine.extraction.job --limit 3
+
+Idempotent and resumable the same way the parse job is: pending work is the
+set difference between good-quality parsed documents and extraction_records
+rows for the CURRENT (model, prompt_version) pair. A crash loses nothing; a
+re-run picks up where it left off; a new prompt version or model naturally
+re-extracts everything while leaving the old records intact for evals.
+
+Unlike parsing there is no GCS artifact: the whole ExtractionRecord (a few KB
+of JSON) fits in its BigQuery row, with the payload stored as a JSON string
+the eval harness validates back through the Pydantic schema.
+
+`--limit` exists because extraction costs real API tokens: run a handful,
+eyeball the payloads against the PDFs, then widen.
+"""
+
+import argparse
+from collections.abc import Callable
+from dataclasses import dataclass, field
+from typing import Protocol
+
+import anthropic
+import google.cloud.storage as storage
+import structlog
+from dotenv import load_dotenv
+from google.cloud import bigquery
+
+from asx_engine.config import Settings, load_settings
+from asx_engine.extraction.earnings import EXTRACTION_MODEL, extract_earnings, load_prompt
+from asx_engine.parsing.pdf import PARSER_VERSION, ParsedDocument, ParseQuality
+from asx_engine.schemas import EarningsResult, ExtractionRecord, utc_now
+
+log = structlog.get_logger()
+
+EXTRACTIONS_TABLE = "extraction_records"
+
+# str in, validated payload out — the job orchestrates, the extractor extracts.
+# Tests inject a deterministic callable here instead of faking the Anthropic SDK.
+Extractor = Callable[[str], EarningsResult]
+
+
+class ExtractionBackend(Protocol):
+    """Storage capabilities run() needs; faked structurally in tests."""
+
+    def parsed_hashes(self, parser_version: str) -> set[str]: ...
+    def extracted_hashes(self, model: str, prompt_version: str) -> set[str]: ...
+    def load_text(self, content_hash: str) -> str: ...
+    def save(self, record: ExtractionRecord[EarningsResult]) -> None: ...
+
+
+@dataclass
+class ExtractionSummary:
+    extracted: list[ExtractionRecord[EarningsResult]] = field(default_factory=list)
+    already_extracted: int = 0
+    pending_after_limit: int = 0
+
+
+def run(
+    backend: ExtractionBackend,
+    extractor: Extractor,
+    *,
+    model: str,
+    prompt_version: str,
+    parser_version: str = PARSER_VERSION,
+    limit: int | None = None,
+) -> ExtractionSummary:
+    summary = ExtractionSummary()
+    parsed = backend.parsed_hashes(parser_version)
+    done = backend.extracted_hashes(model, prompt_version)
+    pending = sorted(parsed - done)
+    summary.already_extracted = len(parsed & done)
+    if limit is not None:
+        summary.pending_after_limit = max(0, len(pending) - limit)
+        pending = pending[:limit]
+    log.info(
+        "extract.start",
+        model=model,
+        prompt_version=prompt_version,
+        parsed=len(parsed),
+        already_extracted=summary.already_extracted,
+        pending=len(pending),
+        deferred_by_limit=summary.pending_after_limit,
+    )
+
+    for content_hash in pending:
+        payload = extractor(backend.load_text(content_hash))
+        record = ExtractionRecord[EarningsResult](
+            content_hash=content_hash,
+            model=model,
+            prompt_version=prompt_version,
+            extracted_at=utc_now(),
+            payload=payload,
+        )
+        backend.save(record)
+        summary.extracted.append(record)
+        log.info(
+            "extract.stored",
+            content_hash=content_hash,
+            period=payload.period.value,
+            revenue_aud=str(payload.revenue_aud.current.value),
+            npat_aud=str(payload.npat_aud.current.value),
+        )
+
+    log.info("extract.done", extracted=len(summary.extracted))
+    return summary
+
+
+class GcpExtractionBackend:
+    """The real backend: parsed text from GCS, records to BigQuery."""
+
+    def __init__(self, settings: Settings) -> None:
+        self._settings = settings
+        self._bucket = storage.Client(project=settings.gcp_project).bucket(settings.gcs_raw_bucket)
+        self._bq = bigquery.Client(project=settings.gcp_project)
+        self._parsed_id = f"{settings.gcp_project}.{settings.bq_dataset}.parsed_documents"
+        self._extractions_id = f"{settings.gcp_project}.{settings.bq_dataset}.{EXTRACTIONS_TABLE}"
+        self._extractions_schema = self._bq.get_table(self._extractions_id).schema
+
+    def parsed_hashes(self, parser_version: str) -> set[str]:
+        # Only good parses: extraction over partial/empty text would produce
+        # records whose failures measure the parser, not the prompt.
+        query = (
+            f"SELECT content_hash FROM `{self._parsed_id}` "  # noqa: S608 - own table
+            "WHERE parser_version = @parser_version AND quality = @quality"
+        )
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("parser_version", "STRING", parser_version),
+                bigquery.ScalarQueryParameter("quality", "STRING", ParseQuality.GOOD.value),
+            ]
+        )
+        return {
+            row["content_hash"] for row in self._bq.query_and_wait(query, job_config=job_config)
+        }
+
+    def extracted_hashes(self, model: str, prompt_version: str) -> set[str]:
+        query = (
+            f"SELECT content_hash FROM `{self._extractions_id}` "  # noqa: S608 - own table
+            "WHERE model = @model AND prompt_version = @prompt_version"
+        )
+        job_config = bigquery.QueryJobConfig(
+            query_parameters=[
+                bigquery.ScalarQueryParameter("model", "STRING", model),
+                bigquery.ScalarQueryParameter("prompt_version", "STRING", prompt_version),
+            ]
+        )
+        return {
+            row["content_hash"] for row in self._bq.query_and_wait(query, job_config=job_config)
+        }
+
+    def load_text(self, content_hash: str) -> str:
+        blob = self._bucket.blob(f"parsed/{PARSER_VERSION}/{content_hash}.json")
+        document = ParsedDocument.model_validate_json(bytes(blob.download_as_bytes()))
+        return document.text()
+
+    def save(self, record: ExtractionRecord[EarningsResult]) -> None:
+        row = record.model_dump(mode="json", exclude={"payload"})
+        row["payload"] = record.payload.model_dump_json()
+        job_config = bigquery.LoadJobConfig(
+            schema=self._extractions_schema,
+            write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
+        )
+        self._bq.load_table_from_json([row], self._extractions_id, job_config=job_config).result()
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--limit", type=int, default=None, help="extract at most N documents")
+    args = parser.parse_args()
+
+    # ANTHROPIC_API_KEY lives in .env (gitignored). pydantic-settings reads
+    # that file privately for its own fields; the anthropic client reads the
+    # PROCESS environment — so the .env contents must be exported into it.
+    load_dotenv()
+    settings = load_settings()
+    prompt_version, system_prompt = load_prompt()
+    client = anthropic.Anthropic()
+
+    def extractor(document_text: str) -> EarningsResult:
+        return extract_earnings(document_text, client=client, system_prompt=system_prompt)
+
+    run(
+        GcpExtractionBackend(settings),
+        extractor,
+        model=EXTRACTION_MODEL,
+        prompt_version=prompt_version,
+        limit=args.limit,
+    )
+
+
+if __name__ == "__main__":
+    main()

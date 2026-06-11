@@ -1,0 +1,31 @@
+[
+  {
+    "name": "content_hash",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "SHA-256 of the source PDF; joins to announcements.content_hash and parsed_documents.content_hash."
+  },
+  {
+    "name": "model",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Model identifier that produced the extraction, e.g. claude-opus-4-8. One eval run = filter by (model, prompt_version)."
+  },
+  {
+    "name": "prompt_version",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Versioned prompt artifact, e.g. earnings_v1 (prompts/earnings_v1.md). (content_hash, model, prompt_version) is unique; new versions append, never overwrite."
+  },
+  {
+    "name": "extracted_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "payload",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "JSON-serialized EarningsResult (per-field value + confidence + verbatim source quote + page). STRING rather than JSON type: the eval harness validates payloads back through the Pydantic schema, so BQ only needs to store the bytes; query ad hoc with PARSE_JSON."
+  }
+]
