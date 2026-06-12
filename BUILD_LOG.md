@@ -72,7 +72,7 @@ submit → ended in ~2.5 minutes, 23/23 succeeded.
 
 **Measured economics (no more bill archaeology):** 1,144,717 input +
 27,847 output tokens for 23 docs = **$3.21 batched (~$0.14/doc avg)**;
-input is 97% of cost; doc sizes vary 6K–129K tokens. Whole 26-doc corpus:
+input is ~98% of tokens and ~90% of dollars; doc sizes vary 6K–129K tokens. Whole 26-doc corpus:
 ~$4.40. Full-scale projection at ~2,000 earnings docs/yr: **~$280/yr on
 batched Opus** — the scary $5k figure was Opus over all 10–15k filings,
 which extraction never does. Decision: pipeline stays on the API key
@@ -119,6 +119,9 @@ All 26 extracted; extraction is no longer the critical path. In order:
    convention) — shipped only if it beats v1 on the golden set.
 4. After the harness: the Agent SDK runner experiment (Max credit, $0
    marginal) — same prompt/model through `claude -p`, scored side by side.
+   Design pre-registered (metrics + decision rule fixed before running) in
+   `docs/experiments/2026-06-12-extraction-v1-first-live-run.md`, which is
+   also the source-of-record for the public write-up of this session.
 
 ---
 
