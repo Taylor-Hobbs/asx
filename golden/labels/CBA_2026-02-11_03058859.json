@@ -1,0 +1,33 @@
+{
+  "ticker": "CBA",
+  "announcement_id": "03058859",
+  "announced_at": "2026-02-10T20:30:00Z",
+  "headline": "2026 Half Year Results Profit Announcement",
+  "content_hash": "26a61ffa46f086b76a098cf0dc1cbe7d99999df67772702b5795b5dd2611a02f",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

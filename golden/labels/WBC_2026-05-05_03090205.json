@@ -1,0 +1,33 @@
+{
+  "ticker": "WBC",
+  "announcement_id": "03090205",
+  "announced_at": "2026-05-04T21:30:00Z",
+  "headline": "Westpac 2026 Interim Financial Results Announcement",
+  "content_hash": "58e1b94fdeec8a66ca0c1955d75f4775e28ef0d961f679a8564341b2fdb36ab4",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

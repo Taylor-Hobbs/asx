@@ -1,0 +1,33 @@
+{
+  "ticker": "WOW",
+  "announcement_id": "03064665",
+  "announced_at": "2026-02-24T22:18:00Z",
+  "headline": "Appendix 4D and Half-Year Financial Report",
+  "content_hash": "6415478cb1cf20c1c4e83060b999683ae17403b6e2cd82b05c2173786a7bdd57",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

@@ -1,0 +1,33 @@
+{
+  "ticker": "WOW",
+  "announcement_id": "03064680",
+  "announced_at": "2026-02-24T22:20:00Z",
+  "headline": "Half-Year Results Announcement",
+  "content_hash": "b8b256c58838029494269ea5440fe13788e6693dc05142dcb84c8e5ff26f8351",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

@@ -1,0 +1,33 @@
+{
+  "ticker": "TLS",
+  "announcement_id": "03061872",
+  "announced_at": "2026-02-18T20:30:00Z",
+  "headline": "Financial Results for half-year ended 31 December 2025",
+  "content_hash": "afcb9b817bc687820e14ca8c1e9f0a7fc01c84d2476be837e3ae6f333c164a31",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

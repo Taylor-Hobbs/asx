@@ -1,0 +1,33 @@
+{
+  "ticker": "CSL",
+  "announcement_id": "03058873",
+  "announced_at": "2026-02-10T20:41:00Z",
+  "headline": "CSL Statutory Accounts for the Half Year Ended 31 December",
+  "content_hash": "fae5b57f14b33d166fc565095a1e23ec9f3394e885afa13b917762758d281e59",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

@@ -1,0 +1,33 @@
+{
+  "ticker": "TLS",
+  "announcement_id": "03061893",
+  "announced_at": "2026-02-18T20:57:00Z",
+  "headline": "Financial Results 1HY26 presentation materials",
+  "content_hash": "a2a1d5eb496b37b5c3e6aa1c7efdf37667d33fcad6b872ce7c5cc234cb9fd437",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

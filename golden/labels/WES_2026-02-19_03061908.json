@@ -1,0 +1,33 @@
+{
+  "ticker": "WES",
+  "announcement_id": "03061908",
+  "announced_at": "2026-02-18T21:06:00Z",
+  "headline": "2026 Half-year results",
+  "content_hash": "113d56276a8bac0a8c13842ece9dec83d41f0a8cb217a213c7feb9b505e15a7b",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

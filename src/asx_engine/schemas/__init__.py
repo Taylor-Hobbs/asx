@@ -10,13 +10,25 @@ from asx_engine.schemas.extraction import (
     SourcedField,
     utc_now,
 )
+from asx_engine.schemas.golden import (
+    GOLDEN_DATASET_VERSION,
+    GoldenEarningsLabels,
+    GoldenLabel,
+    GoldenMetric,
+    LabelStatus,
+)
 
 __all__ = [
+    "GOLDEN_DATASET_VERSION",
     "Announcement",
     "EarningsResult",
     "ExtractionRecord",
+    "GoldenEarningsLabels",
+    "GoldenLabel",
+    "GoldenMetric",
     "GuidanceDirection",
     "GuidanceStatement",
+    "LabelStatus",
     "ReportedMetric",
     "SourcedField",
     "utc_now",

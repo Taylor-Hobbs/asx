@@ -1,0 +1,33 @@
+{
+  "ticker": "BHP",
+  "announcement_id": "03060978",
+  "announced_at": "2026-02-16T21:38:00Z",
+  "headline": "Half Yearly Report and Accounts",
+  "content_hash": "901bbcfb5e96685107f9c7963ad3ce8859210a5561a8eee5be6bbc0566ebd8b7",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

@@ -1,0 +1,33 @@
+{
+  "ticker": "RIO",
+  "announcement_id": "03062380",
+  "announced_at": "2026-02-19T05:21:00Z",
+  "headline": "Rio Tinto 2025 full year results",
+  "content_hash": "2f78995d33ca53d368bd8679e5e6d950e147f8e207261e19660cad9636b99653",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

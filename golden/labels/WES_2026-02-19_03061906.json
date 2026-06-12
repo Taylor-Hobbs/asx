@@ -1,0 +1,33 @@
+{
+  "ticker": "WES",
+  "announcement_id": "03061906",
+  "announced_at": "2026-02-18T21:06:00Z",
+  "headline": "2026 Half-year Report incorporating Appendix 4D",
+  "content_hash": "1c3ed891493d12f3e6f44ff568e61a245f17666b8ff3f96d2c4729a6b7601324",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

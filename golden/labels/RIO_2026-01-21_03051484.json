@@ -1,0 +1,33 @@
+{
+  "ticker": "RIO",
+  "announcement_id": "03051484",
+  "announced_at": "2026-01-20T21:25:00Z",
+  "headline": "Rio Tinto releases fourth quarter production results",
+  "content_hash": "d270d1235cb4bff41fe8d5ff539c3762f860f61291e1c7170380286335c7f300",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

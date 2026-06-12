@@ -1,0 +1,33 @@
+{
+  "ticker": "ANZ",
+  "announcement_id": "03089112",
+  "announced_at": "2026-04-30T21:41:00Z",
+  "headline": "ANZ Half Year Results, Dividend Announcement & Appendix 4D",
+  "content_hash": "ce74dad9231aedc8924ab594b5132450127e4b03e2fb2e13dd78918dc149919b",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

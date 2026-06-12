@@ -1,0 +1,33 @@
+{
+  "ticker": "NAB",
+  "announcement_id": "03089681",
+  "announced_at": "2026-05-03T22:00:00Z",
+  "headline": "2026 Half Year Results Investor Presentation",
+  "content_hash": "30d148712a669923c690b572341826fe4cb29d96fbdebd374a306ead8dea940e",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

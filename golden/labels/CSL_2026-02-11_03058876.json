@@ -1,0 +1,33 @@
+{
+  "ticker": "CSL",
+  "announcement_id": "03058876",
+  "announced_at": "2026-02-10T20:46:00Z",
+  "headline": "CSL Half Year Results Investor Presentation",
+  "content_hash": "c66b7defd763266ca0908e797c36d9a2d7b71445b592f3b14b43443a0d212a87",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

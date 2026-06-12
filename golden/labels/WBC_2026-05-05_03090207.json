@@ -1,0 +1,33 @@
+{
+  "ticker": "WBC",
+  "announcement_id": "03090207",
+  "announced_at": "2026-05-04T21:30:00Z",
+  "headline": "Westpac 2026 Half Year Result Media Release",
+  "content_hash": "96eeeddb9c2039776dc9e6c508decac40ae3001d4e0b915d4eb46ee15ca361c9",
+  "announcement_type": "earnings",
+  "status": "unlabeled",
+  "exclusion_reason": null,
+  "labels": {
+    "period": null,
+    "revenue_aud": {
+      "current": null,
+      "prior": null
+    },
+    "npat_aud": {
+      "current": null,
+      "prior": null
+    },
+    "eps_cents": {
+      "current": null,
+      "prior": null
+    },
+    "dividend_cents": {
+      "current": null,
+      "prior": null
+    }
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}
