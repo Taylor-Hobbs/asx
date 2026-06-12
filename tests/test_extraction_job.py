@@ -8,6 +8,7 @@ is the eval harness's question, not a unit test's.
 
 from datetime import UTC
 from decimal import Decimal
+from types import SimpleNamespace
 
 import pytest
 
@@ -17,7 +18,7 @@ from asx_engine.extraction.earnings import (
     extract_earnings,
     load_prompt,
 )
-from asx_engine.extraction.job import run
+from asx_engine.extraction.job import run, run_batch
 from asx_engine.schemas import EarningsResult, ExtractionRecord, ReportedMetric, SourcedField
 
 HASH_A = "a" * 64
@@ -171,4 +172,155 @@ class TestRun:
         backend = FakeBackend({HASH_A: "text a"}, already={HASH_A})
         summary = run(backend, fake_extractor, model="m", prompt_version="v")
         assert backend.loads == []
+        assert summary.extracted == []
+
+
+def batch_message(payload_json: str, stop_reason: str = "end_turn") -> SimpleNamespace:
+    """The slice of a batch-result Message that run_batch reads."""
+    return SimpleNamespace(
+        content=[
+            SimpleNamespace(type="thinking"),
+            SimpleNamespace(type="text", text=payload_json),
+        ],
+        stop_reason=stop_reason,
+        usage=SimpleNamespace(input_tokens=100, output_tokens=10),
+    )
+
+
+def succeeded(content_hash: str, payload_json: str | None = None) -> SimpleNamespace:
+    json = payload_json if payload_json is not None else earnings_result().model_dump_json()
+    return SimpleNamespace(
+        custom_id=content_hash,
+        result=SimpleNamespace(type="succeeded", message=batch_message(json)),
+    )
+
+
+def errored(content_hash: str) -> SimpleNamespace:
+    return SimpleNamespace(custom_id=content_hash, result=SimpleNamespace(type="errored"))
+
+
+class FakeBatches:
+    def __init__(self, results: list[SimpleNamespace], statuses: list[str]) -> None:
+        self.created_requests: list[dict[str, object]] | None = None
+        self._results = results
+        self._statuses = statuses
+        self.retrieved: list[str] = []
+
+    def _batch(self, status: str) -> SimpleNamespace:
+        return SimpleNamespace(
+            id="batch_test_1",
+            processing_status=status,
+            request_counts=SimpleNamespace(processing=0, succeeded=0, errored=0),
+        )
+
+    def create(self, *, requests: list[dict[str, object]]) -> SimpleNamespace:
+        self.created_requests = list(requests)
+        return self._batch(self._statuses.pop(0))
+
+    def retrieve(self, batch_id: str) -> SimpleNamespace:
+        self.retrieved.append(batch_id)
+        return self._batch(self._statuses.pop(0))
+
+    def results(self, batch_id: str) -> list[SimpleNamespace]:
+        return self._results
+
+
+class FakeBatchClient:
+    """Satisfies the slice of anthropic.Anthropic that run_batch uses."""
+
+    def __init__(self, results: list[SimpleNamespace], statuses: list[str]) -> None:
+        self.messages = SimpleNamespace(batches=FakeBatches(results, statuses))
+
+
+class TestRunBatch:
+    def test_submits_pending_polls_until_ended_and_saves(self) -> None:
+        backend = FakeBackend({HASH_A: "text a", HASH_B: "text b"})
+        client = FakeBatchClient(
+            results=[succeeded(HASH_A), succeeded(HASH_B)],
+            statuses=["in_progress", "in_progress", "ended"],
+        )
+        sleeps: list[float] = []
+
+        summary = run_batch(
+            backend,
+            client,  # type: ignore[arg-type]
+            model="claude-opus-4-8",
+            prompt_version="earnings_v1",
+            system_prompt="the versioned prompt",
+            poll_seconds=30.0,
+            sleep=sleeps.append,
+        )
+
+        requests = client.messages.batches.created_requests
+        assert requests is not None and len(requests) == 2
+        assert [r["custom_id"] for r in requests] == [HASH_A, HASH_B]
+        params = requests[0]["params"]
+        assert params["model"] == "claude-opus-4-8"  # type: ignore[index]
+        assert params["system"] == "the versioned prompt"  # type: ignore[index]
+        assert params["output_config"]["format"]["type"] == "json_schema"  # type: ignore[index]
+        assert sleeps == [30.0, 30.0]  # polled until "ended"
+        assert {r.content_hash for r in backend.saved} == {HASH_A, HASH_B}
+        assert summary.input_tokens == 200
+        assert summary.output_tokens == 20
+        assert summary.failed == []
+
+    def test_failures_are_counted_never_saved_never_fatal(self) -> None:
+        backend = FakeBackend({HASH_A: "a", HASH_B: "b", HASH_C: "c"})
+        client = FakeBatchClient(
+            results=[
+                errored(HASH_A),
+                succeeded(HASH_B, payload_json='{"period": "not even the right shape"}'),
+                succeeded(HASH_C),
+            ],
+            statuses=["ended"],
+        )
+
+        summary = run_batch(
+            backend,
+            client,  # type: ignore[arg-type]
+            model="m",
+            prompt_version="v",
+            system_prompt="p",
+            sleep=lambda _: None,
+        )
+
+        assert [r.content_hash for r in backend.saved] == [HASH_C]
+        assert sorted(summary.failed) == [HASH_A, HASH_B]
+
+    def test_resume_collects_without_resubmitting_and_skips_done(self) -> None:
+        # HASH_A was saved before the crash; its result must not double-save.
+        backend = FakeBackend({HASH_A: "a", HASH_B: "b"}, already={HASH_A})
+        client = FakeBatchClient(
+            results=[succeeded(HASH_A), succeeded(HASH_B)],
+            statuses=["ended"],
+        )
+
+        summary = run_batch(
+            backend,
+            client,  # type: ignore[arg-type]
+            model="m",
+            prompt_version="v",
+            system_prompt="p",
+            resume_batch_id="batch_test_1",
+            sleep=lambda _: None,
+        )
+
+        assert client.messages.batches.created_requests is None  # no resubmission
+        assert [r.content_hash for r in backend.saved] == [HASH_B]
+        assert summary.already_extracted == 1
+
+    def test_nothing_pending_submits_nothing(self) -> None:
+        backend = FakeBackend({HASH_A: "a"}, already={HASH_A})
+        client = FakeBatchClient(results=[], statuses=[])
+
+        summary = run_batch(
+            backend,
+            client,  # type: ignore[arg-type]
+            model="m",
+            prompt_version="v",
+            system_prompt="p",
+            sleep=lambda _: None,
+        )
+
+        assert client.messages.batches.created_requests is None
         assert summary.extracted == []
