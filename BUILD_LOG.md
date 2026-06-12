@@ -63,20 +63,62 @@ quotes whitespace-normalized or it will measure the parser, not the model.
    impairment" ($15,000m) at conf 0.96. Decide what revenue means for
    financials — or whether it's null for banks.
 
+**Batch mode built and the remaining 23 run through it (corpus now 26/26).**
+Owner wants full scale and $5k/yr was out of scope — so the Batches API
+(50% off, the natural shape for headless runs) got pulled forward. Same
+idempotent pending-set; `--resume BATCH_ID` collects a crashed run without
+resubmitting; per-document token usage now logged. The 23-doc batch went
+submit → ended in ~2.5 minutes, 23/23 succeeded.
+
+**Measured economics (no more bill archaeology):** 1,144,717 input +
+27,847 output tokens for 23 docs = **$3.21 batched (~$0.14/doc avg)**;
+input is 97% of cost; doc sizes vary 6K–129K tokens. Whole 26-doc corpus:
+~$4.40. Full-scale projection at ~2,000 earnings docs/yr: **~$280/yr on
+batched Opus** — the scary $5k figure was Opus over all 10–15k filings,
+which extraction never does. Decision: pipeline stays on the API key
+(structured outputs + batches + clean provenance); the Max-plan Agent SDK
+credit ($100/mo included, no rollover, June 15 policy) gets evaluated later
+as a second runner — same prompt, same model, API vs agent harness, scored
+by the eval harness once it exists. If accuracy holds, production moves to
+the credit and marginal cost is $0.
+
+**Full-corpus quote audit: 176 quotes, 35 failures (~20%) — all soft, and
+they sort into a taxonomy the harness should count separately:**
+1. **Stitched quotes** (most common): model joins non-contiguous fragments
+   with "..." or appends annotations like "(US$m)" — informative but not
+   verbatim. Prompt v2 candidate: "one contiguous span, no ellipses, no
+   annotations".
+2. **Wrong page numbers** (8): right quote, wrong `[page N]`.
+3. **One real rule violation** (NAB): prior revenue COMPUTED as NII + other
+   operating income, with the arithmetic admitted in the pseudo-quote —
+   rule 5 says never derive. Bank "revenue" ambiguity again.
+4. USD reporters (RIO, CSL!) correctly nulled values but quoted the USD
+   figures as evidence — good auditability, fine.
+5. **Cross-doc disagreement to resolve in goldens:** CBA NPAT extracted as
+   5,367 from the profit announcement but 5,412 ("Statutory NPAT" per the
+   investor deck) from two other docs; ANZ 3,414 vs 3,400. Same filing
+   events, different documents, different numbers — statutory vs cash vs
+   rounding. The golden labels arbitrate.
+
+Per prompts/README.md discipline, no earnings_v2 until the harness can show
+it beats v1 on the golden set.
+
 **Evals:** none yet — first accuracy number needs golden labels.
 
 ### ⏸ PARKED HERE (2026-06-12) — state of play for next session
 
-1. Owner: eyeball the 3 payloads (`uv run python scripts/eyeball_extractions.py`),
-   then decide the two conventions above.
-2. Run the remaining 23: `uv run python -m asx_engine.extraction.job`
-   (idempotent — re-running skips the done 3). BHP/RIO are USD reporters:
-   expect nulls by design.
-3. Step 8 in parallel (owner): golden labels per `golden/README.md`, same
-   conventions as the prompt (statutory, group, AUD-only-null, cents, plus
-   the two new decisions). Exclude the RIO Q4 production report.
-4. Then eval harness v1 (step 9): per-field accuracy vs goldens, results to
-   BQ; `scripts/verify_quotes.py` grows into the quote-audit metric.
+All 26 extracted; extraction is no longer the critical path. In order:
+
+1. Owner: golden labels (step 8) per `golden/README.md` — THE long pole.
+   Conventions to decide while labeling: EPS basis (continuing vs incl.
+   discontinued), bank "revenue" definition, and the CBA 5,367-vs-5,412 /
+   ANZ 3,414-vs-3,400 cross-doc calls. Exclude the RIO Q4 production report.
+2. Eval harness v1 (step 9): per-field accuracy vs goldens + the quote-audit
+   taxonomy above as named metrics; results to a BQ eval_runs table.
+3. Then earnings_v2 (contiguous-quote rule, page-number fix, bank-revenue
+   convention) — shipped only if it beats v1 on the golden set.
+4. After the harness: the Agent SDK runner experiment (Max credit, $0
+   marginal) — same prompt/model through `claude -p`, scored side by side.
 
 ---
 

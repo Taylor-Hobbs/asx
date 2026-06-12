@@ -12,6 +12,7 @@ and reported as WRONG PAGE rather than MISSING.
 """
 
 import re
+import sys
 
 import google.cloud.storage as storage
 from google.cloud import bigquery
@@ -37,6 +38,9 @@ def sourced_fields(payload: EarningsResult) -> list[tuple[str, SourcedField]]:  
 
 
 def main() -> None:
+    # Windows consoles default to cp1252, which can't print arrows and other
+    # glyphs that appear in filing text; quotes must survive printing verbatim.
+    sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
     settings = load_settings()
     bq = bigquery.Client(project=settings.gcp_project)
     bucket = storage.Client(project=settings.gcp_project).bucket(settings.gcs_raw_bucket)
