@@ -4,30 +4,32 @@
   "announced_at": "2026-05-03T22:00:00Z",
   "headline": "Appendix 4D",
   "content_hash": "270a5c425dd5324986eb474b32e8e35cc71a13a55f5b8023ec26a4227e355267",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03089678",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 March 2026",
+    "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "89.9",
+      "prior": "111.2"
     },
     "dividend_cents": {
+      "current": "85",
+      "prior": "85"
+    },
+    "revenue": {
       "current": null,
       "prior": null
+    },
+    "npat": {
+      "current": "2750000000",
+      "prior": "3407000000"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "Confirmed from NAB 2026 Half Year Results ASX announcement PDF (p6-7). Revenue null (bank ruling). Statutory NPAT $2,750m / $3,407m prior (including discontinued operations). Statutory EPS basic 89.9c / 111.2c prior (including discontinued, per shareholder summary p7). DPS 85c / 85c prior (fully franked). Note: current NPAT lower due to $949m after-tax LNI (software capitalisation policy change)."
 }

@@ -4,30 +4,32 @@
   "announced_at": "2026-02-19T05:24:00Z",
   "headline": "Rio Tinto 2025 full year results presentation",
   "content_hash": "aba237acbfec14031679e1c7414481624bd26d76e6dc84de2243e049bbef12a9",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03062385",
   "announcement_type": "earnings",
   "status": "unlabeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
+    "period": "Year ended 31 December 2025",
+    "reporting_currency": "USD",
+    "revenue": {
+      "current": "57638000000",
+      "prior": "53658000000"
     },
-    "npat_aud": {
-      "current": null,
-      "prior": null
+    "npat": {
+      "current": "9966000000",
+      "prior": "11552000000"
     },
     "eps_cents": {
       "current": null,
       "prior": null
     },
     "dividend_cents": {
-      "current": null,
-      "prior": null
+      "current": "254",
+      "prior": "225"
     }
   },
   "labeled_by": null,
   "labeled_at": null,
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "CANDIDATE — investor presentation for full year 2025 results. Same candidate values as RIO_03062380. Presentation may show underlying earnings ($10.9b) more prominently than statutory ($9,966m) — verify from doc before labeling. EPS: underlying=669.2c, basic/statutory TBD from doc."
 }

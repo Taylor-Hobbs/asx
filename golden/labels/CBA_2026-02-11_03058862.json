@@ -4,30 +4,32 @@
   "announced_at": "2026-02-10T20:30:00Z",
   "headline": "2026 Half Year Results ASX Announcement",
   "content_hash": "5dc52c0494b2acf4064e098722533bac97e75e1ba7feef8e2c7e9d4fb56cb09f",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03058862",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 December 2025",
+    "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "323.7",
+      "prior": "307.5"
     },
     "dividend_cents": {
+      "current": "235",
+      "prior": "225"
+    },
+    "revenue": {
       "current": null,
       "prior": null
+    },
+    "npat": {
+      "current": "5412000000",
+      "prior": "5142000000"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "Investor deck — shows 'from continuing operations' metrics. NPAT $5,412m / $5,142m prior (continuing). EPS 323.7c / 307.5c prior (continuing). Revenue null (bank). DPS 235c / 225c prior. Per-document rule: Profit Announcement (03058859) shows including-discontinued figures: $5,367m / $5,134m NPAT, 321.0c / 307.0c EPS. Confirmed from CBA Profit Announcement PDF tables."
 }

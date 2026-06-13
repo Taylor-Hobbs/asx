@@ -4,24 +4,26 @@
   "announced_at": "2026-01-20T21:25:00Z",
   "headline": "Rio Tinto releases fourth quarter production results",
   "content_hash": "d270d1235cb4bff41fe8d5ff539c3762f860f61291e1c7170380286335c7f300",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03051484",
   "announcement_type": "earnings",
-  "status": "unlabeled",
-  "exclusion_reason": null,
+  "status": "excluded",
+  "exclusion_reason": "Q4 production report, not an earnings announcement",
   "labels": {
     "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "reporting_currency": "USD",
     "eps_cents": {
       "current": null,
       "prior": null
     },
     "dividend_cents": {
+      "current": null,
+      "prior": null
+    },
+    "revenue": {
+      "current": null,
+      "prior": null
+    },
+    "npat": {
       "current": null,
       "prior": null
     }

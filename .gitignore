@@ -39,6 +39,9 @@ secrets/
 service-account*.json
 *-credentials.json
 
+# Throwaway session scripts
+tmp_*.py
+
 # Cloud / data artifacts (never commit raw filings or pulled data)
 data/raw/
 data/interim/

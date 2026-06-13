@@ -4,30 +4,32 @@
   "announced_at": "2026-02-10T20:46:00Z",
   "headline": "CSL Half Year Results Investor Presentation",
   "content_hash": "c66b7defd763266ca0908e797c36d9a2d7b71445b592f3b14b43443a0d212a87",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03058876",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
+    "period": "Half year ended 31 December 2025",
+    "reporting_currency": "USD",
+    "revenue": {
+      "current": "8332000000",
+      "prior": "8483000000"
     },
-    "npat_aud": {
-      "current": null,
-      "prior": null
+    "npat": {
+      "current": "401000000",
+      "prior": "2007000000"
     },
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "83",
+      "prior": "415"
     },
     "dividend_cents": {
-      "current": null,
-      "prior": null
+      "current": "130",
+      "prior": "130"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "CANDIDATE — investor presentation. Values cross-referenced from Appendix 4D (03058873) and press release (03058874). NPAT $401m is statutory (vs NPATA $1,946m); verify from doc whether statutory NPAT appears or only NPATA. If only NPATA shown, NPAT/EPS should be null. Revenue $8,332m / $8,483m prior; DPS 130c / 130c prior likely consistent across docs."
 }

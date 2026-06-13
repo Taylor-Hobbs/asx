@@ -36,8 +36,9 @@ One JSON file per **document** at
   "exclusion_reason": null,
   "labels": {
     "period": "Half-year ended 31 December 2025",
-    "revenue_aud": { "current": "24212000000", "prior": "23490000000" },
-    "npat_aud":    { "current": "1603000000",  "prior": "1467000000" },
+    "reporting_currency": "AUD",
+    "revenue": { "current": "24212000000", "prior": "23490000000" },
+    "npat":    { "current": "1603000000",  "prior": "1467000000" },
     "eps_cents":   { "current": "141.4",       "prior": "129.4" },
     "dividend_cents": { "current": "102",      "prior": "95" }
   },
@@ -49,10 +50,13 @@ One JSON file per **document** at
 ```
 
 - Write monetary values as **strings** (`"24212000000"`) — exact decimals,
-  no float surprises. Units match the schema: absolute AUD, cents per share.
+  no float surprises. Units match the schema: absolute value in `reporting_currency`, cents per share in `reporting_currency`.
+- `reporting_currency` is an ISO 4217 code (`"AUD"`, `"USD"`, etc.) — set
+  to whatever currency the company reports in. AUD reporters get `"AUD"`,
+  USD reporters (BHP, RIO, CSL) get `"USD"`. Revenue/NPAT values are in that
+  currency; EPS and dividend are in **cents of that currency**.
 - `null` for a value means *"this document does not state this figure in the
-  required form"* — e.g. USD-only reporters (BHP, RIO, CSL). It is a
-  deliberate assertion, not a skipped field.
+  required form"*. It is a deliberate assertion, not a skipped field.
 - Status lifecycle: stubs arrive `"unlabeled"` → set `"labeled"` (requires
   `labeled_by` + `labeled_at`) or `"excluded"` (requires
   `exclusion_reason`, e.g. the RIO Q4 production report).
@@ -66,8 +70,9 @@ conventions, accuracy numbers measure the disagreement, not the model.
 
 1. **Statutory beats underlying** when a document reports both.
 2. **Group beats segment** — consolidated totals only.
-3. **AUD only, never convert** — non-AUD figures are `null` even when the
-   document supplies an exchange rate.
+3. **Native currency only, never convert** — label in the company's reporting
+   currency (`reporting_currency`). If a doc shows USD revenue and an AUD
+   translation, label the USD figure. Never convert or derive FX.
 4. **Dividend** = total declared per share for the period as the document
    states it.
 5. **Null beats deriving** — never compute a figure the document doesn't
@@ -79,6 +84,10 @@ conventions, accuracy numbers measure the disagreement, not the model.
 ### Open rulings — decide on first encounter, record here, then apply everywhere
 
 - **EPS basis:** continuing operations vs including discontinued (CBA
-  reports both). Ruling: _TBD_
+  reports both). Ruling: **including discontinued** — this is the headline
+  number in most media releases; apply consistently across all tickers.
 - **Bank "revenue":** total net operating income, or `null` for financials
-  with no conventional revenue line. Ruling: _TBD_
+  with no conventional revenue line. Ruling: **`null` for all banks**
+  (CBA, NAB, ANZ, WBC) — "total net operating income" requires judgment
+  on line selection; null is the honest answer per rule 5 (null beats
+  deriving).

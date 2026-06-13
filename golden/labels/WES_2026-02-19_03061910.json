@@ -4,30 +4,32 @@
   "announced_at": "2026-02-18T21:06:00Z",
   "headline": "2026 Half-year results briefing presentation",
   "content_hash": "f6397778dee2c65b535e302c3d4c79704cf1bee047a5476ecc7d49956a1b75f4",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03061910",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 December 2025",
+    "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "141.4",
+      "prior": "129.4"
     },
     "dividend_cents": {
-      "current": null,
-      "prior": null
+      "current": "102",
+      "prior": "95"
+    },
+    "revenue": {
+      "current": "24212000000",
+      "prior": "23490000000"
+    },
+    "npat": {
+      "current": "1603000000",
+      "prior": "1467000000"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "All four metrics confirmed cross-doc consistent by model across all 3 WES filings, and cross-checked against web sources. This is the briefing presentation — check if revenue/NPAT appear in summary tables vs full financials (same numbers expected)."
 }

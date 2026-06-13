@@ -61,14 +61,16 @@ class EarningsResult(BaseModel):
     """Extraction target for earnings/results announcements.
 
     Unit conventions (normalize at extraction time):
-    - `*_aud`: absolute AUD — "$1,234.5m" becomes 1234500000
-    - `*_cents`: cents per share, the ASX reporting convention for EPS/DPS
+    - `reporting_currency`: ISO 4217 code as stated in the document ("AUD", "USD", etc.)
+    - `revenue` / `npat`: absolute value in reporting currency — "$1,234.5m" becomes 1234500000
+    - `*_cents`: cents per share in reporting currency (ASX convention for EPS/DPS)
     """
 
     # Reporting period as the company states it, e.g. "FY2026" or "1H FY2026".
     period: SourcedField[str]
-    revenue_aud: ReportedMetric
-    npat_aud: ReportedMetric
+    reporting_currency: SourcedField[str]
+    revenue: ReportedMetric
+    npat: ReportedMetric
     eps_cents: ReportedMetric
     dividend_cents: ReportedMetric
 

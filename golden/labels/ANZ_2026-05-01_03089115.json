@@ -4,30 +4,32 @@
   "announced_at": "2026-04-30T21:44:00Z",
   "headline": "News Release - 2026 Half Year Result & Proposed Dividend",
   "content_hash": "73c42c4747d4bf435927d5794d80ba2a07eafbe58ea96ba67054556affa0b1c8",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03089115",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 March 2026",
+    "reporting_currency": "AUD",
     "eps_cents": {
       "current": null,
       "prior": null
     },
     "dividend_cents": {
+      "current": "83",
+      "prior": null
+    },
+    "revenue": {
       "current": null,
+      "prior": null
+    },
+    "npat": {
+      "current": "3650000000",
       "prior": null
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "CANDIDATE — revenue null (bank ruling). This is the media release. NPAT candidate $3,650m (statutory) — media releases often headline cash profit instead; verify which figure appears and use statutory per convention. BUILD_LOG model got $3,414m from one ANZ doc — check if this doc shows that figure. EPS not found in web search. DPS 83c. Fill all figures from doc."
 }

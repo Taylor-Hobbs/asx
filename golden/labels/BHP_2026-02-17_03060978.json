@@ -4,30 +4,32 @@
   "announced_at": "2026-02-16T21:38:00Z",
   "headline": "Half Yearly Report and Accounts",
   "content_hash": "901bbcfb5e96685107f9c7963ad3ce8859210a5561a8eee5be6bbc0566ebd8b7",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03060978",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
+    "period": "Half year ended 31 December 2025",
+    "reporting_currency": "USD",
+    "revenue": {
+      "current": "27902000000",
+      "prior": "25176000000"
     },
-    "npat_aud": {
-      "current": null,
-      "prior": null
+    "npat": {
+      "current": "5640000000",
+      "prior": "4416000000"
     },
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "111.1",
+      "prior": "87.1"
     },
     "dividend_cents": {
-      "current": null,
-      "prior": null
+      "current": "73",
+      "prior": "50"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "READ FROM DOC (p20 financial summary). Statutory beats underlying: NPAT=attributable profit $5,640m (not underlying $6,202m), EPS=basic 111.1c (not underlying 122.2c). All figures USD. DPS 73c current / 50c prior confirmed p5 and p20."
 }

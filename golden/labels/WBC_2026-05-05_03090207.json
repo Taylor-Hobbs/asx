@@ -4,30 +4,32 @@
   "announced_at": "2026-05-04T21:30:00Z",
   "headline": "Westpac 2026 Half Year Result Media Release",
   "content_hash": "96eeeddb9c2039776dc9e6c508decac40ae3001d4e0b915d4eb46ee15ca361c9",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03090207",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 March 2026",
+    "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "99.9",
+      "prior": "96.7"
     },
     "dividend_cents": {
+      "current": "77",
+      "prior": "76"
+    },
+    "revenue": {
       "current": null,
       "prior": null
+    },
+    "npat": {
+      "current": "3414000000",
+      "prior": "3317000000"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "Media release / second filing. Confirmed from WBC H1 FY2026 Interim Financial Results PDF. Revenue null (bank). NPAT $3,414m / $3,317m prior. EPS basic 99.9c / 96.7c prior. DPS 77c / 76c prior."
 }

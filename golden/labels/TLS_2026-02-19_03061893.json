@@ -4,30 +4,32 @@
   "announced_at": "2026-02-18T20:57:00Z",
   "headline": "Financial Results 1HY26 presentation materials",
   "content_hash": "a2a1d5eb496b37b5c3e6aa1c7efdf37667d33fcad6b872ce7c5cc234cb9fd437",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03061893",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 December 2025",
+    "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "9.9",
+      "prior": "8.9"
     },
     "dividend_cents": {
-      "current": null,
-      "prior": null
+      "current": "10.5",
+      "prior": "9.5"
+    },
+    "revenue": {
+      "current": "11641000000",
+      "prior": "11602000000"
+    },
+    "npat": {
+      "current": "1124000000",
+      "prior": "1027000000"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "Investor presentation. Confirmed values from Appendix 4D (03061872). Statutory NPAT $1,124m; EPS 9.9c basic; DPS 10.5c; Revenue $11,641m."
 }

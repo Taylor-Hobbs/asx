@@ -125,6 +125,36 @@ All 26 extracted; extraction is no longer the critical path. In order:
 
 ---
 
+## 2026-06-13 — Multi-currency schema + golden labels complete (23/26)
+
+**Schema changes (step 8, schema sub-task):**
+- `reporting_currency: str = "AUD"` added to `GoldenEarningsLabels`; `reporting_currency: SourcedField[str]` added to `EarningsResult`. Field names `revenue_aud`/`npat_aud` → `revenue`/`npat` throughout (schemas + all 26 label stubs batch-renamed).
+- Rationale: BHP, RIO, CSL report in USD; labeling AUD would require FX conversion which "null beats deriving" forbids. Schema now carries the currency alongside the values.
+- `golden/README.md` rule 3 updated: "Native currency only, never convert".
+
+**Golden labeling progress: 23/26 labeled, 2 unlabeled (RIO), 1 excluded.**
+
+Conventions locked and recorded in `golden/README.md`:
+- EPS basis: **including discontinued operations** (consistent across all tickers).
+- Bank revenue: **null for CBA, NAB, ANZ, WBC** — "total net operating income" requires judgment; null is the honest answer.
+- Per-document rule: CBA Profit Announcement shows $5,367m NPAT (incl. discontinued), investor deck shows $5,412m (continuing only) — each file records its own document's figure.
+
+Sources used per ticker:
+- **BHP** (USD): confirmed from PDF financial summary (p20).
+- **CSL** (USD, 03058873/74): confirmed from Appendix 4D — statutory NPAT $401m (not NPATA $1,946m). Investor pres (03058876) labeled as candidate pending NPATA/statutory verification.
+- **TLS**: confirmed from Appendix 4D PDF — Revenue $11,641m, NPAT $1,124m, EPS 9.9c, DPS 10.5c.
+- **WES**: confirmed from multiple cross-document sources (3 filings agree).
+- **WOW**: confirmed from H1 FY2026 Half-Year Results Announcement PDF (p16) — Revenue $37,135m (not the ~$35.9B rounded web figure), NPAT $374m statutory, EPS 30.6c basic after significant items, DPS 45c. Prior confirmed from H1 FY2025 PDF.
+- **CBA**: confirmed from Profit Announcement PDF pp15-20 — two sets of figures depending on doc type (incl. vs continuing discontinued).
+- **NAB**: confirmed from downloaded NAB H1 FY2026 ASX announcement PDF (nab.com.au) — NPAT $2,750m, EPS basic 89.9c (incl. discontinued).
+- **WBC**: confirmed from downloaded WBC H1 FY2026 Interim Financial Results PDF (westpac.com.au) — NPAT $3,414m, EPS basic 99.9c (diluted 99.5c per web was wrong; basic confirmed from income statement).
+
+**RIO (2 files) remains unlabeled:** statutory basic EPS not found. SEC blocked (HTTP 403), ASX returns HTML terms page. Underlying EPS known (669.2c) but can't label a derived or non-statutory figure.
+
+**Evals:** still none — waiting on eval harness (step 9, next session).
+
+---
+
 ## 2026-06-11 — Repo setup + scaffold
 
 **Built:**

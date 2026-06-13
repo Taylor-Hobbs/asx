@@ -4,30 +4,32 @@
   "announced_at": "2026-02-18T21:06:00Z",
   "headline": "2026 Half-year Report incorporating Appendix 4D",
   "content_hash": "1c3ed891493d12f3e6f44ff568e61a245f17666b8ff3f96d2c4729a6b7601324",
+  "doc_url": "https://www.asx.com.au/asx/v2/statistics/displayAnnouncement.do?display=pdf&idsId=03061906",
   "announcement_type": "earnings",
-  "status": "unlabeled",
+  "status": "labeled",
   "exclusion_reason": null,
   "labels": {
-    "period": null,
-    "revenue_aud": {
-      "current": null,
-      "prior": null
-    },
-    "npat_aud": {
-      "current": null,
-      "prior": null
-    },
+    "period": "Half year ended 31 December 2025",
+    "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "141.4",
+      "prior": "129.4"
     },
     "dividend_cents": {
-      "current": null,
-      "prior": null
+      "current": "102",
+      "prior": "95"
+    },
+    "revenue": {
+      "current": "24212000000",
+      "prior": "23490000000"
+    },
+    "npat": {
+      "current": "1603000000",
+      "prior": "1467000000"
     }
   },
-  "labeled_by": null,
-  "labeled_at": null,
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": null
+  "notes": "All four metrics confirmed cross-doc consistent by model across all 3 WES filings, and cross-checked against web sources. Revenue up 3.1%, NPAT up 9.3%, EPS up 9.3%, DPS up 7.4%. Note: WES also paid a $1.50/share capital management distribution — excluded from dividend_cents per labeling convention (label only the declared interim ordinary dividend)."
 }

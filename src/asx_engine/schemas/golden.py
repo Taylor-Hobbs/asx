@@ -46,8 +46,9 @@ class GoldenEarningsLabels(BaseModel):
     """Ground truth in the exact shape and units of EarningsResult."""
 
     period: str | None
-    revenue_aud: GoldenMetric
-    npat_aud: GoldenMetric
+    reporting_currency: str = "AUD"  # ISO 4217 — "AUD", "USD", etc.
+    revenue: GoldenMetric
+    npat: GoldenMetric
     eps_cents: GoldenMetric
     dividend_cents: GoldenMetric
 
