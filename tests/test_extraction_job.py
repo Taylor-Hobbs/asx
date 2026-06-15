@@ -37,8 +37,9 @@ def metric(current: str, prior: str) -> ReportedMetric:
 def earnings_result(period: str = "FY2026") -> EarningsResult:
     return EarningsResult(
         period=sourced(period),
-        revenue_aud=metric("24212000000", "23490000000"),
-        npat_aud=metric("1603000000", "1510000000"),
+        reporting_currency=sourced("AUD"),
+        revenue=metric("24212000000", "23490000000"),
+        npat=metric("1603000000", "1510000000"),
         eps_cents=metric("207", "195"),
         dividend_cents=metric("145", "140"),
     )

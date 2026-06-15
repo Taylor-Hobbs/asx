@@ -27,8 +27,8 @@ def empty_labels() -> GoldenEarningsLabels:
     metric = GoldenMetric(current=None, prior=None)
     return GoldenEarningsLabels(
         period=None,
-        revenue_aud=metric,
-        npat_aud=metric,
+        revenue=metric,
+        npat=metric,
         eps_cents=metric,
         dividend_cents=metric,
     )

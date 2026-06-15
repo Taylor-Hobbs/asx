@@ -125,8 +125,9 @@ def run(
             "extract.stored",
             content_hash=content_hash,
             period=payload.period.value,
-            revenue_aud=str(payload.revenue_aud.current.value),
-            npat_aud=str(payload.npat_aud.current.value),
+            reporting_currency=payload.reporting_currency.value,
+            revenue=str(payload.revenue.current.value),
+            npat=str(payload.npat.current.value),
         )
 
     log.info("extract.done", extracted=len(summary.extracted))
@@ -268,8 +269,9 @@ def run_batch(
             "extract.stored",
             content_hash=content_hash,
             period=payload.period.value,
-            revenue_aud=str(payload.revenue_aud.current.value),
-            npat_aud=str(payload.npat_aud.current.value),
+            reporting_currency=payload.reporting_currency.value,
+            revenue=str(payload.revenue.current.value),
+            npat=str(payload.npat.current.value),
             input_tokens=message.usage.input_tokens,
             output_tokens=message.usage.output_tokens,
         )

@@ -13,7 +13,7 @@ from google.cloud import bigquery
 from asx_engine.config import load_settings
 from asx_engine.schemas import EarningsResult, SourcedField
 
-METRICS = ("revenue_aud", "npat_aud", "eps_cents", "dividend_cents")
+METRICS = ("revenue", "npat", "eps_cents", "dividend_cents")
 
 
 def show(name: str, f: SourcedField) -> None:  # type: ignore[type-arg]
@@ -36,6 +36,7 @@ def main() -> None:
         print(f"\n=== {row['ticker']} | {row['headline']} | {row['announced_at']:%Y-%m-%d}")
         print(f"    hash {row['content_hash'][:12]}...")
         show("period", payload.period)
+        show("reporting_currency", payload.reporting_currency)
         for metric_name in METRICS:
             metric = getattr(payload, metric_name)
             show(f"{metric_name}.current", metric.current)

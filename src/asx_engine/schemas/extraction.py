@@ -12,10 +12,10 @@ Design decisions (made here, relied on everywhere downstream):
 - Monetary values are `Decimal`, never float — 0.1 + 0.2 != 0.3 in binary
   floating point, and silently-wrong cents in a finance repo is a credibility
   bug even when no money moves. Pydantic parses Decimal from JSON strings.
-- Units are encoded in field NAMES (`revenue_aud`, `eps_cents`). A reported
-  "$1,234.5m" must be normalized to 1_234_500_000 AUD at extraction time;
-  unit mismatches then fail loudly in evals instead of hiding in a separate
-  unit column nobody joins on.
+- Units are encoded in field NAMES (`eps_cents`) and the reporting currency in
+  `reporting_currency`. A reported "$1,234.5m" must be normalized to
+  1_234_500_000 in the reporting currency at extraction time; unit mismatches
+  then fail loudly in evals instead of hiding in a separate column nobody joins on.
 - `value=None` means "the document does not state this" — an explicit,
   required assertion (no default), distinct from a field the model skipped.
 """

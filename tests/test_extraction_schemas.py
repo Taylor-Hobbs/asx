@@ -58,13 +58,14 @@ class TestEarningsResult:
         result = EarningsResult.model_validate(
             {
                 "period": {"value": "1H FY2026", "confidence": 0.95},
-                "revenue_aud": {"current": money("27200000000"), "prior": money("25900000000")},
-                "npat_aud": {"current": money("5100000000"), "prior": money("4800000000")},
+                "reporting_currency": {"value": "AUD", "confidence": 0.99},
+                "revenue": {"current": money("27200000000"), "prior": money("25900000000")},
+                "npat": {"current": money("5100000000"), "prior": money("4800000000")},
                 "eps_cents": {"current": money("100.6"), "prior": money("94.7")},
                 "dividend_cents": {"current": money("110"), "prior": money("102")},
             }
         )
-        assert result.revenue_aud.current.value == Decimal("27200000000")
+        assert result.revenue.current.value == Decimal("27200000000")
         assert result.eps_cents.prior.value == Decimal("94.7")
 
     def test_missing_dividend_is_explicit_not_omitted(self) -> None:

@@ -21,7 +21,7 @@ from asx_engine.config import load_settings
 from asx_engine.parsing.pdf import PARSER_VERSION, ParsedDocument
 from asx_engine.schemas import EarningsResult, SourcedField
 
-METRICS = ("revenue_aud", "npat_aud", "eps_cents", "dividend_cents")
+METRICS = ("revenue", "npat", "eps_cents", "dividend_cents")
 
 
 def norm(s: str) -> str:
@@ -29,7 +29,10 @@ def norm(s: str) -> str:
 
 
 def sourced_fields(payload: EarningsResult) -> list[tuple[str, SourcedField]]:  # type: ignore[type-arg]
-    fields: list[tuple[str, SourcedField]] = [("period", payload.period)]  # type: ignore[type-arg]
+    fields: list[tuple[str, SourcedField]] = [  # type: ignore[type-arg]
+        ("period", payload.period),
+        ("reporting_currency", payload.reporting_currency),
+    ]
     for name in METRICS:
         metric = getattr(payload, name)
         fields.append((f"{name}.current", metric.current))
