@@ -1,6 +1,7 @@
 """Schemas: Pydantic models for announcements and extracted events."""
 
 from asx_engine.schemas.announcement import Announcement
+from asx_engine.schemas.eval import EvalRun, FieldOutcome, FieldScore
 from asx_engine.schemas.extraction import (
     EarningsResult,
     ExtractionRecord,
@@ -22,7 +23,10 @@ __all__ = [
     "GOLDEN_DATASET_VERSION",
     "Announcement",
     "EarningsResult",
+    "EvalRun",
     "ExtractionRecord",
+    "FieldOutcome",
+    "FieldScore",
     "GoldenEarningsLabels",
     "GoldenLabel",
     "GoldenMetric",

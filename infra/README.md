@@ -31,6 +31,17 @@ bq mk --table \
   --description "Immutable announcement metadata, content-hash keyed" \
   asx-scanner-499110:asx_engine.announcements \
   infra/bq/announcements.schema.json
+
+# Remaining tables follow the same pattern, schema from this repo:
+bq mk --table asx-scanner-499110:asx_engine.parsed_documents   infra/bq/parsed_documents.schema.json
+bq mk --table asx-scanner-499110:asx_engine.extraction_records infra/bq/extraction_records.schema.json
+
+# Eval runs — one row per (model, prompt_version, dataset_version) scoring,
+# field_scores as a repeated record so a field can be tracked across versions.
+bq mk --table \
+  --description "Per-field eval results vs the golden set; reproducible accuracy history" \
+  asx-scanner-499110:asx_engine.eval_runs \
+  infra/bq/eval_runs.schema.json
 ```
 
 ## Layout conventions

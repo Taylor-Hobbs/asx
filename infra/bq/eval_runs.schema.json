@@ -1,0 +1,58 @@
+[
+  {
+    "name": "model",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Model identifier scored, e.g. claude-opus-4-8."
+  },
+  {
+    "name": "prompt_version",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Prompt version scored, e.g. earnings_v1. One run = (model, prompt_version, dataset_version)."
+  },
+  {
+    "name": "dataset_version",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Golden dataset version the labels came from, e.g. golden_v1."
+  },
+  {
+    "name": "evaluated_at",
+    "type": "TIMESTAMP",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "n_documents",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Labeled goldens actually scored (had a matching extraction)."
+  },
+  {
+    "name": "n_skipped",
+    "type": "INTEGER",
+    "mode": "REQUIRED",
+    "description": "Labeled goldens with no extraction for this (model, prompt_version) — a coverage gap, kept visible."
+  },
+  {
+    "name": "overall_accuracy",
+    "type": "FLOAT",
+    "mode": "NULLABLE",
+    "description": "Micro-average correct/total across all fields. NULL when nothing was scored."
+  },
+  {
+    "name": "field_scores",
+    "type": "RECORD",
+    "mode": "REPEATED",
+    "description": "Per-field outcome tallies — the report, not the headline. Query to compare a field across prompt versions.",
+    "fields": [
+      { "name": "field", "type": "STRING", "mode": "REQUIRED" },
+      { "name": "correct", "type": "INTEGER", "mode": "REQUIRED" },
+      { "name": "wrong", "type": "INTEGER", "mode": "REQUIRED" },
+      { "name": "missed", "type": "INTEGER", "mode": "REQUIRED" },
+      { "name": "hallucinated", "type": "INTEGER", "mode": "REQUIRED" },
+      { "name": "total", "type": "INTEGER", "mode": "REQUIRED", "description": "correct+wrong+missed+hallucinated." },
+      { "name": "accuracy", "type": "FLOAT", "mode": "NULLABLE", "description": "correct/total, or NULL when the field was never scored." }
+    ]
+  }
+]

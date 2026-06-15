@@ -5,6 +5,63 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-06-15 — Eval harness v1 (step 9) built on the multi-currency schema
+
+Picked up on top of the 2026-06-13 commit (multi-currency schema + 23/26
+labels). Step 8 was already done by then — both open rulings resolved (EPS
+basis = incl. discontinued; bank revenue = null) and the RIO production report
+excluded — so this session was step 9, plus finishing a rename the schema
+commit left half-applied.
+
+**Built (step 9 — the harness):**
+- `schemas/eval.py` — `FieldOutcome` (correct / wrong / missed / hallucinated),
+  `FieldScore` (per-field tallies, computed accuracy/total), `EvalRun` (one
+  scoring of model × prompt × dataset, with computed `overall_accuracy`).
+  The four-outcome taxonomy is the point: a *hallucinated* dividend (invented)
+  and a *missed* dividend (failed to read) are different failures and a prompt
+  revision has to see which. A correct `null` is a scored success — banks are
+  the clean case (revenue labeled null by convention).
+- `eval/harness.py` — pure scoring core (no I/O), tested directly: exact
+  `Decimal` value equality for money/share fields (values normalized to the
+  reporting currency upstream, so a tolerance would hide reading errors, not
+  absorb formatting); case-normalized match for `reporting_currency` and
+  whitespace+case-normalized for free-text `period`, each on its own line.
+  Ten scored fields: period, reporting_currency, and current+prior for revenue
+  / npat / eps_cents / dividend_cents.
+- `eval/job.py` — runner in the same shape as the parse/extraction jobs: a
+  Protocol backend, a real `GcpEvalBackend` (goldens from the repo, extractions
+  + runs in BQ), a structural fake in tests. Joins golden↔extraction by
+  content_hash; `n_skipped` keeps coverage gaps visible; empty runs print but
+  persist nothing, so `eval_runs` history begins with the first real scoring.
+- `infra/bq/eval_runs.schema.json` (+ `bq mk` documented in infra/README) —
+  `field_scores` as a repeated record so a field can be tracked across prompt
+  versions in SQL.
+- `docs/eval-methodology.md` v0→v1: scoring table, match semantics, the
+  missing-vs-null answer (both schemas make `null` a required explicit
+  assertion, so an omitted field fails validation before it's ever scored).
+
+**Completed the multi-currency rename (the schema commit left CI red).** The
+06-13 commit renamed `revenue_aud`/`npat_aud` → `revenue`/`npat` and added
+`reporting_currency` in the schemas and all 26 label files, but left the Python
+that references those fields untouched — mypy failed on `extraction/job.py` and
+three test modules failed. Fixed the job's logging, `test_extraction_schemas`,
+`test_golden_schema`, `test_extraction_job`, the three `scripts/`, and a stale
+schema docstring. `prompts/earnings_v1.md` deliberately NOT touched — prompts
+are immutable; its stale field names are the signal that earnings_v2 is due.
+
+- 107 tests (28 new for the harness), mypy --strict clean, ruff clean.
+
+**Blocker for the first accuracy number — re-extraction needed.** The 23
+extractions in BQ were produced 06-12 under the *old* schema, so their stored
+payloads carry `revenue_aud`/`npat_aud` and no `reporting_currency`; they no
+longer validate against the renamed `EarningsResult`. The harness will load
+zero of them and score nothing until the corpus is re-extracted under a new
+prompt version (earnings_v2, carrying the multi-currency convention) — a live
+API spend (~$3 batched) and a new versioned prompt, both Taylor's call. Code is
+done and green; the number is gated on that re-run, not on the harness.
+
+---
+
 ## 2026-06-12 — Extraction v1 built (live run still gated on the API key)
 
 **Built (step 7, everything except the live call):**
