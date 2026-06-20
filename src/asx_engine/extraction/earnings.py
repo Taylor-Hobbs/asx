@@ -29,6 +29,14 @@ EARNINGS_PROMPT_PATH = Path("prompts/earnings_v1.md")
 # think before committing to numbers.
 MAX_OUTPUT_TOKENS = 16_000
 
+# Haiku does not support extended thinking. Opus and Sonnet do.
+_NO_THINKING_MODELS = frozenset({"claude-haiku-4-5"})
+
+
+def supports_thinking(model: str) -> bool:
+    """Return True if the model accepts thinking={"type": "adaptive"}."""
+    return model not in _NO_THINKING_MODELS and "haiku" not in model
+
 
 class ExtractionRefusedError(RuntimeError):
     """The model returned no parseable payload (refusal or truncation)."""
@@ -47,14 +55,16 @@ def extract_earnings(
     model: str = EXTRACTION_MODEL,
 ) -> EarningsResult:
     """One announcement's parsed text -> validated EarningsResult."""
-    response = client.messages.parse(
+    kwargs: dict = dict(
         model=model,
         max_tokens=MAX_OUTPUT_TOKENS,
-        thinking={"type": "adaptive"},
         system=system_prompt,
         messages=[{"role": "user", "content": document_text}],
         output_format=EarningsResult,
     )
+    if supports_thinking(model):
+        kwargs["thinking"] = {"type": "adaptive"}
+    response = client.messages.parse(**kwargs)
     if response.parsed_output is None:
         raise ExtractionRefusedError(
             f"no parsed payload returned (stop_reason={response.stop_reason})"

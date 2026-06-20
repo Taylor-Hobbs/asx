@@ -17,7 +17,7 @@
     },
     "dividend_cents": {
       "current": "83",
-      "prior": null
+      "prior": "83"
     },
     "revenue": {
       "current": null,
@@ -25,11 +25,11 @@
     },
     "npat": {
       "current": "3650000000",
-      "prior": null
+      "prior": "3642000000"
     }
   },
   "labeled_by": "Taylor Hobbs",
   "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": "CANDIDATE — revenue null (bank ruling). This is the media release. NPAT candidate $3,650m (statutory) — media releases often headline cash profit instead; verify which figure appears and use statutory per convention. BUILD_LOG model got $3,414m from one ANZ doc — check if this doc shows that figure. EPS not found in web search. DPS 83c. Fill all figures from doc."
+  "notes": "News release. Revenue null (bank ruling). NPAT $3,650m / $3,642m prior. EPS left null — news release unlikely to contain statutory EPS. DPS 83c / 83c prior. Confirmed via GPT cross-check 2026-06-20."
 }

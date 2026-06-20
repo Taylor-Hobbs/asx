@@ -1,0 +1,67 @@
+[
+  {
+    "name": "eval_run_id",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Joins to eval_runs.eval_run_id."
+  },
+  {
+    "name": "content_hash",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "Joins to announcements and extraction_records."
+  },
+  {
+    "name": "ticker",
+    "type": "STRING",
+    "mode": "REQUIRED"
+  },
+  {
+    "name": "reporting_currency",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "ISO 4217 currency the document reports in, from the golden label. e.g. AUD, USD."
+  },
+  {
+    "name": "field_name",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "e.g. revenue, npat, eps_cents, dividend_cents."
+  },
+  {
+    "name": "subfield",
+    "type": "STRING",
+    "mode": "REQUIRED",
+    "description": "current or prior."
+  },
+  {
+    "name": "golden_value",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Ground-truth value as a Decimal string. NULL means the document does not state this figure."
+  },
+  {
+    "name": "extracted_value",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Model-extracted value as a Decimal string. NULL means the model asserted the figure is not stated."
+  },
+  {
+    "name": "value_match",
+    "type": "BOOL",
+    "mode": "REQUIRED",
+    "description": "True when extracted_value == golden_value (NULL == NULL counts as correct)."
+  },
+  {
+    "name": "source_quote",
+    "type": "STRING",
+    "mode": "NULLABLE",
+    "description": "Verbatim quote the model provided as evidence. NULL when the model asserted null."
+  },
+  {
+    "name": "quote_soft_match",
+    "type": "BOOL",
+    "mode": "NULLABLE",
+    "description": "Whether the whitespace-normalised source_quote is a substring of the parsed document text. NULL when extracted_value is NULL (no quote expected)."
+  }
+]

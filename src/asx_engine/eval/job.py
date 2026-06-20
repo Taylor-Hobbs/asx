@@ -41,6 +41,7 @@ from pydantic import ValidationError
 from asx_engine.config import Settings, load_settings
 from asx_engine.eval.harness import SCORED_FIELDS, aggregate, score_document
 from asx_engine.extraction.earnings import EXTRACTION_MODEL, load_prompt
+from asx_engine.postprocess import apply_bank_revenue_filter
 from asx_engine.schemas import (
     GOLDEN_DATASET_VERSION,
     EarningsResult,
@@ -86,6 +87,7 @@ def run(
     prompt_version: str,
     dataset_version: str = GOLDEN_DATASET_VERSION,
     evaluated_at: datetime | None = None,
+    post_process: bool = False,
 ) -> EvalReport:
     goldens = backend.labeled_goldens(dataset_version)
     predictions = backend.extractions(model, prompt_version)
@@ -97,6 +99,8 @@ def run(
         if prediction is None:
             skipped.append(golden)
             continue
+        if post_process:
+            prediction = apply_bank_revenue_filter(prediction, golden.ticker)
         scored.append((golden, score_document(golden.labels, prediction)))
 
     eval_run = EvalRun(
@@ -214,6 +218,10 @@ def main(argv: Iterable[str] | None = None) -> None:
     parser.add_argument(
         "--dataset-version", default=GOLDEN_DATASET_VERSION, help="golden dataset version"
     )
+    parser.add_argument(
+        "--post-process", action="store_true",
+        help="apply post-processing filters (e.g. bank revenue null) before scoring",
+    )
     args = parser.parse_args(list(argv) if argv is not None else None)
 
     load_dotenv()
@@ -225,6 +233,7 @@ def main(argv: Iterable[str] | None = None) -> None:
         model=args.model,
         prompt_version=prompt_version,
         dataset_version=args.dataset_version,
+        post_process=args.post_process,
     )
     print_report(report)
 

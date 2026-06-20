@@ -12,12 +12,12 @@
     "period": "Half year ended 31 March 2026",
     "reporting_currency": "AUD",
     "eps_cents": {
-      "current": null,
-      "prior": null
+      "current": "121.8",
+      "prior": "122.5"
     },
     "dividend_cents": {
       "current": "83",
-      "prior": null
+      "prior": "83"
     },
     "revenue": {
       "current": null,
@@ -25,11 +25,11 @@
     },
     "npat": {
       "current": "3650000000",
-      "prior": null
+      "prior": "3642000000"
     }
   },
   "labeled_by": "Taylor Hobbs",
   "labeled_at": "2026-06-13",
   "dataset_version": "golden_v1",
-  "notes": "CANDIDATE — revenue null (bank ruling). NPAT $3,650m statutory per web. IMPORTANT: BUILD_LOG shows model extracted $3,414m/$3,400m across ANZ docs — significant discrepancy vs web-confirmed $3,650m statutory. Verify exact statutory NPAT from 4D. EPS not found in web search — find from doc. DPS 83c (partially franked 75%). Fill prior period comparatives from doc."
+  "notes": "Appendix 4D. Revenue null (bank ruling). NPAT $3,650m / $3,642m prior (statutory, parent). EPS basic 121.8c / 122.5c prior. DPS 83c / 83c prior. Confirmed via GPT cross-check 2026-06-20."
 }
