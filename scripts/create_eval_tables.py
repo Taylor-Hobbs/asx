@@ -21,27 +21,32 @@ TABLES = {
 }
 
 
+def _field(f: dict) -> bigquery.SchemaField:
+    """Build a SchemaField, recursing into nested RECORD fields."""
+    return bigquery.SchemaField(
+        name=f["name"],
+        field_type=f["type"],
+        mode=f.get("mode", "NULLABLE"),
+        description=f.get("description", ""),
+        fields=[_field(sub) for sub in f.get("fields", [])],
+    )
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--recreate", action="store_true", help="drop and recreate existing tables")
+    parser.add_argument("--table", metavar="NAME", help="only act on this table (default: all)")
     args = parser.parse_args()
 
     load_dotenv()
     settings = load_settings()
     bq = bigquery.Client(project=settings.gcp_project)
 
-    for table_name, schema_path in TABLES.items():
+    tables = {args.table: TABLES[args.table]} if args.table else TABLES
+    for table_name, schema_path in tables.items():
         table_id = f"{settings.gcp_project}.{settings.bq_dataset}.{table_name}"
         schema_json = json.loads(schema_path.read_text())
-        schema = [
-            bigquery.SchemaField(
-                name=f["name"],
-                field_type=f["type"],
-                mode=f.get("mode", "NULLABLE"),
-                description=f.get("description", ""),
-            )
-            for f in schema_json
-        ]
+        schema = [_field(f) for f in schema_json]
         table = bigquery.Table(table_id, schema=schema)
         try:
             bq.create_table(table)
