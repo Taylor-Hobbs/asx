@@ -5,6 +5,112 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-06-23 — earnings_v7 at 87.8%; director trades golden labels next
+
+**Built:** `prompts/earnings_v7.md` — two targeted rule additions to v6:
+
+1. **Rule 1 expanded — "before significant items" is non-statutory.** WOW's
+   NPAT line is labelled "attributable to equity holders of the parent entity
+   before significant items" — it passes the NPAT attribution test but is
+   still underlying. Added explicit callout: "before SI", impairments,
+   restructuring are non-statutory; always use the figure AFTER significant
+   items. Also named "cash earnings" / "cash NPAT" explicitly for banks (NAB).
+2. **New Rule 3 — prior = same period last year, not preceding period.** ANZ's
+   table had three columns (1H26, 1H25, 2H25); model took 2H25 as "prior".
+   New rule pins "prior year same period" and explains the three-column trap.
+
+**Results (haiku, golden_v1, 23 docs):**
+
+| field | v6 | v7 | delta |
+|-------|----|----|-------|
+| period | 91.3% | 95.7% | +4.4pp |
+| revenue.current | 95.7% | 91.3% | −4.4pp |
+| npat.current | 73.9% | **91.3%** | +17.4pp |
+| npat.prior | 65.2% | 73.9% | +8.7pp |
+| eps_cents.current | 69.6% | 78.3% | +8.7pp |
+| dividend_cents.prior | 78.3% | 82.6% | +4.3pp |
+| **OVERALL** | **84.3%** | **87.8%** | **+3.5pp** |
+
+Revenue slight regression (95.7%→91.3%): one CBA hallucination introduced —
+the before-SI language may have shifted the model's attention for one dense
+statutory doc. Not investigated further; 91.3% is still strong.
+
+**Remaining weak spots:**
+- npat.prior 73.9% (5 wrongs, 1 miss) — further column/label confusion
+- eps.current/prior ~76% (3 wrongs, 2–3 misses) — misses from partial docs
+  are unfixable via prompt; wrongs likely still cash/adjusted EPS leaking
+- period: 1 wrong (hyphen variant)
+
+**Next:** director trades golden labels (the long pole to v3Y eval harness).
+
+---
+
+## 2026-06-23 — First full benchmark comparison; earnings_v6 at 84.3%
+
+**Context.** The Jun 20 session (not logged) produced v2–v5 extractions (all
+haiku) and the director trades vertical (schema, prompt, extractor). This
+session filled in the missing eval runs, surfaced a bug in the batch job, and
+shipped a v6 prompt targeting 85–90%.
+
+**Benchmarks: v1–v5 scored for the first time (all haiku, apples-to-apples).**
+
+| version | overall | period | revenue | npat.c | npat.p | eps.c | eps.p | div.c | div.p | currency |
+|---------|---------|--------|---------|--------|--------|-------|-------|-------|-------|----------|
+| v1 | 67.8% | 56.5% | 52.2% | 65.2% | 52.2% | 65.2% | 69.6% | 91.3% | 73.9% | 100.0% |
+| v2 | 76.1% | 60.9% | 82.6% | 65.2% | 60.9% | 65.2% | 69.6% | 100.0% | 78.3% | 95.7% |
+| v3 | 82.2% | 65.2% | 95.7% | 73.9% | 65.2% | 69.6% | 73.9% | 100.0% | 82.6% | 100.0% |
+| v4 | 78.3% | 56.5% | 91.3% | 69.6% | 60.9% | 65.2% | 65.2% | 100.0% | 82.6% | 100.0% |
+| v5 | 78.3% | 43.5% | 87.0% | 73.9% | 60.9% | 73.9% | 69.6% | 100.0% | 87.0% | 100.0% |
+| **v6** | **84.3%** | **91.3%** | **95.7%** | **73.9%** | **65.2%** | **69.6%** | **73.9%** | **100.0%** | **78.3%** | **100.0%** |
+
+v3 was the incumbent at 82.2%. v4 and v5 had both been extracted but never
+scored — on scoring, both regressed (78.3%). Root cause: period degraded
+progressively v3→v4→v5 despite the period instruction being identical across
+all three; the new rules added in v4/v5 had an indirect interaction.
+
+**v6 prompt changes (base = v3):**
+- Period: replaced short-form examples ("1H FY2026", "FY2026") with long-form
+  only, added explicit "do NOT abbreviate" instruction. Golden labels use
+  "Half year ended 31 December 2025" etc — the model was sometimes choosing
+  the short form. Period accuracy: 65.2% → 91.3% (+26pp). Two residual wrongs
+  are a hyphenation variant ("Half-year" vs "Half year") in one WES document.
+- NPAT rule: adopted v5's cleaner prose version ("always use the smaller one").
+- EPS rule: adopted v5's "use basic (undiluted)" rule.
+- Null rule: adopted v5's "extract only what this document states" rule.
+- Revenue rule unchanged from v3 (95.7% — don't fix what isn't broken).
+
+**Bug fixed: batch extraction job always passed `thinking={"type":"adaptive"}`**
+regardless of model. `extract_earnings()` (sync path) correctly checks
+`supports_thinking(model)` before adding it; the batch path (`run_batch`) had
+the flag hardcoded. This caused 26/26 requests to error when the model was
+`claude-haiku-4-5` (haiku doesn't support extended thinking). Fixed by
+importing `supports_thinking` into `job.py` and applying the same conditional.
+The bug was only exposed now because previous batch runs used opus; switching
+to haiku for cost consistency in v6 triggered it.
+
+**Director trades demo built (`scripts/demo_director_trades.py`).** End-to-end
+live test: fetches 3Y announcements for a ticker via the ASX HTML listing,
+downloads the first matching PDF, parses in-memory, extracts with
+`director_trades_v1`, prints a trade table. Tested on BHP — found Mark Vassella
+initial notice (2026-06-01, 2 trades: 1,905 direct + 2,920 indirect via
+Allessav Nominees). Extraction correct. One note for director_trades_v2: the
+`nature` field is pulling section headers for initial notices rather than a
+clean mechanism description.
+
+**Economics (v6 batch run):** 1,025,697 input + 12,138 output tokens for 26
+docs using haiku batched. Cost ≈ $0.04 (haiku is ~4× cheaper than opus).
+
+**Remaining weak spots heading into v7:**
+- NPAT (73.9%/65.2%): 6–7 wrongs per side, all wrong-value not missed —
+  model is finding a number but picking the wrong row.
+- EPS (69.6%/73.9%): 3–4 wrongs + 3 misses.
+- Period: 2 residual wrongs (hyphen variant).
+- dividend.prior: 78.3% (2 wrongs + 3 misses from partial docs).
+
+Full per-version history in `docs/eval-history.md`.
+
+---
+
 ## 2026-06-15 — Eval harness v1 (step 9) built on the multi-currency schema
 
 Picked up on top of the 2026-06-13 commit (multi-currency schema + 23/26

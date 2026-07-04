@@ -19,10 +19,10 @@ from asx_engine.schemas import EarningsResult
 
 # Frontier baseline for Q1 (CLAUDE.md "Stack decisions"). The Q3 fine-tune
 # benchmarks against records keyed to exactly this string.
-EXTRACTION_MODEL = "claude-opus-4-8"
+EXTRACTION_MODEL = "claude-haiku-4-5"
 
 # Relative to the repo root, where the CLI jobs run from.
-EARNINGS_PROMPT_PATH = Path("prompts/earnings_v1.md")
+EARNINGS_PROMPT_PATH = Path("prompts/earnings_v7.md")
 
 # The payload is a small JSON object, but adaptive thinking spends from the
 # same budget and big statutory docs (~100K input tokens) warrant room to

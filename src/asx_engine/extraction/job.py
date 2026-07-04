@@ -51,6 +51,7 @@ from asx_engine.extraction.earnings import (
     MAX_OUTPUT_TOKENS,
     extract_earnings,
     load_prompt,
+    supports_thinking,
 )
 from asx_engine.parsing.pdf import PARSER_VERSION, ParsedDocument, ParseQuality
 from asx_engine.schemas import EarningsResult, ExtractionRecord, utc_now
@@ -196,20 +197,18 @@ def run_batch(
             log.info("extract.batch.nothing_pending", already_extracted=summary.already_extracted)
             return summary
         schema = anthropic.transform_schema(TypeAdapter(EarningsResult).json_schema())
-        requests = [
-            Request(
-                custom_id=content_hash,
-                params=MessageCreateParamsNonStreaming(
-                    model=model,
-                    max_tokens=MAX_OUTPUT_TOKENS,
-                    thinking={"type": "adaptive"},
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": backend.load_text(content_hash)}],
-                    output_config={"format": {"type": "json_schema", "schema": schema}},
-                ),
-            )
-            for content_hash in pending
-        ]
+        requests = []
+        for content_hash in pending:
+            params: MessageCreateParamsNonStreaming = {
+                "model": model,
+                "max_tokens": MAX_OUTPUT_TOKENS,
+                "system": system_prompt,
+                "messages": [{"role": "user", "content": backend.load_text(content_hash)}],
+                "output_config": {"format": {"type": "json_schema", "schema": schema}},
+            }
+            if supports_thinking(model):
+                params["thinking"] = {"type": "adaptive"}
+            requests.append(Request(custom_id=content_hash, params=params))
         batch = client.messages.batches.create(requests=requests)
         log.info(
             "extract.batch.submitted",
