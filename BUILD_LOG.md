@@ -5,6 +5,28 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-04 (evening) — CI green again; Q1 taxonomy decision written
+
+**CI had been red on every run since June 20** and nobody noticed: the failures
+were lint/format debt in committed one-off debug scripts, never in src or
+tests (local checks only covered src+tests; CI checks the whole tree). Fixed
+by untracking the stale scripts, linting the keepers, and formatting the
+tracked tree — first green run since the streak began. New habit: run the
+CI-equivalent (`ruff check .`, `ruff format --check .`, bare `mypy`, `pytest`)
+before pushing.
+
+**Taxonomy decision recorded in CLAUDE.md:** Q1 extracts exactly two verticals
+— 4D/4E earnings (v7, 87.8%) and 3Y director trades (v3, 93.1%) — gated on
+"golden set + accuracy number exists". Everything else (4C quarterlies,
+substantial holders, capital raises, M&A, contracts, guidance) is collected in
+the backfill but extraction-deferred to Q2+ in extractability order. Backfill
+rule: **collect broad, extract narrow** — the rate-limited crawl is the scarce
+resource, storage is ~$1/mo, extraction spend stays gated per vertical.
+
+**Q1 remaining:** bulk backfill ingestion script → the ~$120 extraction run.
+
+---
+
 ## 2026-07-04 (later) — director_trades_v3 at 93.1% (+11.4pp); golden role labels corrected
 
 **The eval caught a labeling error.** v2's worst field (director_role, 15.6%,

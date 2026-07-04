@@ -56,6 +56,36 @@ is itself a finding.
 raises → M&A → results/guidance → sector binaries. **Director trades is the flagship
 first vertical slice — build it end-to-end before going wide.**
 
+## Taxonomy decision — Q1 extraction scope (settled 2026-07-04)
+
+Two verticals are **extracted and benchmarked** in Q1; everything else is
+**collected but deferred**. The gate for extracting a type is a golden set and
+an accuracy number — no bulk extraction on an unbenchmarked prompt.
+
+**Extracted in Q1 (trusted):**
+- **Periodic results, Appendix 4D/4E** — earnings_v7, 87.8% on golden_v1 (23 docs).
+- **Director trades, Appendix 3Y** — director_trades_v3, 93.1% on golden_v1
+  (28 filings / 36 trades). The flagship slice, done end-to-end.
+
+**Collected in the backfill, extraction deferred (Q2+, in build order):**
+- **Appendix 4C quarterly cash-flow reports** — nominally "periodic results"
+  but a different form with different fields (receipts, burn, runway); the
+  earnings prompt does not apply. Needs its own schema + goldens.
+- **Substantial holder notices (603/604/605)** — next by extractability.
+- **Capital raisings** (placements/rights/SPP), **M&A (Ch.6)**, **material
+  contracts**, **guidance/trading updates/profit warnings** — free-text-heavy;
+  guidance is the hardest (no form at all) and deliberately last.
+- **Tier 2** (index changes, buy-backs, sector binaries) and **context**
+  (halts, 3B/2A issuance) — collected for completeness/correctness, no
+  extraction planned this year unless an event study demands one.
+
+**Backfill collection rule (decided):** collect BROAD, extract NARROW. The
+one-off ASX 300 × 24mo crawl stores every non-excluded announcement (Tier 1 +
+Tier 2 + context; admin noise stays excluded) — the rate-limited crawl is the
+scarce resource, storage is ~$1/mo, and every future vertical then starts from
+GCS instead of a multi-day re-crawl. Extraction spend stays gated per vertical
+on a benchmarked prompt.
+
 ## Data sources & tooling (decided)
 
 - **Announcements:** own thin Python client against the ASX JSON endpoints (pyasx as a *reference to read, not a dependency*). Metadata → BigQuery; PDFs → Cloud Storage (cached, rate-limited, idempotent, resumable).
