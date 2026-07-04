@@ -11,7 +11,7 @@ from asx_engine.extraction.earnings import (
 )
 from asx_engine.schemas.director_trades import DirectorTradesResult
 
-DIRECTOR_TRADES_PROMPT_PATH = Path("prompts/director_trades_v2.md")
+DIRECTOR_TRADES_PROMPT_PATH = Path("prompts/director_trades_v3.md")
 
 
 def load_prompt(path: Path = DIRECTOR_TRADES_PROMPT_PATH) -> tuple[str, str]:

@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "WOW",
   "announcement_id": "03106026",
   "announced_at": "2026-06-19T07:35:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Jonathan Alferness",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "quarterly allocation of US NED share rights in accordance with the US NED Plan Rules",
         "security_class": "NED share rights",
@@ -24,7 +24,7 @@
       },
       {
         "director_name": "Kenneth Meyer",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "shares purchased on market",
         "security_class": "ordinary shares",

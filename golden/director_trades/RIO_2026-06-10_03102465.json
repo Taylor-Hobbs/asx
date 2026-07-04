@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "RIO",
   "announcement_id": "03102465",
   "announced_at": "2026-06-09T22:19:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Ben Wyatt",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "acquisition of shares by way of on-market trade",
         "security_class": "ordinary shares",

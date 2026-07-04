@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "CSL",
   "announcement_id": "03095029",
   "announced_at": "2026-05-18T06:51:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Alison Watkins AM",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "on-market trade",
         "security_class": "ordinary shares",

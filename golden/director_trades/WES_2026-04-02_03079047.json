@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "WES",
   "announcement_id": "03079047",
   "announced_at": "2026-04-02T00:09:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Simon William (Bill) English",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "allocation under dividend reinvestment plan",
         "security_class": "ordinary shares",

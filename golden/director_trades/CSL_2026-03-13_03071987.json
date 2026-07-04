@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Gordon Naylor",
-        "director_role": "Interim Chief Executive Officer",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "grant of restricted share units pursuant to the Plan as a one-off equity award",
         "security_class": "restricted share units",

@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Julie Birgitte Galbo",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "transfer",
         "nature": "off-market transfer between custodians",
         "security_class": "ordinary shares",

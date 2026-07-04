@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "WOW",
   "announcement_id": "03101600",
   "announced_at": "2026-06-05T01:42:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Scott Perkins",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "shares purchased on market",
         "security_class": "ordinary shares",

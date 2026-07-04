@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "CSL",
   "announcement_id": "03098565",
   "announced_at": "2026-05-28T02:27:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Gordon Naylor",
-        "director_role": "Interim Chief Executive Officer",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "on-market purchase",
         "security_class": "ordinary shares",

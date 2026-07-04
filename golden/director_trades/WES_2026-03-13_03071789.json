@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "WES",
   "announcement_id": "03071789",
   "announced_at": "2026-03-13T01:59:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Friedrich (Tom) von Oertzen",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "on-market trade",
         "security_class": "ordinary shares",

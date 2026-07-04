@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "John Peter Cincotta",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "on-market purchase",
         "security_class": "ordinary shares",
@@ -24,7 +24,7 @@
       },
       {
         "director_name": "John Peter Cincotta",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "on-market purchase",
         "security_class": "ordinary shares",

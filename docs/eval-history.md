@@ -15,14 +15,29 @@ columns count matched trades only — see `eval/director_trades_harness.py`.
 
 | version | overall | detection | name | role | type | nature | class | qty | price | consid | date | hold.b | hold.a | evaluated |
 |---------|---------|-----------|------|------|------|--------|-------|-----|-------|--------|------|--------|--------|-----------|
-| v2 | 75.0% | 88.9% | 93.8% | 15.6% | 100% | 59.4% | 50.0% | 96.9% | 68.8% | 71.9% | 100% | 75.0% | 78.1% | 2026-07-04 |
+| v2 (original goldens) | 75.0% | 88.9% | 93.8% | 15.6% | 100% | 59.4% | 50.0% | 96.9% | 68.8% | 71.9% | 100% | 75.0% | 78.1% | 2026-07-04 |
+| v2 (corrected goldens) | 81.7% | 88.9% | 93.8% | 96.9% | 100% | 59.4% | 50.0% | 96.9% | 68.8% | 71.9% | 100% | 75.0% | 78.1% | 2026-07-04 |
+| **v3** | **93.1%** | **94.6%** | **100%** | 88.6% | **100%** | 62.9% | **100%** | **100%** | **97.1%** | **100%** | **100%** | **85.7%** | **88.6%** | 2026-07-04 |
 
 > v1 was never benchmarked: labeling surfaced transfers (3/28 filings), which
 > forced `TradeType.TRANSFER` into the schema before the first eval — v2 is v1
-> plus the transfer rules. The v2 failure signature is convention mismatch,
-> not misreading: numbers are near-perfect (type/date 100%, quantity 96.9%),
-> while role (27 misses), nature and security_class (free-text form) and the
-> hallucinated price/holdings carry the losses.
+> plus the transfer rules.
+>
+> **Golden correction 2026-07-04:** the first v2 run exposed that director_role
+> had been labeled from outside knowledge — the bare 3Y form has no role field
+> and 30 of 36 labeled roles never appear in the document text. Those were
+> nulled (enforcing the README's own "as stated" convention); 6 stated in
+> covering letters were kept. Both v2 rows above are the same extractions —
+> the delta is purely the label fix.
+>
+> **v3** (scored against corrected goldens) added: security-class
+> canonicalisation (drop issuer names, "fully paid", ticker codes → 50%→100%),
+> never-derive price↔total with the exact failing examples (→ 97/100%),
+> honorific stripping (name → 100%), same-class-same-holder rule for holdings
+> (→ 86/89%), and multi-class tranche splitting (detection → 94.6%: 35/36
+> found, 1 missed, 1 invented). `nature` (62.9%) is the known ceiling — golden
+> paraphrases are too free for exact match; the remaining wrongs are wording
+> variance, not misreading.
 
 ---
 

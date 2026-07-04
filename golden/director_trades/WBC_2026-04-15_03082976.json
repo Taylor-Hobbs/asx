@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "WBC",
   "announcement_id": "03082976",
   "announced_at": "2026-04-15T06:32:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Philippa Greenwood",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "disposal",
         "nature": "on-market trade",
         "security_class": "ordinary shares",

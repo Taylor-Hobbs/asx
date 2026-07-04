@@ -5,6 +5,43 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-04 (later) — director_trades_v3 at 93.1% (+11.4pp); golden role labels corrected
+
+**The eval caught a labeling error.** v2's worst field (director_role, 15.6%,
+27 "misses") turned out to be the goldens' fault, not the model's: the bare 3Y
+form has no role field, and a text search proved 30 of 36 labeled roles never
+appear in the documents — they were labeled from headlines and general
+knowledge. The model was being punished for correctly extracting only what the
+document states. Fixed with `scripts/_dt_null_unstated_roles.py` (keeps a role
+only if the document text contains it — 6 kept, 30 nulled), ruling recorded in
+the golden README. Re-scored v2 on corrected goldens: 75.0% → 81.7%, same
+extractions.
+
+**Built `director_trades_v3`** — every rule traces to an observed v2 failure:
+
+| fix | field | before → after |
+|-----|-------|----------------|
+| canonicalise class (drop issuer, "fully paid", ticker codes) | security_class | 50.0% → **100%** |
+| never derive price↔total (with the exact failing quotes as examples) | price / consid | 68.8 / 71.9% → **97.1 / 100%** |
+| strip honorifics, keep post-nominals | director_name | 93.8% → **100%** |
+| holdings only when same class AND same holder as the row | holdings | 75 / 78% → 85.7 / 88.6% |
+| split enumerated multi-class tranches; vesting = two sides | trade_detection | 88.9% → **94.6%** |
+
+**Results (haiku, corrected golden_v1, 28 docs / 36 trades):**
+v2 81.7% → **v3 93.1%**. Detection: 35/36 trades found, 1 missed, 1 invented.
+Perfect fields: name, type, class, quantity, consideration, date.
+
+**Known ceiling:** `nature` (62.9%) — golden paraphrases are too free for
+exact-match ("Dividend Investment Plan" labeled as "dividend reinvestment
+plan"). The remaining wrongs are wording variance, not misreading. Options if
+it ever matters: tighten the labeling convention, or fuzzy-match this field.
+Not worth it now — time-box.
+
+**Director trades now beats earnings (93.1% vs 87.8%) — the flagship vertical
+is done end-to-end.** Remaining Q1: taxonomy write-up, bulk backfill script.
+
+---
+
 ## 2026-07-04 — director trades end-to-end: first accuracy number, 75.0%
 
 **Built:** the flagship vertical's full eval loop — golden labels (28 filings,

@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "NAB",
   "announcement_id": "03066280",
   "announced_at": "2026-02-26T22:24:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Andrew Francis Irvine",
-        "director_role": "Group CEO",
+        "director_role": null,
         "trade_type": "disposal",
         "nature": "on-market sale",
         "security_class": "ordinary shares",
@@ -24,7 +24,7 @@
       },
       {
         "director_name": "Andrew Francis Irvine",
-        "director_role": "Group CEO",
+        "director_role": null,
         "trade_type": "transfer",
         "nature": "off-market transfer from direct interest to indirect interest",
         "security_class": "ordinary shares",

@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "RIO",
   "announcement_id": "03086061",
   "announced_at": "2026-04-24T00:15:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Simon Trott",
-        "director_role": "Group Executive, Chief Commercial Officer",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "shares acquired on-market through participation in dividend reinvestment",
         "security_class": "ordinary shares",

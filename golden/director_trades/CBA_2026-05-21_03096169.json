@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Paul Francis O'Malley",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "on-market trade",
         "security_class": "ordinary shares",

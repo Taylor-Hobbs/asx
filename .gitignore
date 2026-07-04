@@ -62,3 +62,5 @@ scripts/_3y_parse_quality.py
 .vscode/
 .DS_Store
 Thumbs.db
+scripts/_dt_role_check.py
+scripts/_dt_v2_failures.py

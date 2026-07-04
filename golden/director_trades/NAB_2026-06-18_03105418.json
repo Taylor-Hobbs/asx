@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "NAB",
   "announcement_id": "03105418",
   "announced_at": "2026-06-18T01:11:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Ann Caroline Sherry",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "disposal",
         "nature": "redemption in accordance with the terms of NAB Capital Notes 3",
         "security_class": "NAB Capital Notes 3",

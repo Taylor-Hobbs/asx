@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "NAB",
   "announcement_id": "03098227",
   "announced_at": "2026-05-27T07:53:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Philip Wayne Chronican",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "acquisition under discretionary portfolio arrangement",
         "security_class": "ordinary shares",

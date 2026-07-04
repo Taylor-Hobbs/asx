@@ -136,6 +136,13 @@ both ordinary shares and options, label each security class separately.
   always have `price_per_security: null` and `total_consideration: null`.
 - **Holdings omitted:** Many forms omit holdings_before for indirect interests.
   Null is correct — do not derive or estimate.
+- **director_role (ruled 2026-07-04, enforced by
+  `scripts/_dt_null_unstated_roles.py`):** label the role ONLY when the
+  document text states it (some lodgements carry a covering letter that does;
+  the bare 3Y form has no role field). Roles known from outside the document —
+  headlines, general knowledge — are null: the extractor sees document text
+  only, and a golden the document cannot support just punishes correct
+  behavior. First pass nulled 30 of 36, kept 6.
 - **Transfers (ruled 2026-07-04, from CBA 03099309 / NAB 03066280 /
   TLS 03073126):** securities moving between a director's own holdings with no
   change in net beneficial interest — custodian swaps, direct-to-family-trust

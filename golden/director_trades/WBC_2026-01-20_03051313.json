@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "WBC",
   "announcement_id": "03051313",
   "announced_at": "2026-01-20T03:10:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Anthony James Miller",
-        "director_role": "Chief Executive Officer",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "grant of restricted rights under Westpac Group Equity Incentive Plan",
         "security_class": "restricted rights",
@@ -24,7 +24,7 @@
       },
       {
         "director_name": "Anthony James Miller",
-        "director_role": "Chief Executive Officer",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "grant of performance rights under Westpac Group Equity Incentive Plan",
         "security_class": "performance rights",
@@ -37,7 +37,7 @@
       },
       {
         "director_name": "Anthony James Miller",
-        "director_role": "Chief Executive Officer",
+        "director_role": null,
         "trade_type": "acquisition",
         "nature": "grant of ordinary shares under Westpac Group Equity Incentive Plan",
         "security_class": "ordinary shares",

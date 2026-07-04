@@ -1,4 +1,4 @@
-﻿{
+{
   "ticker": "TLS",
   "announcement_id": "03073126",
   "announced_at": "2026-03-17T05:07:00Z",
@@ -11,7 +11,7 @@
     "trades": [
       {
         "director_name": "Craig Dunn",
-        "director_role": "Non-Executive Director",
+        "director_role": null,
         "trade_type": "transfer",
         "nature": "off-market transfer between indirect holdings as part of portfolio re-balancing",
         "security_class": "ordinary shares",
