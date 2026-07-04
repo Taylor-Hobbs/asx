@@ -136,3 +136,10 @@ both ordinary shares and options, label each security class separately.
   always have `price_per_security: null` and `total_consideration: null`.
 - **Holdings omitted:** Many forms omit holdings_before for indirect interests.
   Null is correct — do not derive or estimate.
+- **Transfers (ruled 2026-07-04, from CBA 03099309 / NAB 03066280 /
+  TLS 03073126):** securities moving between a director's own holdings with no
+  change in net beneficial interest — custodian swaps, direct-to-family-trust
+  moves, trust-to-SMSF rebalancing — are `trade_type: "transfer"`, ONE trade
+  per movement (never a disposal row plus an acquisition row). They are
+  directionless on purpose: calling them acquisitions or disposals would
+  fabricate buy/sell signal for the event study.

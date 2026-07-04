@@ -5,6 +5,64 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-04 — director trades end-to-end: first accuracy number, 75.0%
+
+**Built:** the flagship vertical's full eval loop — golden labels (28 filings,
+36 trades, hand-labeled) → parse → extract → score:
+
+- `eval/director_trades_harness.py` — list-alignment scoring. A 3Y is a
+  variable-length trade list, so before per-field comparison predicted trades
+  are aligned to golden trades (greedy by field agreement, gated on an
+  identity floor + one strong identifier of director/date). Unmatched trades
+  are first-class outcomes on a dedicated `trade_detection` line: a golden
+  trade the model never reported is a MISSED detection, an invented one is
+  HALLUCINATED. Field lines only count aligned pairs; detection keeps the
+  denominator honest. 18 unit tests pin the alignment edge cases.
+- `extraction/director_trades_job.py` — golden-set-scoped extraction (labeled
+  hashes minus already-extracted; excluded filings never touched). Sync only —
+  28 small docs don't warrant the Batches machinery.
+- `eval/director_trades_job.py` — earnings eval job's shape pointed at
+  `golden/director_trades/`; same extraction_records + eval_runs tables,
+  prompt_version keeps the verticals separate.
+
+**Schema change forced by real data:** `TradeType` gained `TRANSFER`. Three of
+28 filings were internal reorganizations (CBA custodian swap, NAB
+direct→family-trust, TLS trust→SMSF) with zero change in net beneficial
+interest. Forcing those into acquisition/disposal would fabricate directional
+signal for the event study. `director_trades_v2` prompt teaches the type and
+pins "one transfer = one trade, never a disposal+acquisition pair". Ruling
+recorded in the golden README.
+
+**Also fixed:** `TestLoadPrompt` hardcoded `earnings_v1` (stale since v3);
+`messages.parse()` thinking param now uses the SDK's `omit` sentinel instead
+of an untyped kwargs dict (mypy strict clean).
+
+**Results (haiku, director_trades_v2, golden_v1, 28 docs / 36 trades):**
+
+| field | acc | signature |
+|-------|-----|-----------|
+| trade_detection | 88.9% | 4 missed trades, 0 hallucinated |
+| trade_type | 100% | transfers included |
+| trade_date | 100% | |
+| quantity | 96.9% | 1 wrong |
+| director_name | 93.8% | 2 wrong |
+| holdings_before/after | 75/78% | mostly hallucinated (model states, golden null) |
+| price/consideration | 69/72% | all hallucinated, zero wrong/missed |
+| nature | 59.4% | 13 wrong — free-text convention mismatches |
+| security_class | 50.0% | 16 wrong — "fully paid ordinary shares" vs "ordinary shares"? |
+| director_role | 15.6% | 27 MISSED — model nulls, goldens filled |
+| **OVERALL** | **75.0%** | |
+
+**Reading the signature:** the model reads *numbers* nearly perfectly (dates,
+quantities, types at 97–100%) — the losses are convention mismatches, not
+reading errors. director_role's 27 misses and the hallucinated
+price/holdings suggest label conventions and prompt disagree about "as
+stated"; nature/security_class need canonical-form rules like earnings
+period got in v6. That's v3 prompt work + possibly convention tightening —
+same playbook that took earnings 82→88%.
+
+---
+
 ## 2026-06-23 — earnings_v7 at 87.8%; director trades golden labels next
 
 **Built:** `prompts/earnings_v7.md` — two targeted rule additions to v6:

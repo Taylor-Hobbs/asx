@@ -54,6 +54,8 @@ scripts/_bq_eval_results.py
 scripts/_bq_hash_check.py
 scripts/_golden_periods.py
 scripts/_v6_failures.py
+scripts/_dt_status.py
+scripts/_3y_parse_quality.py
 
 # IDE / OS
 .idea/

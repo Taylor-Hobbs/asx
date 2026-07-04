@@ -7,10 +7,8 @@ import pytest
 from pydantic import ValidationError
 
 from asx_engine.schemas.director_trades import (
-    DirectorTrade,
     DirectorTradesResult,
     GoldenDirectorTrade,
-    GoldenDirectorTradesLabels,
     TradeType,
 )
 
@@ -48,11 +46,12 @@ class TestDirectorTrade:
         assert t.holdings_after.value == Decimal("60000")
 
     def test_nil_consideration_trade(self) -> None:
+        null_sf = {"value": None, "confidence": 1.0, "source_quote": None, "page": None}
         payload = trade_payload(
             trade_type=sf("acquisition"),
             nature=sf("vesting of performance rights"),
-            price_per_security={"value": None, "confidence": 1.0, "source_quote": None, "page": None},
-            total_consideration={"value": None, "confidence": 1.0, "source_quote": None, "page": None},
+            price_per_security=null_sf,
+            total_consideration=null_sf,
         )
         result = DirectorTradesResult.model_validate({"trades": [payload]})
         t = result.trades[0]
@@ -64,8 +63,15 @@ class TestDirectorTrade:
         result = DirectorTradesResult.model_validate({"trades": [payload]})
         assert result.trades[0].trade_type.value is TradeType.DISPOSAL
 
-    def test_unknown_trade_type_rejected(self) -> None:
+    def test_transfer_is_a_valid_trade_type(self) -> None:
+        # Ruled from the golden set: internal reorganizations (custodian swaps,
+        # trust moves) are transfers, not acquisitions/disposals.
         payload = trade_payload(trade_type=sf("transfer"))
+        result = DirectorTradesResult.model_validate({"trades": [payload]})
+        assert result.trades[0].trade_type.value is TradeType.TRANSFER
+
+    def test_unknown_trade_type_rejected(self) -> None:
+        payload = trade_payload(trade_type=sf("gift"))
         with pytest.raises(ValidationError):
             DirectorTradesResult.model_validate({"trades": [payload]})
 

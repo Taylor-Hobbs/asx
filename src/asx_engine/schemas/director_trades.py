@@ -11,8 +11,13 @@ Design decisions:
   indirect holdings on the same date, or multiple exercise events). The
   extraction result is therefore a list of DirectorTrade, not a single record.
   Each trade in the list is an independent scoreable unit.
-- `TradeType` is a clean enum (acquisition | disposal) — it is always stated
-  and has no ambiguous cases.
+- `TradeType` is an enum (acquisition | disposal | transfer). Transfer earned
+  its place from the golden set, not theory: 3 of the first 28 labeled filings
+  were internal reorganizations — a custodian swap, direct holdings moved to a
+  family trust, trust-to-super-fund rebalancing — with NO change in net
+  beneficial interest. Forcing those into acquisition/disposal would fabricate
+  directional signal for the event study; a "disposal" that is not a sell is
+  exactly the kind of fake edge the rigor checklist exists to prevent.
 - `nature` stays free text: the variety of forms (on-market purchase, off-market
   transfer, exercise of options, vesting of performance rights, DRP allotment,
   off-market buy-back, scrip consideration...) does not compress cleanly into an
@@ -39,6 +44,10 @@ from asx_engine.schemas.golden import GOLDEN_DATASET_VERSION, LabelStatus
 class TradeType(StrEnum):
     ACQUISITION = "acquisition"
     DISPOSAL = "disposal"
+    # No change in net beneficial interest: custodian swaps, moves between a
+    # director's own entities (family trust, SMSF), direct-to-indirect
+    # restructures. Directionless by design — see the module docstring.
+    TRANSFER = "transfer"
 
 
 class DirectorTrade(BaseModel):

@@ -47,14 +47,18 @@ def earnings_result(period: str = "FY2026") -> EarningsResult:
 
 class TestLoadPrompt:
     def test_version_is_file_stem_and_text_is_file_contents(self) -> None:
+        # The invariant is the version key equals the artifact's stem — not any
+        # particular version, which changes every prompt iteration.
         version, text = load_prompt()
-        assert version == "earnings_v1"
+        assert version == EARNINGS_PROMPT_PATH.stem
         # The conventions the golden labels must share, pinned by the prompt.
-        assert "STATUTORY" in text
+        assert "statutory" in text.lower()
         assert "null" in text
 
     def test_default_path_is_the_versioned_artifact(self) -> None:
-        assert EARNINGS_PROMPT_PATH.name == "earnings_v1.md"
+        assert EARNINGS_PROMPT_PATH.parent.name == "prompts"
+        assert EARNINGS_PROMPT_PATH.stem.startswith("earnings_v")
+        assert EARNINGS_PROMPT_PATH.suffix == ".md"
 
 
 class FakeParseResponse:

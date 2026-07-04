@@ -1,4 +1,32 @@
-# Eval History — Earnings Extraction
+# Eval History
+
+Per-vertical benchmark tables. Every row is one persisted `eval_runs` record —
+(model, prompt_version, dataset_version, timestamp) reproduces it.
+
+---
+
+# Director Trades (Appendix 3Y)
+
+All runs against `golden_v1` (28 labeled filings, 36 trades, 0 skipped).
+`detection` is trade alignment (found / missed / invented trades); field
+columns count matched trades only — see `eval/director_trades_harness.py`.
+
+## Haiku series (`claude-haiku-4-5`)
+
+| version | overall | detection | name | role | type | nature | class | qty | price | consid | date | hold.b | hold.a | evaluated |
+|---------|---------|-----------|------|------|------|--------|-------|-----|-------|--------|------|--------|--------|-----------|
+| v2 | 75.0% | 88.9% | 93.8% | 15.6% | 100% | 59.4% | 50.0% | 96.9% | 68.8% | 71.9% | 100% | 75.0% | 78.1% | 2026-07-04 |
+
+> v1 was never benchmarked: labeling surfaced transfers (3/28 filings), which
+> forced `TradeType.TRANSFER` into the schema before the first eval — v2 is v1
+> plus the transfer rules. The v2 failure signature is convention mismatch,
+> not misreading: numbers are near-perfect (type/date 100%, quantity 96.9%),
+> while role (27 misses), nature and security_class (free-text form) and the
+> hallucinated price/holdings carry the losses.
+
+---
+
+# Earnings Extraction
 
 All runs against the `golden_v1` dataset (23 labeled documents, 0 skipped).
 Model column is what produced the extractions being scored.

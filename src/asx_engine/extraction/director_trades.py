@@ -11,7 +11,7 @@ from asx_engine.extraction.earnings import (
 )
 from asx_engine.schemas.director_trades import DirectorTradesResult
 
-DIRECTOR_TRADES_PROMPT_PATH = Path("prompts/director_trades_v1.md")
+DIRECTOR_TRADES_PROMPT_PATH = Path("prompts/director_trades_v2.md")
 
 
 def load_prompt(path: Path = DIRECTOR_TRADES_PROMPT_PATH) -> tuple[str, str]:
@@ -27,16 +27,16 @@ def extract_director_trades(
     model: str,
 ) -> DirectorTradesResult:
     """One 3Y's parsed text -> validated DirectorTradesResult."""
-    kwargs: dict = dict(
+    # `omit` (not None) is the SDK's "leave this parameter out" sentinel — Haiku
+    # rejects any thinking config, so the key must be absent, not null.
+    response = client.messages.parse(
         model=model,
         max_tokens=MAX_OUTPUT_TOKENS,
         system=system_prompt,
         messages=[{"role": "user", "content": document_text}],
         output_format=DirectorTradesResult,
+        thinking={"type": "adaptive"} if supports_thinking(model) else anthropic.omit,
     )
-    if supports_thinking(model):
-        kwargs["thinking"] = {"type": "adaptive"}
-    response = client.messages.parse(**kwargs)
     if response.parsed_output is None:
         raise ExtractionRefusedError(
             f"no parsed payload returned (stop_reason={response.stop_reason})"

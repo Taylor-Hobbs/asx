@@ -24,6 +24,7 @@ is caught there rather than silently passing as a matching number:
 import re
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import date
 from decimal import Decimal
 
 from asx_engine.schemas import (
@@ -34,8 +35,10 @@ from asx_engine.schemas import (
 )
 from asx_engine.schemas.eval import FieldOutcome, FieldScore
 
-# A comparable value: a money/share figure, a period string, or "not stated".
-ScoredValue = Decimal | str | None
+# A comparable value: a money/share figure, a period string, a trade date
+# (director trades), or "not stated". Strings compare whitespace/case
+# normalized; everything else compares by value equality.
+ScoredValue = Decimal | str | date | None
 
 
 @dataclass(frozen=True)

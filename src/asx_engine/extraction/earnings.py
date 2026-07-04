@@ -55,16 +55,16 @@ def extract_earnings(
     model: str = EXTRACTION_MODEL,
 ) -> EarningsResult:
     """One announcement's parsed text -> validated EarningsResult."""
-    kwargs: dict = dict(
+    # `omit` (not None) is the SDK's "leave this parameter out" sentinel — Haiku
+    # rejects any thinking config, so the key must be absent, not null.
+    response = client.messages.parse(
         model=model,
         max_tokens=MAX_OUTPUT_TOKENS,
         system=system_prompt,
         messages=[{"role": "user", "content": document_text}],
         output_format=EarningsResult,
+        thinking={"type": "adaptive"} if supports_thinking(model) else anthropic.omit,
     )
-    if supports_thinking(model):
-        kwargs["thinking"] = {"type": "adaptive"}
-    response = client.messages.parse(**kwargs)
     if response.parsed_output is None:
         raise ExtractionRefusedError(
             f"no parsed payload returned (stop_reason={response.stop_reason})"
