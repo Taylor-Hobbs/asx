@@ -142,9 +142,7 @@ class TestMatchTrades:
             holdings_after="2920",
         )
         p_direct = pred_trade(quantity="1905", holdings_after="1905")
-        matches, missed, hallucinated = match_trades(
-            [g_direct, g_indirect], [p_indirect, p_direct]
-        )
+        matches, missed, hallucinated = match_trades([g_direct, g_indirect], [p_indirect, p_direct])
         assert {(m.golden_index, m.pred_index) for m in matches} == {(0, 1), (1, 0)}
         assert missed == [] and hallucinated == []
 

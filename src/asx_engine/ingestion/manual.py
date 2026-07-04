@@ -102,9 +102,9 @@ def run(
         # Exclusions apply BEFORE the limit so a dropped false positive
         # frees its slot for the next real candidate.
         is_candidate = candidate_fn or is_earnings_candidate
-        candidates = [
-            a for a in announcements if is_candidate(a) and a.ids_id not in excluded
-        ][:per_ticker_limit]
+        candidates = [a for a in announcements if is_candidate(a) and a.ids_id not in excluded][
+            :per_ticker_limit
+        ]
         log.info(
             "ingest.candidates", ticker=ticker, fetched=len(announcements), kept=len(candidates)
         )

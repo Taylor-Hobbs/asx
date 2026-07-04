@@ -219,7 +219,8 @@ def main(argv: Iterable[str] | None = None) -> None:
         "--dataset-version", default=GOLDEN_DATASET_VERSION, help="golden dataset version"
     )
     parser.add_argument(
-        "--post-process", action="store_true",
+        "--post-process",
+        action="store_true",
         help="apply post-processing filters (e.g. bank revenue null) before scoring",
     )
     args = parser.parse_args(list(argv) if argv is not None else None)

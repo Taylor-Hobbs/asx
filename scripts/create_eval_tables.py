@@ -10,8 +10,8 @@ import json
 from pathlib import Path
 
 from dotenv import load_dotenv
-from google.cloud import bigquery
 from google.api_core.exceptions import Conflict
+from google.cloud import bigquery
 
 from asx_engine.config import load_settings
 

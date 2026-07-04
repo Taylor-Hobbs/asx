@@ -130,9 +130,7 @@ def _agreement(g: GoldenDirectorTrade, p: DirectorTrade) -> int:
     return sum(_is_correct(f, g, p) for f in TRADE_FIELDS)
 
 
-def _stated_agreements(
-    g: GoldenDirectorTrade, p: DirectorTrade, names: tuple[str, ...]
-) -> int:
+def _stated_agreements(g: GoldenDirectorTrade, p: DirectorTrade, names: tuple[str, ...]) -> int:
     """Agreements among the named fields that carry real signal (both stated).
 
     A both-null match on an identity field is not identifying, so it must not

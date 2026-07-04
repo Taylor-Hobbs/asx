@@ -1,13 +1,13 @@
 """Demo: fetch a live 3Y from ASX, parse it, extract director trades, print results.
 
-    uv run python scripts/demo_director_trades.py
-    uv run python scripts/demo_director_trades.py --ticker WES --year 2026
+uv run python scripts/demo_director_trades.py
+uv run python scripts/demo_director_trades.py --ticker WES --year 2026
 """
 
 import argparse
 import hashlib
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import anthropic
 from dotenv import load_dotenv
@@ -38,7 +38,10 @@ def main() -> None:
     client = anthropic.Anthropic()
 
     print(f"\nFetching {args.ticker} announcements for {args.year}...")
-    with AsxClient(user_agent=settings.user_agent, request_interval_seconds=settings.request_interval_seconds) as asx:
+    with AsxClient(
+        user_agent=settings.user_agent,
+        request_interval_seconds=settings.request_interval_seconds,
+    ) as asx:
         all_announcements = asx.get_announcements_html(args.ticker, year=args.year)
         filings_3y = [a for a in all_announcements if is_3y(a.headline)]
 
@@ -57,9 +60,12 @@ def main() -> None:
             parsed = parse_pdf(
                 pdf_bytes,
                 content_hash=content_hash,
-                parsed_at=datetime.now(tz=timezone.utc),
+                parsed_at=datetime.now(tz=UTC),
             )
-            print(f"  Parsed: {parsed.page_count} pages, {parsed.total_chars:,} chars, quality={parsed.quality}")
+            print(
+                f"  Parsed: {parsed.page_count} pages, "
+                f"{parsed.total_chars:,} chars, quality={parsed.quality}"
+            )
 
             print(f"  Extracting with {prompt_version}...")
             result = extract_director_trades(
@@ -69,7 +75,10 @@ def main() -> None:
                 model="claude-opus-4-8",
             )
 
-            print(f"\n  {'Director':<28} {'Role':<30} {'Type':<12} {'Nature':<30} {'Qty':>12} {'Price':>8} {'Date':<12}")
+            print(
+                f"\n  {'Director':<28} {'Role':<30} {'Type':<12} "
+                f"{'Nature':<30} {'Qty':>12} {'Price':>8} {'Date':<12}"
+            )
             print("  " + "-" * 120)
             for trade in result.trades:
                 print(

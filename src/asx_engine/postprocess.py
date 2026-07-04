@@ -16,18 +16,33 @@ from asx_engine.schemas.extraction import EarningsResult, ReportedMetric, Source
 
 # ASX 300 tickers where IFRS 15 revenue is not reported. When a model extracts
 # revenue for these, it's always the wrong line item.
-BANK_AND_INSURER_TICKERS: frozenset[str] = frozenset({
-    # Big 4 banks
-    "ANZ", "CBA", "NAB", "WBC",
-    # Investment banks / diversified
-    "MQG",
-    # Regional banks
-    "BEN", "BOQ",
-    # Insurers
-    "QBE", "IAG", "SUN",
-    # Diversified financials
-    "AMP", "MFG", "PPT", "CPU", "IFL", "HUB", "NWL", "PDL",
-})
+BANK_AND_INSURER_TICKERS: frozenset[str] = frozenset(
+    {
+        # Big 4 banks
+        "ANZ",
+        "CBA",
+        "NAB",
+        "WBC",
+        # Investment banks / diversified
+        "MQG",
+        # Regional banks
+        "BEN",
+        "BOQ",
+        # Insurers
+        "QBE",
+        "IAG",
+        "SUN",
+        # Diversified financials
+        "AMP",
+        "MFG",
+        "PPT",
+        "CPU",
+        "IFL",
+        "HUB",
+        "NWL",
+        "PDL",
+    }
+)
 
 _NULL_SOURCED: SourcedField[Decimal] = SourcedField[Decimal](
     value=None, confidence=1.0, source_quote=None, page=None

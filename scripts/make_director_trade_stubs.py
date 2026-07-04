@@ -65,7 +65,10 @@ def main() -> None:
         created += 1
         print(f"created  {path.name}")
 
-    print(f"\n{created} stubs created, {existing} already existed (untouched), {skipped} non-3Y skipped")
+    print(
+        f"\n{created} stubs created, {existing} already existed (untouched), "
+        f"{skipped} non-3Y skipped"
+    )
 
 
 if __name__ == "__main__":

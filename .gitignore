@@ -64,3 +64,10 @@ scripts/_3y_parse_quality.py
 Thumbs.db
 scripts/_dt_role_check.py
 scripts/_dt_v2_failures.py
+
+# Early-session one-off debug scripts, untracked 2026-07-04 (kept locally)
+scripts/check_csl_*.py
+scripts/find_nab_hash.py
+scripts/eval_contested.py
+scripts/eval_failure_types.py
+scripts/eval_revenue_failures.py
