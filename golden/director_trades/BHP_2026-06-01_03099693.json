@@ -1,0 +1,17 @@
+{
+  "ticker": "BHP",
+  "announcement_id": "03099693",
+  "announced_at": "2026-06-01T02:09:00Z",
+  "headline": "Initial Director's Interest Notice",
+  "content_hash": "21ab9346ddf7d1b303ffd319a6e745771763f003df9980c8802d4ac6ebeefb9c",
+  "announcement_type": "director_trade",
+  "status": "excluded",
+  "exclusion_reason": "Initial notice — declares pre-existing holdings only, no transaction occurred",
+  "labels": {
+    "trades": []
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

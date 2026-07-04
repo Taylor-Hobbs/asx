@@ -1,0 +1,31 @@
+{
+  "ticker": "CBA",
+  "announcement_id": "03096169",
+  "announced_at": "2026-05-20T23:04:00Z",
+  "headline": "Appendix 3Y - Paul O'Malley",
+  "content_hash": "59bbd7765f797b0059c2a1de067c059fbfbb8dabe3b631ef82e3990ac8db752a",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Paul Francis O'Malley",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "on-market trade",
+        "security_class": "ordinary shares",
+        "quantity": "450",
+        "price_per_security": "163.45",
+        "total_consideration": null,
+        "trade_date": "2026-05-19",
+        "holdings_before": "8330",
+        "holdings_after": "8780"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding only (Invia Custodian for Talbragar Nominees Pty Ltd ATF Talbragar Trust)."
+}

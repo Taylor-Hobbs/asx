@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "WES",
+  "announcement_id": "03079047",
+  "announced_at": "2026-04-02T00:09:00Z",
+  "headline": "Change of Director's Interest Notice - B English",
+  "content_hash": "dcd386782fe83f196388f457f49813e27d36152656dca1d53b9b7bbefaca7bb1",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Simon William (Bill) English",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "allocation under dividend reinvestment plan",
+        "security_class": "ordinary shares",
+        "quantity": "75",
+        "price_per_security": "75.6897",
+        "total_consideration": null,
+        "trade_date": "2026-03-31",
+        "holdings_before": "5594",
+        "holdings_after": "5669"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Direct holding. DRP allocation under Wesfarmers Limited Dividend Investment Plan."
+}

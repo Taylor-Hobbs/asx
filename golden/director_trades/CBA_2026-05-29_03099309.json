@@ -1,0 +1,31 @@
+{
+  "ticker": "CBA",
+  "announcement_id": "03099309",
+  "announced_at": "2026-05-29T07:58:00Z",
+  "headline": "Appendix 3Y - Julie Galbo",
+  "content_hash": "bcafbb0b744af32fcd76ab07c3061dafdba7d275f07e3b34e6670cd6cea9a4f8",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Julie Birgitte Galbo",
+        "director_role": "Non-Executive Director",
+        "trade_type": "transfer",
+        "nature": "off-market transfer between custodians",
+        "security_class": "ordinary shares",
+        "quantity": "130",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-05-28",
+        "holdings_before": null,
+        "holdings_after": null
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Custodian transfer only — 130 shares moved from BNY Mellon/Nykredit to BNY Mellon/Ringkjobing Landbobank, both holding for Ms Galbo. No change in total beneficial interest. Completed one day after trading window closed due to Danish custodial processing delay; board approval was obtained while window was open."
+}

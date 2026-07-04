@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "NAB",
+  "announcement_id": "03105418",
+  "announced_at": "2026-06-18T01:11:00Z",
+  "headline": "Appendix 3Y - Change of Director's Interest Notice",
+  "content_hash": "c97b7c98d33d726341ab546c0689621f0bfd70ce934c6dfb9d22cc255d28c13a",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Ann Caroline Sherry",
+        "director_role": "Non-Executive Director",
+        "trade_type": "disposal",
+        "nature": "redemption in accordance with the terms of NAB Capital Notes 3",
+        "security_class": "NAB Capital Notes 3",
+        "quantity": "1500",
+        "price_per_security": null,
+        "total_consideration": "150000",
+        "trade_date": "2026-06-17",
+        "holdings_before": "1500",
+        "holdings_after": "0"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Mandatory redemption at maturity (NCN3, ticker NABPF). Ordinary share holding of 12,698 unchanged."
+}

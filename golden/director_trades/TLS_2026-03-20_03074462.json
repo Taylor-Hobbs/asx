@@ -1,0 +1,17 @@
+{
+  "ticker": "TLS",
+  "announcement_id": "03074462",
+  "announced_at": "2026-03-20T05:14:00Z",
+  "headline": "Initial Director's Interest Notice",
+  "content_hash": "a9d4c3d7c6018e7ccdc92e9c1416d94445bc537a3c064c547ec8486b36cc2cf5",
+  "announcement_type": "director_trade",
+  "status": "excluded",
+  "exclusion_reason": "Initial notice — declares pre-existing holdings only, no transaction occurred",
+  "labels": {
+    "trades": []
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

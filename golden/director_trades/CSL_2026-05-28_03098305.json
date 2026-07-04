@@ -1,0 +1,17 @@
+{
+  "ticker": "CSL",
+  "announcement_id": "03098305",
+  "announced_at": "2026-05-27T22:20:00Z",
+  "headline": "Appendix 3Y - Gordon Naylor",
+  "content_hash": "961f7780c9f563d9bb197371dccce1b42b2c572579b66da47220ff71e0bda3fd",
+  "announcement_type": "director_trade",
+  "status": "excluded",
+  "exclusion_reason": "Superseded by amended filing 03098565 (Amended Appendix 3Y - Gordon Naylor)",
+  "labels": {
+    "trades": []
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

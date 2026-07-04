@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "RIO",
+  "announcement_id": "03063753",
+  "announced_at": "2026-02-23T21:17:00Z",
+  "headline": "Appendix 3Y - Ben Wyatt",
+  "content_hash": "c1bee1aaf59c48a85ac7d4ff9aa7318419ad15d1566431a4b76ca4d4dadadde0",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Ben Wyatt",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "acquisition of shares by way of on-market trade",
+        "security_class": "ordinary shares",
+        "quantity": "100",
+        "price_per_security": "160.6243",
+        "total_consideration": null,
+        "trade_date": "2026-02-23",
+        "holdings_before": "900",
+        "holdings_after": "1000"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Direct holding. Rio Tinto Limited ordinary shares (ASX-listed)."
+}

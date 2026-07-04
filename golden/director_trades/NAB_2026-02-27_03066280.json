@@ -1,0 +1,44 @@
+﻿{
+  "ticker": "NAB",
+  "announcement_id": "03066280",
+  "announced_at": "2026-02-26T22:24:00Z",
+  "headline": "Appendix 3Y - Change of Director's Interest Notice",
+  "content_hash": "2634abf82056bfd0cef203b63ab6b6e003aa1973c7690ade85f6609778206335",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Andrew Francis Irvine",
+        "director_role": "Group CEO",
+        "trade_type": "disposal",
+        "nature": "on-market sale",
+        "security_class": "ordinary shares",
+        "quantity": "40348",
+        "price_per_security": null,
+        "total_consideration": "1938468.16",
+        "trade_date": "2026-02-24",
+        "holdings_before": "67575",
+        "holdings_after": null
+      },
+      {
+        "director_name": "Andrew Francis Irvine",
+        "director_role": "Group CEO",
+        "trade_type": "transfer",
+        "nature": "off-market transfer from direct interest to indirect interest",
+        "security_class": "ordinary shares",
+        "quantity": "27227",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-02-24",
+        "holdings_before": "105517",
+        "holdings_after": "132744"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Two transactions on 24 Feb 2026: (1) on-market sale of 40,348 direct shares for $1,938,468.16; (2) off-market transfer of remaining 27,227 direct shares to INVIA CUSTODIAN PTY LIMITED <IRVINE FAMILY A/C>. After both, direct ordinary holding = 0. holdings_before/after on transfer row refer to Irvine Family A/C indirect holding. Executive rights (VRD, LTEA, LTVR) unchanged."
+}

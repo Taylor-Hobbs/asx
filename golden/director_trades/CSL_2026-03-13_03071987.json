@@ -1,0 +1,31 @@
+{
+  "ticker": "CSL",
+  "announcement_id": "03071987",
+  "announced_at": "2026-03-13T06:12:00Z",
+  "headline": "Appendix 3Y - Gordon Naylor",
+  "content_hash": "3f5a44dade9db183e5eae9e020b3bf0739d814fd62b7575bdd3c2ab326f8f773",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Gordon Naylor",
+        "director_role": "Interim Chief Executive Officer",
+        "trade_type": "acquisition",
+        "nature": "grant of restricted share units pursuant to the Plan as a one-off equity award",
+        "security_class": "restricted share units",
+        "quantity": "39579",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-03-06",
+        "holdings_before": null,
+        "holdings_after": "39579"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "One-off RSU grant tied to Naylor's appointment as Interim CEO on 10 Feb 2026. Nil consideration. Ordinary share holdings (39,719 direct; 54,992 indirect via Netwealth) unchanged."
+}

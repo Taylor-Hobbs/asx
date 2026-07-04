@@ -1,0 +1,17 @@
+﻿{
+  "ticker": "TLS",
+  "announcement_id": "03074461",
+  "announced_at": "2026-03-20T05:14:00Z",
+  "headline": "Final Director's Interest Notice",
+  "content_hash": "fedde73a3d134778b9c085cdb37fe371f7fdb04d527b491e5289760b95268c1d",
+  "announcement_type": "director_trade",
+  "status": "excluded",
+  "exclusion_reason": "Final Director's Interest Notice (Appendix 3Z) — Elana Rubin ceased as director on 20 March 2026; notice declares final holdings only, no transaction occurred.",
+  "labels": {
+    "trades": []
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": null
+}

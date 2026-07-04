@@ -23,6 +23,7 @@ Run job (later in Q1) will share the client and store, not this entry point.
 
 import argparse
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Protocol
 
@@ -82,6 +83,7 @@ def run(
     per_ticker_limit: int,
     dry_run: bool,
     exclude: set[str] | None = None,
+    candidate_fn: Callable[[HtmlAnnouncement], bool] | None = None,
 ) -> IngestSummary:
     summary = IngestSummary()
     excluded = exclude or set()
@@ -99,8 +101,9 @@ def run(
         announcements = source.get_announcements_html(ticker, year=year)
         # Exclusions apply BEFORE the limit so a dropped false positive
         # frees its slot for the next real candidate.
+        is_candidate = candidate_fn or is_earnings_candidate
         candidates = [
-            a for a in announcements if is_earnings_candidate(a) and a.ids_id not in excluded
+            a for a in announcements if is_candidate(a) and a.ids_id not in excluded
         ][:per_ticker_limit]
         log.info(
             "ingest.candidates", ticker=ticker, fetched=len(announcements), kept=len(candidates)

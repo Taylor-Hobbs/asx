@@ -1,0 +1,57 @@
+﻿{
+  "ticker": "WBC",
+  "announcement_id": "03051313",
+  "announced_at": "2026-01-20T03:10:00Z",
+  "headline": "Appendix 3Y - CEO",
+  "content_hash": "4c18289066d3bf74f0c4a2dba93efebe0a39398d59210c474213223c27e0cc5e",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Anthony James Miller",
+        "director_role": "Chief Executive Officer",
+        "trade_type": "acquisition",
+        "nature": "grant of restricted rights under Westpac Group Equity Incentive Plan",
+        "security_class": "restricted rights",
+        "quantity": "45691",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-01-13",
+        "holdings_before": null,
+        "holdings_after": null
+      },
+      {
+        "director_name": "Anthony James Miller",
+        "director_role": "Chief Executive Officer",
+        "trade_type": "acquisition",
+        "nature": "grant of performance rights under Westpac Group Equity Incentive Plan",
+        "security_class": "performance rights",
+        "quantity": "45692",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-01-13",
+        "holdings_before": null,
+        "holdings_after": null
+      },
+      {
+        "director_name": "Anthony James Miller",
+        "director_role": "Chief Executive Officer",
+        "trade_type": "acquisition",
+        "nature": "grant of ordinary shares under Westpac Group Equity Incentive Plan",
+        "security_class": "ordinary shares",
+        "quantity": "18967",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-01-13",
+        "holdings_before": "324381",
+        "holdings_after": "343348"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Two-column form. Column 1 (share rights): 45,691 restricted + 45,692 performance = 91,383 total rights granted; combined rights before 284,531, after 375,914 — split into two trades by security class; individual before/after not separately stated. Column 2 (ordinary shares): 18,967 granted; before 324,381, after 343,348. All nil consideration (EIP grants). Direct holding only."
+}

@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "RIO",
+  "announcement_id": "03086061",
+  "announced_at": "2026-04-24T00:15:00Z",
+  "headline": "Appendix 3Y - Simon Trott",
+  "content_hash": "fb1ab85e85f456092b1b21bae5fb15ca79a79cda7a2b00c0e9b64cba6066b0f1",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Simon Trott",
+        "director_role": "Group Executive, Chief Commercial Officer",
+        "trade_type": "acquisition",
+        "nature": "shares acquired on-market through participation in dividend reinvestment",
+        "security_class": "ordinary shares",
+        "quantity": "39",
+        "price_per_security": "173.7159",
+        "total_consideration": null,
+        "trade_date": "2026-04-21",
+        "holdings_before": "1833",
+        "holdings_after": "1872"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "DRP acquisition via myShare account (indirect). Multiple other holdings shown as unchanged: 205,402 EIP awards (BDA/PSA, direct), 6,087 shares via SPA account (indirect), 24,430 shares via Carnwrath Pty Ltd trust (indirect)."
+}

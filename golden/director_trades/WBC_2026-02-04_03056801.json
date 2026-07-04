@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "WBC",
+  "announcement_id": "03056801",
+  "announced_at": "2026-02-04T05:17:00Z",
+  "headline": "Appendix 3Y - Michael Ullmer",
+  "content_hash": "f61dbaea53fc218f061e8a8d2203d034bc24460d8d0716e4e482d9d9a47792ad",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Michael James Ullmer",
+        "director_role": "Non-Executive Director",
+        "trade_type": "disposal",
+        "nature": "redemption by Westpac in accordance with the terms of the Westpac Subordinated Notes",
+        "security_class": "Westpac Subordinated Notes",
+        "quantity": "1",
+        "price_per_security": null,
+        "total_consideration": "100000",
+        "trade_date": "2026-01-29",
+        "holdings_before": "1",
+        "holdings_after": "0"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding via Ullmer Super Fund (Invia Custodian). Face value $100,000 per note; total consideration = $100,000. Ordinary share holdings unchanged: 11,000 (Ullmer Super) + 1,570 (Ullmer Family Foundation) = 12,570."
+}

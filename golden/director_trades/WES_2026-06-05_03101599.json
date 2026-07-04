@@ -1,0 +1,17 @@
+{
+  "ticker": "WES",
+  "announcement_id": "03101599",
+  "announced_at": "2026-06-05T01:39:00Z",
+  "headline": "Initial Director's Interest Notice - K MacKenzie",
+  "content_hash": "9dfc2b31e0a7bc3120697987e9dee9ff70aead9334ab5e7d4edc9efc18306767",
+  "announcement_type": "director_trade",
+  "status": "excluded",
+  "exclusion_reason": "Initial notice — declares pre-existing holdings only, no transaction occurred",
+  "labels": {
+    "trades": []
+  },
+  "labeled_by": null,
+  "labeled_at": null,
+  "dataset_version": "golden_v1",
+  "notes": null
+}

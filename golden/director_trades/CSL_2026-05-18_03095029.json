@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "CSL",
+  "announcement_id": "03095029",
+  "announced_at": "2026-05-18T06:51:00Z",
+  "headline": "Appendix 3Y - Alison Watkins",
+  "content_hash": "4aaaa55ccb8b990261e3ba8ac4b795d195645e957094737eb536b93acf839d18",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Alison Watkins AM",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "on-market trade",
+        "security_class": "ordinary shares",
+        "quantity": "2540",
+        "price_per_security": null,
+        "total_consideration": "250595.38",
+        "trade_date": "2026-05-15",
+        "holdings_before": "2833",
+        "holdings_after": "5373"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding via RJ & AM Watkins Superannuation Fund P/L. Total consideration stated; price per share not stated. Other holdings (1,403 shares via Solium; 213 Rights under Plan) unchanged."
+}

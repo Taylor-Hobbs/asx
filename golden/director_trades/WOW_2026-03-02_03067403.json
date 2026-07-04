@@ -1,0 +1,70 @@
+﻿{
+  "ticker": "WOW",
+  "announcement_id": "03067403",
+  "announced_at": "2026-03-02T06:00:00Z",
+  "headline": "Appendix 3Ys NED Equity Plan x 2",
+  "content_hash": "df9767cbbbcadfa6c6dc6bbcbe9b4d29325d7ec03597f2ce9c5e5e9c7c95ef0c",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Tracey Fellows",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "vesting of NED Share Rights",
+        "security_class": "ordinary shares",
+        "quantity": "701",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-02-26",
+        "holdings_before": "2087",
+        "holdings_after": "2788"
+      },
+      {
+        "director_name": "Tracey Fellows",
+        "director_role": "Non-Executive Director",
+        "trade_type": "disposal",
+        "nature": "vesting of NED Share Rights",
+        "security_class": "NED share rights",
+        "quantity": "701",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-02-26",
+        "holdings_before": "701",
+        "holdings_after": "0"
+      },
+      {
+        "director_name": "Warwick Bray",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "vesting of NED Share Rights",
+        "security_class": "ordinary shares",
+        "quantity": "3158",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-02-26",
+        "holdings_before": "5876",
+        "holdings_after": "9034"
+      },
+      {
+        "director_name": "Warwick Bray",
+        "director_role": "Non-Executive Director",
+        "trade_type": "disposal",
+        "nature": "vesting of NED Share Rights",
+        "security_class": "NED share rights",
+        "quantity": "3158",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-02-26",
+        "holdings_before": "3158",
+        "holdings_after": "0"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Single PDF contains two separate Appendix 3Ys. Tracey Fellows: ordinary shares held via NED Equity Plan (2,087 before) + Adair Super (4,382, unchanged). Warwick Bray: ordinary shares held via NED Equity Plan only (5,876 before). All nil consideration."
+}

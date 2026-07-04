@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "CSL",
+  "announcement_id": "03101382",
+  "announced_at": "2026-06-04T22:23:00Z",
+  "headline": "Appendix 3Y - Carolyn Hewson AO",
+  "content_hash": "59325405b9d2efe77702e5737f4921d8bd5eec6d54bc0fa39eb3c00138770b21",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Carolyn Hewson AO",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "on-market trade",
+        "security_class": "ordinary shares",
+        "quantity": "1036",
+        "price_per_security": null,
+        "total_consideration": "99342.04",
+        "trade_date": "2026-06-01",
+        "holdings_before": "248",
+        "holdings_after": "1284"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding via Zanlyn Pty Ltd ATF Zanadu Investment Trust only changed (248->1,284). Other holdings unchanged: 2,603 shares via Solium; 244 Rights under Plan."
+}

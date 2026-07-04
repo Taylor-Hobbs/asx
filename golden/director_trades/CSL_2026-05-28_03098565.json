@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "CSL",
+  "announcement_id": "03098565",
+  "announced_at": "2026-05-28T02:27:00Z",
+  "headline": "Amended Appendix 3Y - Gordon Naylor",
+  "content_hash": "f0648df1ba8623742629d07439e85089e13fac942b870317fafa699e4b43e462",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Gordon Naylor",
+        "director_role": "Interim Chief Executive Officer",
+        "trade_type": "acquisition",
+        "nature": "on-market purchase",
+        "security_class": "ordinary shares",
+        "quantity": "1100",
+        "price_per_security": null,
+        "total_consideration": "107800",
+        "trade_date": "2026-05-26",
+        "holdings_before": null,
+        "holdings_after": null
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Amended notice (corrects earlier filing 03098305). Shares acquired into new indirect entity: Naylor-Stewart Investments Pty Ltd ATF Naylor-Stewart Family Trust. Prior indirect holding of 54,992 via Netwealth unchanged. Total consideration stated; price per share not stated. holdings_before/after null as no prior holding existed in this specific entity."
+}

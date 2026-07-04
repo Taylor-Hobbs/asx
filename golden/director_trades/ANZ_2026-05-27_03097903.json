@@ -1,0 +1,31 @@
+{
+  "ticker": "ANZ",
+  "announcement_id": "03097903",
+  "announced_at": "2026-05-26T22:50:00Z",
+  "headline": "Change of Director's Interest Notice",
+  "content_hash": "6c3f6a082da8222e94707a2e61098d2ffe1a45bac173527cd728426175c7e43a",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Paul Dominic O'Sullivan",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "on-market trade",
+        "security_class": "ordinary shares",
+        "quantity": "3247",
+        "price_per_security": "35.40",
+        "total_consideration": null,
+        "trade_date": "2026-05-21",
+        "holdings_before": "39950",
+        "holdings_after": "43197"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding only (Invia Custodian <Paul Dominic O'Sullivan A/C>). Price is average per share; total not stated."
+}

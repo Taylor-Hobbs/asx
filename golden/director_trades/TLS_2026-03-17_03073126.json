@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "TLS",
+  "announcement_id": "03073126",
+  "announced_at": "2026-03-17T05:07:00Z",
+  "headline": "Change of Director's Interest Notice",
+  "content_hash": "6613df0a6096d36810a6779fca7d7835efe99b5905ebf326e63884009b39c6a6",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Craig Dunn",
+        "director_role": "Non-Executive Director",
+        "trade_type": "transfer",
+        "nature": "off-market transfer between indirect holdings as part of portfolio re-balancing",
+        "security_class": "ordinary shares",
+        "quantity": "12152",
+        "price_per_security": null,
+        "total_consideration": null,
+        "trade_date": "2026-03-11",
+        "holdings_before": null,
+        "holdings_after": null
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Shares moved from Wiolga Pty Ltd ATF The Freckle Family Trust to Amiala Pty Ltd ATF Dunn Family Super Fund — both director-controlled entities. No change in total relevant interest (direct 700 + indirect 136,200 = 136,900 before and after). Form states acquired: Nil, disposed: Nil, consideration: N/A."
+}

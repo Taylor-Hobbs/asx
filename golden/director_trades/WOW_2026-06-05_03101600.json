@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "WOW",
+  "announcement_id": "03101600",
+  "announced_at": "2026-06-05T01:42:00Z",
+  "headline": "Appendix 3Y Scott Perkins",
+  "content_hash": "eb1bcb1eb1bf45a8eda7ee10b71ecf2355daa2009755a2e3d303c5d4fc5de44b",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Scott Perkins",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "shares purchased on market",
+        "security_class": "ordinary shares",
+        "quantity": "4027",
+        "price_per_security": null,
+        "total_consideration": "140542.35",
+        "trade_date": "2026-06-01",
+        "holdings_before": "7114",
+        "holdings_after": "11141"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding via Perkins Family Super Pty Ltd (superannuation fund) only changed (7,114->11,141). Direct holding of 38,859 unchanged. Total consideration stated; price per share not stated."
+}

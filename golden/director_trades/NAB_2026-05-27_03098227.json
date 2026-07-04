@@ -1,0 +1,31 @@
+﻿{
+  "ticker": "NAB",
+  "announcement_id": "03098227",
+  "announced_at": "2026-05-27T07:53:00Z",
+  "headline": "Appendix 3Y - Change of Director's Interest Notice",
+  "content_hash": "f1a49c581e3a74152a569b2a26253a6f76e55b2d3128c92f033901e83d8db8a2",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Philip Wayne Chronican",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "acquisition under discretionary portfolio arrangement",
+        "security_class": "ordinary shares",
+        "quantity": "752",
+        "price_per_security": null,
+        "total_consideration": "35712.48",
+        "trade_date": "2026-03-05",
+        "holdings_before": "42120",
+        "holdings_after": "42872"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Indirect holding via Citibank Melbourne <THE CHRONICAN FAMILY TRUST NO. 2>. Filed ~12 weeks after trade date due to late notification to NAB; see companion filing 03098231."
+}

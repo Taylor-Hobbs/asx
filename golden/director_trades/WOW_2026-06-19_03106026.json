@@ -1,0 +1,44 @@
+﻿{
+  "ticker": "WOW",
+  "announcement_id": "03106026",
+  "announced_at": "2026-06-19T07:35:00Z",
+  "headline": "Appendix 3Ys - Jon Alferness & Ken Meyer",
+  "content_hash": "7e82fc933e289136cdb00370722e8ca24b61bf7698d976ac03d98671188c633a",
+  "announcement_type": "director_trade",
+  "status": "labeled",
+  "exclusion_reason": null,
+  "labels": {
+    "trades": [
+      {
+        "director_name": "Jonathan Alferness",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "quarterly allocation of US NED share rights in accordance with the US NED Plan Rules",
+        "security_class": "NED share rights",
+        "quantity": "198",
+        "price_per_security": null,
+        "total_consideration": "7430.56",
+        "trade_date": "2026-06-16",
+        "holdings_before": null,
+        "holdings_after": "198"
+      },
+      {
+        "director_name": "Kenneth Meyer",
+        "director_role": "Non-Executive Director",
+        "trade_type": "acquisition",
+        "nature": "shares purchased on market",
+        "security_class": "ordinary shares",
+        "quantity": "1000",
+        "price_per_security": null,
+        "total_consideration": "38041.36",
+        "trade_date": "2026-06-17",
+        "holdings_before": null,
+        "holdings_after": "1000"
+      }
+    ]
+  },
+  "labeled_by": "Taylor Hobbs",
+  "labeled_at": "2026-06-24",
+  "dataset_version": "golden_v1",
+  "notes": "Single PDF contains two Appendix 3Ys. Alferness: US NED Share Rights only (no ordinary shares held); AUD value $7,430.56 stated as consideration for the rights allocation. Meyer: direct purchase; form states USD $26,853.40 (approx. A$38,041.36 at AUD/USD 0.7059); AUD equivalent used as total_consideration."
+}
