@@ -5,6 +5,32 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-06 — bulk backfill script; phase-1 crawl (24mo × 3Y) launched
+
+**Built `ingestion/backfill.py`** — the bulk sibling of manual.py. No
+per-ticker cap; bounds are the universe file and a months cutoff. Properties a
+multi-hour crawl needs: per-ticker error isolation (one drift can't kill hour
+five; failures logged + reported + retried free on rerun), BQ-keyed
+resumability decided before any PDF request, and a dry-run mode. Two filters:
+`--filter 3y` (director notices) and `--filter broad` (everything minus the
+taxonomy's admin-noise exclude list). 9 tests; one caught a real bug
+(year-boundary duplicate idsIds double-fetched within a run).
+
+**Universe file reality check:** no free machine-readable ASX 300 list exists
+— checked asx300list.com (2021-stale), asxlistedcompanies.com (2020-stale),
+Market Index (403s scripts), stockanalysis.com VAS holdings (API caps at 25),
+yfiua/index-constituents (no ASX). Settled on Wikipedia's S&P/ASX 200 table
+(as of 2026-04-05, 199 tickers) → `data/universe/`. The +100 small ordinaries
+top-up is a plain rerun with a fuller file once EODHD (Q2) provides
+constituents — idempotency makes it free. Survivorship caveat documented in
+the module: this crawl is collection, not the point-in-time record.
+
+**Phase 1 launched:** `--filter 3y --months 24` over 199 tickers. Dry-run
+calibration: ~16 3Y filings per ticker per 24mo → ~3,200 PDFs, ~6h at the
+3s/request rate limit. Phase 2 (broad) comes after.
+
+---
+
 ## 2026-07-04 (evening) — CI green again; Q1 taxonomy decision written
 
 **CI had been red on every run since June 20** and nobody noticed: the failures
