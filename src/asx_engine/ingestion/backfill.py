@@ -37,6 +37,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from typing import Protocol
 
 import structlog
 from dotenv import load_dotenv
@@ -44,9 +45,9 @@ from dotenv import load_dotenv
 from asx_engine.config import load_settings
 from asx_engine.ingestion.asx_client import AsxClient, HtmlAnnouncement
 from asx_engine.ingestion.director_trades_ingest import is_3y_candidate
-from asx_engine.ingestion.manual import AnnouncementSource, Store
+from asx_engine.ingestion.manual import AnnouncementSource
 from asx_engine.ingestion.store import AnnouncementStore, build_announcement
-from asx_engine.schemas import utc_now
+from asx_engine.schemas import Announcement, utc_now
 
 log = structlog.get_logger()
 
@@ -74,6 +75,21 @@ def is_broad_candidate(listed: HtmlAnnouncement) -> bool:
 
 FILTERS = {"3y": is_3y_candidate, "broad": is_broad_candidate}
 
+# Rows buffered before one BigQuery load job. Sized for the quota (1,500 load
+# jobs/table/day — the 2026-07-06 run tripped it doing one job per row): a
+# full broad crawl at 250 rows/flush is ~400 jobs, comfortably under. The
+# tradeoff is crash exposure — at most one bufferful of rows re-fetched from
+# ASX on the next run (~12 minutes of crawl), which idempotency absorbs.
+FLUSH_EVERY = 250
+
+
+class BulkStore(Protocol):
+    """Storage a bulk crawl needs: PDFs immediately, rows batched."""
+
+    def existing_announcement_ids(self) -> set[str]: ...
+    def save_pdf(self, announcement: Announcement, pdf_bytes: bytes) -> None: ...
+    def append_rows(self, announcements: list[Announcement]) -> None: ...
+
 
 @dataclass
 class BackfillSummary:
@@ -100,13 +116,14 @@ def years_covering(cutoff: datetime, now: datetime) -> list[int]:
 
 def run(
     source: AnnouncementSource,
-    store: Store,
+    store: BulkStore,
     tickers: list[str],
     *,
     months: int,
     candidate_fn: Callable[[HtmlAnnouncement], bool],
     dry_run: bool,
     now: datetime | None = None,
+    flush_every: int = FLUSH_EVERY,
 ) -> BackfillSummary:
     summary = BackfillSummary()
     now = now or utc_now()
@@ -124,6 +141,16 @@ def run(
         existing_records=len(existing),
         dry_run=dry_run,
     )
+
+    # PDFs upload as they arrive; metadata rows buffer here and flush as ONE
+    # load job per flush_every rows (see FLUSH_EVERY for the quota arithmetic).
+    row_buffer: list[Announcement] = []
+
+    def flush() -> None:
+        if row_buffer:
+            store.append_rows(row_buffer)
+            log.info("backfill.rows_flushed", rows=len(row_buffer))
+            row_buffer.clear()
 
     for position, ticker in enumerate(tickers, 1):
         try:
@@ -168,7 +195,10 @@ def run(
                     pdf_bytes=pdf_bytes,
                     ingested_at=utc_now(),
                 )
-                store.save(announcement, pdf_bytes)
+                store.save_pdf(announcement, pdf_bytes)
+                row_buffer.append(announcement)
+                if len(row_buffer) >= flush_every:
+                    flush()
                 # Guard against the same PDF listed under two tickers/years
                 # within one run — BQ state only covers previous runs.
                 existing.add(listed.ids_id)
@@ -186,6 +216,7 @@ def run(
             summary.failed_tickers[ticker] = f"{type(exc).__name__}: {exc}"
             log.error("backfill.ticker_failed", ticker=ticker, error=str(exc))
 
+    flush()
     log.info(
         "backfill.done",
         ingested=summary.ingested,

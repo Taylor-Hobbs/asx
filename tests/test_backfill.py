@@ -61,13 +61,22 @@ class FakeSource:
 class FakeStore:
     def __init__(self, existing: set[str] | None = None) -> None:
         self._existing = existing or set()
-        self.saved: list[Announcement] = []
+        self.pdfs: list[Announcement] = []
+        self.flushes: list[list[Announcement]] = []
 
     def existing_announcement_ids(self) -> set[str]:
         return set(self._existing)
 
-    def save(self, announcement: Announcement, pdf_bytes: bytes) -> None:
-        self.saved.append(announcement)
+    def save_pdf(self, announcement: Announcement, pdf_bytes: bytes) -> None:
+        self.pdfs.append(announcement)
+
+    def append_rows(self, announcements: list[Announcement]) -> None:
+        self.flushes.append(list(announcements))
+
+    @property
+    def saved(self) -> list[Announcement]:
+        """All rows that reached BigQuery, across every flush."""
+        return [a for flush in self.flushes for a in flush]
 
 
 def _run(source: FakeSource, store: FakeStore, tickers: list[str], **kw: object):
@@ -167,6 +176,49 @@ class TestErrorIsolation:
         assert "BHP" in summary.failed_tickers
         assert "scripted failure" in summary.failed_tickers["BHP"]
         assert [a.announcement_id for a in store.saved] == ["03000009"]
+
+
+class TestRowBatching:
+    """One load job per FLUSH_EVERY rows — the 1,500 jobs/day quota lesson."""
+
+    def _many(self, n: int) -> list[HtmlAnnouncement]:
+        return [listed(ids_id=f"0300{i:04d}") for i in range(n)]
+
+    def test_rows_flush_in_batches_not_per_row(self) -> None:
+        source = FakeSource({("BHP", 2026): self._many(5)})
+        store = FakeStore()
+        summary = _run(source, store, ["BHP"], flush_every=2)
+        # 5 rows at flush_every=2 -> 2+2 threshold flushes + 1 final flush.
+        assert [len(f) for f in store.flushes] == [2, 2, 1]
+        assert summary.ingested == 5
+
+    def test_final_flush_catches_the_remainder(self) -> None:
+        source = FakeSource({("BHP", 2026): self._many(3)})
+        store = FakeStore()
+        _run(source, store, ["BHP"], flush_every=100)
+        assert [len(f) for f in store.flushes] == [3]
+
+    def test_pdf_uploads_before_its_row_is_flushed(self) -> None:
+        # Write order: PDF first, row later — a crash between the two leaves a
+        # hash-addressed blob without a row, which the next run re-writes.
+        source = FakeSource({("BHP", 2026): self._many(3)})
+        store = FakeStore()
+        _run(source, store, ["BHP"], flush_every=100)
+        assert len(store.pdfs) == 3
+        assert len(store.saved) == 3
+
+    def test_buffer_survives_a_failing_ticker(self) -> None:
+        source = FakeSource(
+            {
+                ("AAA", 2026): [listed(ids_id="03000001")],
+                ("WES", 2026): [listed(ids_id="03000002")],
+            },
+            fail_tickers={"BHP"},
+        )
+        store = FakeStore()
+        summary = _run(source, store, ["AAA", "BHP", "WES"], flush_every=100)
+        assert [a.announcement_id for a in store.saved] == ["03000001", "03000002"]
+        assert "BHP" in summary.failed_tickers
 
 
 class TestDryRun:
