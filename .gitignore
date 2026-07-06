@@ -71,3 +71,6 @@ scripts/find_nab_hash.py
 scripts/eval_contested.py
 scripts/eval_failure_types.py
 scripts/eval_revenue_failures.py
+
+# Crawl logs
+*.log
