@@ -69,7 +69,15 @@ class ExtractionBackend(Protocol):
     def corpus_hashes(self) -> set[str]: ...
     def extracted_hashes(self, model: str, prompt_version: str) -> set[str]: ...
     def load_text(self, content_hash: str) -> str: ...
-    def save(self, record: ExtractionRecord[DirectorTradesResult]) -> None: ...
+    def save_records(self, records: list[ExtractionRecord[DirectorTradesResult]]) -> None: ...
+
+
+# Records buffered before one BigQuery load job during batch collection — the
+# THIRD table to need this (announcements 07-06, parsed_documents 07-07,
+# extraction_records 07-08; the quota is 1,500 load jobs/table/day). Collection
+# reads from the Batches API, which retains results 29 days, so a crash between
+# flushes loses nothing --resume can't recover.
+FLUSH_EVERY = 250
 
 
 @dataclass
@@ -146,7 +154,9 @@ def run(
     for content_hash in pending:
         payload = extractor(backend.load_text(content_hash))
         record = _record(content_hash, model, prompt_version, payload)
-        backend.save(record)
+        # Sync runs are small (golden set) — immediate persistence per record
+        # is worth the load job so an eyeball run can be killed anytime.
+        backend.save_records([record])
         summary.extracted.append(record)
         log.info(
             "extract.3y.stored",
@@ -232,6 +242,14 @@ def run_batch(
             errored=batch.request_counts.errored,
         )
 
+    record_buffer: list[ExtractionRecord[DirectorTradesResult]] = []
+
+    def flush() -> None:
+        if record_buffer:
+            backend.save_records(record_buffer)
+            log.info("extract.3y.records_flushed", records=len(record_buffer))
+            record_buffer.clear()
+
     for result in client.messages.batches.results(batch.id):
         content_hash = result.custom_id
         if content_hash in done:
@@ -261,7 +279,9 @@ def run_batch(
             log.warning("extract.3y.batch.invalid", content_hash=content_hash, error=str(exc))
             continue
         record = _record(content_hash, model, prompt_version, payload)
-        backend.save(record)
+        record_buffer.append(record)
+        if len(record_buffer) >= FLUSH_EVERY:
+            flush()
         summary.extracted.append(record)
         log.info(
             "extract.3y.stored",
@@ -271,6 +291,7 @@ def run_batch(
             output_tokens=message.usage.output_tokens,
         )
 
+    flush()
     log.info(
         "extract.3y.batch.done",
         extracted=len(summary.extracted),
@@ -346,14 +367,20 @@ class GcpExtractionBackend:
         document = ParsedDocument.model_validate_json(bytes(blob.download_as_bytes()))
         return document.text()
 
-    def save(self, record: ExtractionRecord[DirectorTradesResult]) -> None:
-        row = record.model_dump(mode="json", exclude={"payload"})
-        row["payload"] = record.payload.model_dump_json()
+    def save_records(self, records: list[ExtractionRecord[DirectorTradesResult]]) -> None:
+        """Many records, ONE load job — see FLUSH_EVERY for the quota story."""
+        if not records:
+            return
+        rows = []
+        for record in records:
+            row = record.model_dump(mode="json", exclude={"payload"})
+            row["payload"] = record.payload.model_dump_json()
+            rows.append(row)
         job_config = bigquery.LoadJobConfig(
             schema=self._extractions_schema,
             write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
         )
-        self._bq.load_table_from_json([row], self._extractions_id, job_config=job_config).result()
+        self._bq.load_table_from_json(rows, self._extractions_id, job_config=job_config).result()
 
 
 def main() -> None:

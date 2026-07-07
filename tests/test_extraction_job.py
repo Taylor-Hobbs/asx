@@ -121,6 +121,7 @@ class FakeBackend:
         self._texts = texts
         self._already = already or set()
         self.saved: list[ExtractionRecord[EarningsResult]] = []
+        self.flushes: list[int] = []
         self.loads: list[str] = []
 
     def parsed_hashes(self, parser_version: str) -> set[str]:
@@ -133,8 +134,9 @@ class FakeBackend:
         self.loads.append(content_hash)
         return self._texts[content_hash]
 
-    def save(self, record: ExtractionRecord[EarningsResult]) -> None:
-        self.saved.append(record)
+    def save_records(self, records: list[ExtractionRecord[EarningsResult]]) -> None:
+        self.flushes.append(len(records))
+        self.saved.extend(records)
 
 
 def fake_extractor(document_text: str) -> EarningsResult:

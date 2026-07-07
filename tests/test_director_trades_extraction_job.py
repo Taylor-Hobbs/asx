@@ -35,6 +35,7 @@ class FakeBackend:
         self._already = already or set()
         self.loads: list[str] = []
         self.saved: list[ExtractionRecord[DirectorTradesResult]] = []
+        self.flushes: list[int] = []
 
     def golden_hashes(self) -> set[str]:
         return set(self._golden)
@@ -49,8 +50,9 @@ class FakeBackend:
         self.loads.append(content_hash)
         return (self._golden | self._corpus)[content_hash]
 
-    def save(self, record: ExtractionRecord[DirectorTradesResult]) -> None:
-        self.saved.append(record)
+    def save_records(self, records: list[ExtractionRecord[DirectorTradesResult]]) -> None:
+        self.flushes.append(len(records))
+        self.saved.extend(records)
 
 
 class TestScopes:
@@ -157,6 +159,9 @@ class TestRunBatch:
         assert {r.content_hash for r in backend.saved} == {HASH_A, HASH_B}
         assert summary.failed == []
         assert backend.saved[0].prompt_version == "director_trades_v3"
+        # Collection batches its BQ writes: both records in ONE flush, not
+        # one load job each (the 1,500 jobs/day quota, third offender).
+        assert backend.flushes == [2]
 
     def test_haiku_requests_carry_no_thinking_param(self) -> None:
         # The bug that errored 26/26 once: haiku rejects any thinking config.
