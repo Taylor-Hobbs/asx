@@ -42,6 +42,7 @@ import structlog
 from anthropic.types.message_create_params import MessageCreateParamsNonStreaming
 from anthropic.types.messages.batch_create_params import Request
 from dotenv import load_dotenv
+from google.api_core.exceptions import TooManyRequests
 from google.cloud import bigquery
 from pydantic import TypeAdapter, ValidationError
 
@@ -80,6 +81,40 @@ class ExtractionBackend(Protocol):
 # writer got swept. Batch results are retained 29 days; --resume recovers a
 # crash between flushes.
 FLUSH_EVERY = 250
+
+
+def load_rows_with_backoff(
+    bq: bigquery.Client,
+    rows: list[dict[str, object]],
+    table_id: str,
+    schema: list[bigquery.SchemaField],
+    *,
+    sleep: Callable[[float], None] = time.sleep,
+    max_attempts: int = 6,
+) -> None:
+    """One load job, retried with exponential backoff on 429s.
+
+    Batch collection has no API latency between flushes — 250-record buffers
+    fill in seconds, and back-to-back load jobs trip BigQuery's SHORT-TERM
+    table-update rate limit (~5 ops per 10s per table; distinct from the
+    1,500/day quota, which backoff cannot fix and which stays fatal). A 429
+    here is therefore "slow down", not "stop": wait, retry, and only give up
+    after max_attempts.
+    """
+    job_config = bigquery.LoadJobConfig(
+        schema=schema,
+        write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
+    )
+    for attempt in range(max_attempts):
+        try:
+            bq.load_table_from_json(rows, table_id, job_config=job_config).result()
+            return
+        except TooManyRequests:
+            if attempt == max_attempts - 1:
+                raise
+            delay = 10.0 * 2**attempt  # 10s, 20s, 40s, 80s, 160s
+            log.warning("bq.rate_limited", table=table_id, retry_in_seconds=delay)
+            sleep(delay)
 
 
 @dataclass
@@ -363,11 +398,7 @@ class GcpExtractionBackend:
             row = record.model_dump(mode="json", exclude={"payload"})
             row["payload"] = record.payload.model_dump_json()
             rows.append(row)
-        job_config = bigquery.LoadJobConfig(
-            schema=self._extractions_schema,
-            write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
-        )
-        self._bq.load_table_from_json(rows, self._extractions_id, job_config=job_config).result()
+        load_rows_with_backoff(self._bq, rows, self._extractions_id, self._extractions_schema)
 
 
 def main() -> None:

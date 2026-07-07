@@ -44,7 +44,7 @@ from pydantic import TypeAdapter, ValidationError
 from asx_engine.config import Settings, load_settings
 from asx_engine.extraction.director_trades import extract_director_trades, load_prompt
 from asx_engine.extraction.earnings import EXTRACTION_MODEL, MAX_OUTPUT_TOKENS, supports_thinking
-from asx_engine.extraction.job import EXTRACTIONS_TABLE
+from asx_engine.extraction.job import EXTRACTIONS_TABLE, load_rows_with_backoff
 from asx_engine.parsing.pdf import PARSER_VERSION, ParsedDocument, ParseQuality
 from asx_engine.schemas import ExtractionRecord, LabelStatus, utc_now
 from asx_engine.schemas.director_trades import DirectorTradeGoldenLabel, DirectorTradesResult
@@ -376,11 +376,7 @@ class GcpExtractionBackend:
             row = record.model_dump(mode="json", exclude={"payload"})
             row["payload"] = record.payload.model_dump_json()
             rows.append(row)
-        job_config = bigquery.LoadJobConfig(
-            schema=self._extractions_schema,
-            write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
-        )
-        self._bq.load_table_from_json(rows, self._extractions_id, job_config=job_config).result()
+        load_rows_with_backoff(self._bq, rows, self._extractions_id, self._extractions_schema)
 
 
 def main() -> None:

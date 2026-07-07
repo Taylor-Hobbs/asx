@@ -182,6 +182,49 @@ class TestRun:
         assert summary.extracted == []
 
 
+class TestLoadRowsWithBackoff:
+    """429s between back-to-back flushes are 'slow down', not 'stop'."""
+
+    def _bq(self, failures: int) -> SimpleNamespace:
+        from google.api_core.exceptions import TooManyRequests
+
+        calls = {"n": 0}
+
+        def load_table_from_json(rows, table_id, job_config):  # noqa: ANN001, ANN202
+            calls["n"] += 1
+            if calls["n"] <= failures:
+                raise TooManyRequests("table.write rate limit")
+            return SimpleNamespace(result=lambda: None)
+
+        return SimpleNamespace(load_table_from_json=load_table_from_json, calls=calls)
+
+    def test_retries_through_transient_429s(self) -> None:
+        from asx_engine.extraction.job import load_rows_with_backoff
+
+        bq = self._bq(failures=2)
+        sleeps: list[float] = []
+        load_rows_with_backoff(bq, [{"a": 1}], "t", [], sleep=sleeps.append)  # type: ignore[arg-type]
+        assert bq.calls["n"] == 3
+        assert sleeps == [10.0, 20.0]  # exponential, not hammering
+
+    def test_gives_up_after_max_attempts(self) -> None:
+        from google.api_core.exceptions import TooManyRequests
+
+        from asx_engine.extraction.job import load_rows_with_backoff
+
+        bq = self._bq(failures=99)
+        with pytest.raises(TooManyRequests):
+            load_rows_with_backoff(
+                bq,  # type: ignore[arg-type]
+                [{"a": 1}],
+                "t",
+                [],
+                sleep=lambda _s: None,
+                max_attempts=3,
+            )
+        assert bq.calls["n"] == 3
+
+
 def batch_message(payload_json: str, stop_reason: str = "end_turn") -> SimpleNamespace:
     """The slice of a batch-result Message that run_batch reads."""
     return SimpleNamespace(
