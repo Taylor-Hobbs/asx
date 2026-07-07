@@ -59,13 +59,19 @@ def build_events_sql(dataset: str) -> str:
         JSON_EXTRACT_SCALAR(t, '$.director_role.value')      AS director_role,
         JSON_EXTRACT_SCALAR(t, '$.trade_type.value')         AS trade_type,
         JSON_EXTRACT_SCALAR(t, '$.nature.value')             AS nature,
-        JSON_EXTRACT_SCALAR(t, '$.security_class.value')     AS security_class,
-        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.quantity.value') AS NUMERIC)            AS quantity,
-        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.price_per_security.value') AS NUMERIC)  AS price_per_security,
-        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.total_consideration.value') AS NUMERIC) AS total_consideration,
-        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.trade_date.value') AS DATE)             AS trade_date,
-        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.holdings_before.value') AS NUMERIC)     AS holdings_before,
-        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.holdings_after.value') AS NUMERIC)      AS holdings_after
+        JSON_EXTRACT_SCALAR(t, '$.security_class.value') AS security_class,
+        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.quantity.value') AS NUMERIC)
+          AS quantity,
+        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.price_per_security.value') AS NUMERIC)
+          AS price_per_security,
+        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.total_consideration.value') AS NUMERIC)
+          AS total_consideration,
+        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.trade_date.value') AS DATE)
+          AS trade_date,
+        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.holdings_before.value') AS NUMERIC)
+          AS holdings_before,
+        SAFE_CAST(JSON_EXTRACT_SCALAR(t, '$.holdings_after.value') AS NUMERIC)
+          AS holdings_after
       FROM latest_extraction e,
            UNNEST(JSON_EXTRACT_ARRAY(e.payload, '$.trades')) AS t WITH OFFSET AS idx
       WHERE e.rn = 1
