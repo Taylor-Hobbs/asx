@@ -143,7 +143,8 @@ class FakeBackend:
     def __init__(self, pdfs: dict[str, bytes], already: set[str] | None = None) -> None:
         self._pdfs = pdfs
         self._already = already or set()
-        self.saved: list[ParsedDocument] = []
+        self.texts: list[ParsedDocument] = []
+        self.flushes: list[list[ParsedDocument]] = []
         self.loads: list[str] = []
 
     def announcement_hashes(self) -> set[str]:
@@ -156,8 +157,16 @@ class FakeBackend:
         self.loads.append(content_hash)
         return self._pdfs[content_hash]
 
-    def save(self, document: ParsedDocument) -> None:
-        self.saved.append(document)
+    def save_text(self, document: ParsedDocument) -> None:
+        self.texts.append(document)
+
+    def append_rows(self, documents: list[ParsedDocument]) -> None:
+        self.flushes.append(list(documents))
+
+    @property
+    def saved(self) -> list[ParsedDocument]:
+        """All rows that reached BigQuery, across every flush."""
+        return [d for flush in self.flushes for d in flush]
 
 
 class TestRun:
@@ -182,3 +191,12 @@ class TestRun:
         summary = run(backend)
         assert backend.loads == []
         assert summary.parsed == []
+        assert backend.flushes == []  # no empty load job
+
+    def test_rows_flush_batched_with_text_uploaded_per_document(self) -> None:
+        # One load job for the batch (the 1,500 jobs/day quota lesson, second
+        # offender), while text artifacts upload as each document parses.
+        backend = FakeBackend({HASH_A: make_pdf("alpha"), HASH_B: make_pdf("beta")})
+        run(backend)
+        assert len(backend.texts) == 2
+        assert [len(f) for f in backend.flushes] == [2]

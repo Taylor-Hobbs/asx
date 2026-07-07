@@ -36,13 +36,22 @@ class ParseBackend(Protocol):
     def announcement_hashes(self) -> set[str]: ...
     def parsed_hashes(self, parser_version: str) -> set[str]: ...
     def load_pdf(self, content_hash: str) -> bytes: ...
-    def save(self, document: ParsedDocument) -> None: ...
+    def save_text(self, document: ParsedDocument) -> None: ...
+    def append_rows(self, documents: list[ParsedDocument]) -> None: ...
 
 
 @dataclass
 class ParseSummary:
     parsed: list[ParsedDocument] = field(default_factory=list)
     already_parsed: int = 0
+
+
+# Rows buffered before one BigQuery load job — the load_job_per_table daily
+# quota is 1,500, and one-job-per-document tripped it twice (announcements on
+# 2026-07-06, parsed_documents on 2026-07-07). Text artifacts still upload per
+# document; a crash between upload and flush means at most one bufferful is
+# re-parsed next run, which idempotency absorbs.
+FLUSH_EVERY = 250
 
 
 def run(backend: ParseBackend, *, parser_version: str = PARSER_VERSION) -> ParseSummary:
@@ -59,11 +68,22 @@ def run(backend: ParseBackend, *, parser_version: str = PARSER_VERSION) -> Parse
         pending=len(pending),
     )
 
+    row_buffer: list[ParsedDocument] = []
+
+    def flush() -> None:
+        if row_buffer:
+            backend.append_rows(row_buffer)
+            log.info("parse.rows_flushed", rows=len(row_buffer))
+            row_buffer.clear()
+
     for content_hash in pending:
         document = parse_pdf(
             backend.load_pdf(content_hash), content_hash=content_hash, parsed_at=utc_now()
         )
-        backend.save(document)
+        backend.save_text(document)
+        row_buffer.append(document)
+        if len(row_buffer) >= FLUSH_EVERY:
+            flush()
         summary.parsed.append(document)
         log.info(
             "parse.stored",
@@ -74,6 +94,7 @@ def run(backend: ParseBackend, *, parser_version: str = PARSER_VERSION) -> Parse
             quality=document.quality.value,
         )
 
+    flush()
     quality_counts: dict[str, int] = {}
     for document in summary.parsed:
         quality_counts[document.quality.value] = quality_counts.get(document.quality.value, 0) + 1
@@ -114,17 +135,22 @@ class GcpParseBackend:
         data = self._bucket.blob(f"raw/{content_hash}.pdf").download_as_bytes()
         return bytes(data)
 
-    def save(self, document: ParsedDocument) -> None:
-        # Text first, row second — same crash-safety reasoning as ingestion:
+    def save_text(self, document: ParsedDocument) -> None:
+        # Text first, rows later — same crash-safety reasoning as ingestion:
         # a missing BQ row just means re-parse; a row without text would lie.
         blob = self._bucket.blob(f"parsed/{document.parser_version}/{document.content_hash}.json")
         blob.upload_from_string(document.model_dump_json(), content_type="application/json")
-        row = document.model_dump(mode="json", exclude={"pages"})
+
+    def append_rows(self, documents: list[ParsedDocument]) -> None:
+        """Many flag rows, ONE load job — see FLUSH_EVERY for the quota story."""
+        if not documents:
+            return
+        rows = [d.model_dump(mode="json", exclude={"pages"}) for d in documents]
         job_config = bigquery.LoadJobConfig(
             schema=self._parsed_schema,
             write_disposition=bigquery.WriteDisposition.WRITE_APPEND,
         )
-        self._bq.load_table_from_json([row], self._parsed_id, job_config=job_config).result()
+        self._bq.load_table_from_json(rows, self._parsed_id, job_config=job_config).result()
 
 
 def main() -> None:
