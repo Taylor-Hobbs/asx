@@ -5,6 +5,42 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 — THE DATASET: 4,743 director trades extracted from 3,232 filings
+
+**The flagship vertical is complete end to end.** 24 months × 199 tickers of
+Appendix 3Y filings → crawl → parse → Haiku batch extraction with the
+benchmarked director_trades_v3 prompt (93.1%):
+
+- **3,232 / 3,233 documents extracted** (1 batch failure), ~$12 at batch rates
+  (14.0M input / 2.0M output tokens)
+- **4,743 trades** — 3,396 acquisitions, 1,057 disposals, **250 transfers**
+- 1,040 distinct directors
+
+The 250 transfers (5% of all trades) vindicate the TRANSFER schema ruling:
+under the old acquisition|disposal enum every one of them would have been
+fabricated directional signal in the Q2 event study.
+
+**The BQ quota saga concluded (third table, then a fourth failure mode):**
+extraction_records was about to trip the 1,500 load-jobs/day quota mid-
+collection — caught at record 56, stopped, both extraction jobs swept to
+buffered flushes, resumed from the batch (results live 29 days; nothing
+re-paid). The resumed run then hit BigQuery's SHORT-TERM table-update rate
+limit (~5 ops/10s) because batched flushes fire back-to-back with no API
+latency between them. Fix: `load_rows_with_backoff` — 429s retry at
+10s/20s/40s/…; the daily quota stays fatal. Every bulk BQ writer is now
+batched AND backoff-wrapped.
+
+**Data note:** up to ~250 extraction_records rows may be duplicated (a flush
+whose load job committed server-side while the client saw the 429). Readers
+must dedupe by content_hash — the eval job's dict and the summary query's
+ROW_NUMBER both already do.
+
+**Next:** eyeball a sample of payloads against PDFs, retry the 1 failure,
+then phase-2 broad crawl + earnings extraction to close Q1. Q2 event study
+now has its first dataset waiting.
+
+---
+
 ## 2026-07-07 — 3Y corpus collected AND parsed; extraction staged at the gate
 
 **Phase-1 crawl complete: 3,234 Appendix 3Y filings**, 199 tickers × 24
