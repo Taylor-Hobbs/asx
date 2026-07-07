@@ -5,6 +5,32 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-07 — 3Y corpus collected AND parsed; extraction staged at the gate
+
+**Phase-1 crawl complete: 3,234 Appendix 3Y filings**, 199 tickers × 24
+months, zero failures on the resumed run. The crawler inspected ~45k
+announcements to find them (35.5k non-3Y filtered, 8.5k outside the window).
+Resumability proved itself for real — the rerun swept 108 already-done
+tickers at listing-only speed and downloaded just the missing ~1,500.
+
+**The BQ load-job quota bit a SECOND table.** parsed_documents tripped the
+same 1,500 jobs/day limit at document 1,561 — Monday's fix had patched the
+announcements store but not the parse job's own save path (the lesson: when a
+pattern bites once, sweep every writer). Same remedy applied: text artifacts
+per document, flag rows flushed 250/load-job. Side effect: parsing got ~4×
+faster — the per-document load job, not pdfplumber, was the bottleneck.
+
+**Corpus parsed: 3,200/3,200, 100% good quality.** Simple digital forms parse
+clean.
+
+**Built earlier in the day: bulk extraction path** (`--scope corpus --batch`)
+with the submit/poll/collect/--resume shape and a --confirm cost gate. Gate
+output as of tonight: **3,205 documents pending, ~$10 at Haiku batch rates.**
+Not yet run — paused at the gate. Next session: submit with --confirm, then
+the 3Y structured dataset (director_trades_v3, 93.1%) exists end to end.
+
+---
+
 ## 2026-07-06 — bulk backfill script; phase-1 crawl (24mo × 3Y) launched
 
 **Built `ingestion/backfill.py`** — the bulk sibling of manual.py. No
