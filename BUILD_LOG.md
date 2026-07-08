@@ -5,6 +5,20 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (last) — in-sample prototype backtest: the CAAR doesn't survive a portfolio
+
+Calendar-time portfolio on hypothesis #1 (57 deduped $1M+ sale signals →
+short at day-0 close, 63-day hold, index-hedged, ~7 concurrent, 20bps/side):
+**Sharpe 0.23, max DD −33.7%**, 2024 flat, 2025 −11.4%, all profit in
+H1-2026. Even fitted to its own discovery window, the naive implementation
+is near-worthless as a strategy — CAAR equal-weights events, a portfolio
+lives in calendar time, and clustered signals dilute. Close to the honest
+"no edge after costs" outcome for the naive version; refinements on the same
+data would be curve-fitting. Path unchanged: earnings controls (broad
+crawl) → out-of-sample forward paper (Q4).
+
+---
+
 ## 2026-07-08 (addendum) — buys on the same grid: hypothesis #2, method-suspect
 
 Same horizon×size grid for on-market purchases (deduped n=489, median buy
