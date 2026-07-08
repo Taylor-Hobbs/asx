@@ -5,6 +5,35 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (night) — FIRST RESULT: sales drift −7%, purchases null
+
+**The event study core** (`events/event_study.py`, pure numpy, 22 tests on
+known-by-construction synthetic returns): market model (MacKinlay), BMP
+standardized test with forecast-error correction, Corrado rank test. **The
+runner** (`events/study_runner.py`): tradeable day-0 rule (pre-16:00 Sydney →
+same day, else next trading day), pairwise alignment on real observations (no
+imputation), estimation [-120,-21], run-up gap, event [-5,+20].
+
+**First hypotheses, 24 months × ~196 tickers:**
+
+| cohort | n | CAAR(-5..+20) | BMP z | verdict |
+|--------|---|---------------|-------|---------|
+| on-market purchases | 1,254 | +0.45% | +0.12 (p=0.91) | **null** — honest negative #1 |
+| on-market sales | 397 | **−7.1%** | **−7.48** (p<0.0001) | hypothesis #1, not an edge |
+
+Purchases: directors buy after price falls (−0.8% pre-event drift), then
+nothing. Sales: −3.8% of the drift is POST-announcement — the theoretically
+tradeable part. Both consistent with the literature, which is the right
+sanity sign for a first run.
+
+**Why sales is a hypothesis and not an edge (the Q2 to-do list it creates):**
+event clustering violates BMP independence (sales bunch in downdrafts);
+earnings-announcement confounds (sales cluster after results); disclosure lag
+means pre-event drift contains the trade's own footprint; no costs, no
+multiple-testing correction, prototype prices, survivorship-lite universe.
+
+---
+
 ## 2026-07-08 (later) — Q2 opens: event store + price data landed
 
 **Taylor's call: model first, find what breaks, finish Q1 data after.** Broad
