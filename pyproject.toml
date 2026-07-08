@@ -27,6 +27,8 @@ dependencies = [
     "tzdata>=2024.2",
     "yfinance>=1.5.1",
     "pandas>=3.0.3",
+    "numpy>=2.5.1",
+    "db-dtypes>=1.7.0",
 ]
 
 [dependency-groups]
