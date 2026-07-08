@@ -5,6 +5,38 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (battery) — robustness battery rewrites the story: alpha-extrapolation artifact found
+
+Eight tests in one pass (`scripts/_flesh_out.py`, market-ADJUSTED returns,
+63d, deduped). The headline: **the −12–16% market-model CAR collapses to
+−1.2% (ns) under simple market-adjusted returns.** Diagnosis: directors sell
+after run-ups → the estimation window fits a high α → extrapolating that α
+63 days forward manufactures negative "abnormal" returns when the stock
+merely stops outperforming. Most of hypothesis #1's MAGNITUDE was method
+artifact.
+
+**What survives — smaller but placebo-proof:** these same tickers randomly
+drift +3.9%/63d (winners; that's why directors are selling). Sale-timed
+windows: −1.2%. The conditional effect is ≈ **−5% vs the stock's own
+baseline**, sitting at percentile 2.6 of 1,000 random-date placebo draws.
+The transfer control corroborates perfectly: 143 zero-information filings
+show +3.5% (≈ placebo), sales show deterioration — the sale filing does mark
+a turning point.
+
+**Sharpeners mostly failed:** multi-seller no better than lone; selling out
+≥50% of stake is OPPOSITE (+4.5% — full exits are retirements, not
+information); fast vs slow filers identical; entry-delay and hold sweeps show
+no robust plateau. Only repeat-sellers (−4.0% vs first-sale +1.6%) hints at
+structure. The signal is real, diffuse, and ~5% — not crisp and −16%.
+
+**Study status: "large director sales mark ~−5% conditional underperformance
+vs the stock's own drift over 3 months (placebo p≈0.03); prior magnitude
+estimates were alpha-extrapolation artifacts."** The sector-hedged Sharpe
+0.67 is accordingly suspect. This entry is the rigor checklist earning its
+keep — again.
+
+---
+
 ## 2026-07-08 (close) — hit rates + sector-neutral stat-arb: the shape improves
 
 **Hit rates (the sharpest sentence in the study):** of 49 deduped $1M+
