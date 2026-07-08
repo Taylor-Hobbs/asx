@@ -73,7 +73,39 @@ def is_broad_candidate(listed: HtmlAnnouncement) -> bool:
     return not _ADMIN_NOISE.search(listed.headline)
 
 
-FILTERS = {"3y": is_3y_candidate, "broad": is_broad_candidate}
+# P0 (priority crawl, decided 2026-07-09): the two categories that unblock
+# existing findings. Results filings give exact earnings dates (the
+# reporting-season confound verdict + PR-001's season split); appointment/
+# cessation notices state director roles (the exec-seller hypothesis).
+_RESULTS_HEADLINE = re.compile(
+    r"appendix\s*4[cde]|half[\s-]*year|full[\s-]*year|annual\s+report"
+    r"|preliminary final|results (announcement|presentation|release)"
+    r"|\bFY\d{2}.{0,12}results|results for announcement",
+    re.IGNORECASE,
+)
+_APPOINTMENT_HEADLINE = re.compile(
+    r"appendix\s*3[xz]|appointment of|resignation of (a )?director"
+    r"|(initial|final) director.s interest|ceases (as|to be) (a )?director"
+    r"|(managing director|ceo|chief executive|chairman|director) (appointment|succession|transition|retirement)",
+    re.IGNORECASE,
+)
+_RESULTS_FALSE_POSITIVES = re.compile(
+    r"results of (annual general )?meeting|resignation of auditor", re.IGNORECASE
+)
+
+
+def is_p0_candidate(listed: HtmlAnnouncement) -> bool:
+    if _RESULTS_FALSE_POSITIVES.search(listed.headline):
+        return False
+    # Results must carry the price-sensitive flag (real results filings do;
+    # presentations reposts often don't matter). Appointments usually are NOT
+    # flagged, so they pass on headline alone.
+    if listed.price_sensitive and _RESULTS_HEADLINE.search(listed.headline):
+        return True
+    return bool(_APPOINTMENT_HEADLINE.search(listed.headline))
+
+
+FILTERS = {"3y": is_3y_candidate, "broad": is_broad_candidate, "p0": is_p0_candidate}
 
 # Rows buffered before one BigQuery load job. Sized for the quota (1,500 load
 # jobs/table/day — the 2026-07-06 run tripped it doing one job per row): a

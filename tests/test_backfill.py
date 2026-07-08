@@ -146,6 +146,50 @@ class TestFilters:
         assert is_broad_candidate(listed(headline=signal))
 
 
+class TestP0Filter:
+    def _ps(self, headline: str, sensitive: bool = True) -> HtmlAnnouncement:
+        a = listed(headline=headline)
+        return HtmlAnnouncement(**{**a.model_dump(), "price_sensitive": sensitive})
+
+    @pytest.mark.parametrize(
+        "headline",
+        [
+            "Appendix 4D and Half Year Report",
+            "Appendix 4E - Preliminary Final Report",
+            "Quarterly Activities Report and Appendix 4C",
+            "FY26 Results Presentation",
+        ],
+    )
+    def test_price_sensitive_results_pass(self, headline: str) -> None:
+        from asx_engine.ingestion.backfill import is_p0_candidate
+
+        assert is_p0_candidate(self._ps(headline))
+
+    def test_unflagged_results_do_not_pass(self) -> None:
+        from asx_engine.ingestion.backfill import is_p0_candidate
+
+        assert not is_p0_candidate(self._ps("Appendix 4D Half Year Report", sensitive=False))
+
+    @pytest.mark.parametrize(
+        "headline",
+        [
+            "Appointment of Managing Director",
+            "Appendix 3X - Initial Director's Interest Notice",
+            "Resignation of Director",
+            "CEO Succession Announcement",
+        ],
+    )
+    def test_appointments_pass_without_flag(self, headline: str) -> None:
+        from asx_engine.ingestion.backfill import is_p0_candidate
+
+        assert is_p0_candidate(self._ps(headline, sensitive=False))
+
+    def test_results_of_meeting_is_rejected(self) -> None:
+        from asx_engine.ingestion.backfill import is_p0_candidate
+
+        assert not is_p0_candidate(self._ps("Results of Annual General Meeting"))
+
+
 class TestResumability:
     def test_existing_records_are_never_refetched(self) -> None:
         source = FakeSource({("BHP", 2026): [listed(ids_id="03000001")]})
