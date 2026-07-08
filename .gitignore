@@ -82,3 +82,4 @@ scripts/_backtest_sales.py
 scripts/_sales_hitrate.py
 scripts/_statarb_backtest.py
 scripts/_flesh_out.py
+scripts/_signoff.py

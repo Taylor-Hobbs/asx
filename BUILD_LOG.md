@@ -5,6 +5,35 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (sign-off) — final battery: no confirmed edge; a suggestive residual
+
+Five closing tests (`scripts/_signoff.py`):
+
+1. **Run-up-matched control** (the decisive one): each $1M+ sale matched to a
+   no-sale stock with near-identical prior 6mo run-up (+16.8% vs +16.3%).
+   Event fwd 63d −1.68% vs control +2.78% → **sale-specific effect −4.46%,
+   paired t=−1.72 (p≈0.09)**. Not mere mean reversion — matched winners kept
+   climbing — but not significant either at n=43.
+2. **Cross-sectional regression** (n=81): the only significant carrier is
+   **repeat-seller (coef −8.4%, t=−2.07)**. Size is NOT significant once
+   controlled — the "$1M+" framing was partly proxying serial sellers
+   (WTC/HVN/NWL). Sale size per se carries nothing.
+3. **Buys 1yr placebo:** real +10.1% vs placebo +5.3% on the same tickers →
+   percentile 91, p≈0.09. **Hypothesis #2 dead** — mostly base drift.
+4. **Bootstrap CI** on big-sale fwd63: −1.68% **[−6.3%, +2.8%]** — spans zero.
+5. **Volume at filing:** 1.15× normal — the market barely notices these.
+
+**SIGN-OFF STATEMENT: no confirmed identifiable edge in ASX 200 director
+trades, 2024–26.** Purchases: null at all horizons (placebo-confirmed).
+Sales: a directionally consistent ~4–5%/quarter sale-timing effect vs
+matched controls, concentrated in repeat sellers, at p≈0.09 — suggestive,
+unconfirmed, and still earnings-confounded. Resolution requires earnings
+dates (broad crawl) and Q4 forward paper. The study's strongest products:
+two clean nulls, two self-caught inflation artifacts (window double-count,
+alpha extrapolation), and the transfer-filing control methodology.
+
+---
+
 ## 2026-07-08 (battery) — robustness battery rewrites the story: alpha-extrapolation artifact found
 
 Eight tests in one pass (`scripts/_flesh_out.py`, market-ADJUSTED returns,
