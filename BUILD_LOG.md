@@ -5,6 +5,20 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (addendum) — buys on the same grid: hypothesis #2, method-suspect
+
+Same horizon×size grid for on-market purchases (deduped n=489, median buy
+just $50k vs sales' $1.1M): nothing at 1wk–3mo, then +11.8% at 1yr (z=+3.2,
+median +11.0%), both size halves ≈+21% mean. **Ranked below the sales
+hypothesis**: the effect only appears at the horizon where the market model
+is weakest — bad-model compounding over 250 days, double survivorship (must
+trade a full year + today's-constituents universe), overlapping windows, and
+contrarian mean reversion (directors buy dips). Sales peaks at 3–6mo where
+the method is solid and is null at 1yr; buys is the reverse — that asymmetry
+is itself the tell. Parked for BHAR + EODHD (delisting-aware) in Q3.
+
+---
+
 ## 2026-07-08 (final) — horizon × size grid: the signal is BIG sales, 3–6 months
 
 Taylor's push: "sales still feels like a signal — are we only looking at one
