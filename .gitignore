@@ -83,3 +83,7 @@ scripts/_sales_hitrate.py
 scripts/_statarb_backtest.py
 scripts/_flesh_out.py
 scripts/_signoff.py
+scripts/_league_tables.py
+scripts/_role_analysis.py
+scripts/_earnings_confound.py
+scripts/_seasonal_proxy.py

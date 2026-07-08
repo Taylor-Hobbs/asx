@@ -5,6 +5,24 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (coda) — the earnings confound confirmed by a calendar
+
+yfinance earnings dates: 0/106 ASX coverage (US-only API). Fallback: ASX
+reporting seasonality as proxy (Feb/Mar + Aug/Sep = post-results trading
+windows). The split is decisive: **reporting-season sales −2.2% (n=132,
+t=−1.55); off-season sales +3.5% (n=95, t=+2.10)** — the entire negative
+drift lives in the post-results window, and free-timed off-season sales
+(which should be MOST informative if directors carry signal) show none.
+Post-earnings drift wearing a director-sale costume. Combined with the
+matched-control and regression results, the residual hypothesis is now
+substantially dead pending the broad crawl's exact dates. Study conclusion
+firms up: **no identifiable edge in ASX 200 director trades 2024–26; the
+apparent signal decomposes into (1) window double-counting, (2) alpha
+extrapolation, (3) reporting-season momentum.** Role-enrichment (exec
+sellers, n=12 at −6.4%) is the one thread left open.
+
+---
+
 ## 2026-07-08 (sign-off) — final battery: no confirmed edge; a suggestive residual
 
 Five closing tests (`scripts/_signoff.py`):
