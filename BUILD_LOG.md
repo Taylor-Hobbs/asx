@@ -5,6 +5,33 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (final) — horizon × size grid: the signal is BIG sales, 3–6 months
+
+Taylor's push: "sales still feels like a signal — are we only looking at one
+month?" We were. Deduped sales, post-announcement CAR by horizon × size
+(`scripts/_sales_horizons.py`):
+
+| horizon | all (n≈201) | big ≥$1.1M (n≈46) | small (n≈45) |
+|---------|-------------|--------------------|---------------|
+| 1wk | −1.2% ns | −2.6% ns | ns |
+| 1mo | −3.1% z=−3.1 | −6.2% z=−3.4 | ns |
+| 3mo | −6.9% z=−4.1 | **−11.7% z=−4.3** | ns |
+| 6mo | −11.9% z=−3.7 | **−16.1% z=−3.1 (med −17.7%)** | ns |
+| 1yr | ns | n=17 | median +7.4% |
+
+Slow drift, not an announcement pop; concentrated entirely in large sales;
+medians ≈ means (not outliers). The 1yr fade is horizon/time-period
+confounding (1yr windows only fit the weak early half). Caveats: size split
+covers only 91/206 events (consideration often unstated); long windows
+contain earnings announcements (the confound the broad crawl must resolve);
+15 cells scanned — the big-sale 3mo/6mo cells survive a Bonferroni haircut.
+
+**Refined hypothesis #1: large (≥$1M) on-market director sales precede
+−12–16% abnormal drift over 3–6 months.** Falsifiable, specific, and the
+input Q3's costed backtest wants.
+
+---
+
 ## 2026-07-08 (later still) — breaking the sales result: half died, the rest got interesting
 
 Adversarial diagnostics on the −7.1% sales CAAR (`scripts/_break_sales.py`):

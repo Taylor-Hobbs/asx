@@ -76,3 +76,4 @@ scripts/eval_revenue_failures.py
 *.log
 scripts/_dt_corpus_summary.py
 scripts/_break_sales.py
+scripts/_sales_horizons.py
