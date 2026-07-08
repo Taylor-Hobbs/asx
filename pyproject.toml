@@ -25,6 +25,8 @@ dependencies = [
     # IANA timezone database for zoneinfo — bundled on Linux, absent on
     # Windows; announcement times are published in Australia/Sydney local.
     "tzdata>=2024.2",
+    "yfinance>=1.5.1",
+    "pandas>=3.0.3",
 ]
 
 [dependency-groups]
@@ -35,6 +37,7 @@ dev = [
     "ruff>=0.8",
     "mypy>=1.13",
     "types-beautifulsoup4>=4.12",
+    "pandas-stubs>=3.0.3.260530",
 ]
 
 [build-system]
@@ -69,12 +72,19 @@ strict = true
 packages = ["asx_engine"]
 mypy_path = "src"
 
-# google-cloud-storage and pdfplumber ship no py.typed (unlike
+# google-cloud-storage, pdfplumber and yfinance ship no py.typed (unlike
 # google-cloud-bigquery), so their objects are Any. Acceptable: our wrappers
 # around them are thin and the integrations are exercised by tests (pdfplumber
 # against real synthesized PDFs) or against the real service.
 [[tool.mypy.overrides]]
-module = ["google.cloud.storage.*", "google.cloud.storage", "pdfplumber.*", "pdfplumber"]
+module = [
+    "google.cloud.storage.*",
+    "google.cloud.storage",
+    "pdfplumber.*",
+    "pdfplumber",
+    "yfinance.*",
+    "yfinance",
+]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

@@ -5,6 +5,33 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (later) — Q2 opens: event store + price data landed
+
+**Taylor's call: model first, find what breaks, finish Q1 data after.** Broad
+crawl and earnings extraction deferred; the 3Y dataset goes straight into Q2.
+
+**Event store** (`events/director_trades.py` → `events_director_trades`):
+4,743 events, one row per trade, anchored on **announced_at** — trade_date
+precedes the tradeable moment by up to five business days and would be
+lookahead; the gap is kept as `disclosure_lag_days`, a feature and a tripwire.
+Deduped by content_hash (latest extraction wins), whole-table rebuild.
+Tripwires on first build: 421 docs with zero trades (likely initial/final
+notices — verify), 3 negative lags, 66 null trade_dates, 176/199 tickers.
+
+**Price loader** (`prices/loader.py` → `daily_prices`): yfinance daily bars,
+2023-07-01 onward (a year of estimation runway before the earliest event),
+universe + ^AXJO index as ticker XJO. **147,721 rows over 763 trading days:
+190 tickers ok, 7 short-history (recent listings: NEM, L1G, RYM…), 3 empty
+(IFL, NSR, XYX — renames/delistings).** Prototype-grade by decree; EODHD
+gates anything published. First run failed loud on ^XJO — Yahoo's ASX 200 is
+^AXJO — which is exactly what the no-index-no-run check is for.
+
+**Next: the event study core** — market-model AR/CAR with BMP + Corrado rank
+statistics as tested pure functions, then purchases-vs-sales, the first
+hypothesis on the board.
+
+---
+
 ## 2026-07-08 — THE DATASET: 4,743 director trades extracted from 3,232 filings
 
 **The flagship vertical is complete end to end.** 24 months × 199 tickers of
