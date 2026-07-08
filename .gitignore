@@ -75,3 +75,4 @@ scripts/eval_revenue_failures.py
 # Crawl logs
 *.log
 scripts/_dt_corpus_summary.py
+scripts/_break_sales.py

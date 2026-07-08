@@ -5,6 +5,30 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (later still) — breaking the sales result: half died, the rest got interesting
+
+Adversarial diagnostics on the −7.1% sales CAAR (`scripts/_break_sales.py`):
+
+- **Near-duplicate windows killed the headline.** Only 201 of 397 events are
+  distinct ticker-episodes (WTC 26 filings, HVN 21, DRO 18 — serial sellers
+  with overlapping event windows counted repeatedly). Dedup to one event per
+  ticker per 30 days: CAAR −7.1% → **−3.1%**, BMP z −7.48 → **−2.57**. The
+  first-pass z was inflated ~2.3× by double-counting.
+- **Time-unstable:** early half −1.95% (z −2.1), late half −12.3% (z −8.2).
+- **Reporting-season confound identified:** peak months Sep 2025 (46 events)
+  and Sep 2024 (42) — trading windows open after August results, so the drift
+  is plausibly post-earnings drift attributed to sales.
+- **What survives:** median −3.6%, 62% of events negative (not outliers);
+  dose-response (big sales −12.2% vs small −5.6%) — signal-shaped.
+
+**Verdict:** hypothesis weakened to "deduped director sales show ~−3%
+post-announcement drift, possibly earnings-entangled." Disentangling needs
+earnings announcement dates for the whole universe — i.e. the phase-2 broad
+crawl. The model-first plan closed its own loop: it named exactly which data
+to collect next.
+
+---
+
 ## 2026-07-08 (night) — FIRST RESULT: sales drift −7%, purchases null
 
 **The event study core** (`events/event_study.py`, pure numpy, 22 tests on
