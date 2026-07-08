@@ -5,6 +5,27 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-08 (close) — hit rates + sector-neutral stat-arb: the shape improves
+
+**Hit rates (the sharpest sentence in the study):** of 49 deduped $1M+
+director sales, **77% underperformed the market over the next 3 months**
+(75% at 6mo). Literal price drops were a coin flip (~53%) — the signal is
+relative, not absolute, which is why unhedged shorts fail.
+
+**Stat-arb variants** (all IN-SAMPLE, and now selection-biased — three tried,
+best reported): short-vs-index Sharpe 0.23 (baseline); short sales + long
+buys 0.33; **short vs same-sector basket: Sharpe 0.67, maxDD −15.5%,
+positive every calendar year** (+1.7/+3.7/+19.3%). Sector-neutrality isolates
+the idiosyncratic underperformance the hit rate measures. Honest prior on
+true Sharpe: well below 0.67 (discovery + selection haircuts, earnings
+confound, 57 signals, no borrow costs).
+
+**Q3 strategy definition graduates: sector-neutral short on $1M+ on-market
+director sales, 63-day hold.** Verdict still owed by: earnings-date controls
+(broad crawl) and Q4 out-of-sample forward paper.
+
+---
+
 ## 2026-07-08 (last) — in-sample prototype backtest: the CAAR doesn't survive a portfolio
 
 Calendar-time portfolio on hypothesis #1 (57 deduped $1M+ sale signals →
@@ -791,3 +812,4 @@ first accuracy number; parallelizes with step 7.
   Q4 scope — don't build them now.
 - RIO Q4-production filing in the corpus is not an earnings doc — exclude from the
   earnings golden set at labeling time.
+
