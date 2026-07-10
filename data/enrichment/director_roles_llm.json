@@ -1,0 +1,1076 @@
+{
+ "A2M|Philippa Mary Greenwood": {
+  "ticker": "A2M",
+  "name": "Philippa Mary Greenwood",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "AFI|Richard Murray": {
+  "ticker": "AFI",
+  "name": "Richard Murray",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ALK|Ian Jeffrey GANDEL": {
+  "ticker": "ALK",
+  "name": "Ian Jeffrey GANDEL",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ALK|William Boucher": {
+  "ticker": "ALK",
+  "name": "William Boucher",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "ALL|Trevor John Croker": {
+  "ticker": "ALL",
+  "name": "Trevor John Croker",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "ALQ|Malcolm Deane": {
+  "ticker": "ALQ",
+  "name": "Malcolm Deane",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ANZ|Paul Dominic O'Sullivan": {
+  "ticker": "ANZ",
+  "name": "Paul Dominic O'Sullivan",
+  "bucket": "ned",
+  "role": "Chair"
+ },
+ "ANZ|Richard Boyce Massey Gibb": {
+  "ticker": "ANZ",
+  "name": "Richard Boyce Massey Gibb",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ANZ|Shayne Cary Elliott": {
+  "ticker": "ANZ",
+  "name": "Shayne Cary Elliott",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "APE|Sophie Alexandra Moore": {
+  "ticker": "APE",
+  "name": "Sophie Alexandra Moore",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ASX|Wayne Stephen Byres": {
+  "ticker": "ASX",
+  "name": "Wayne Stephen Byres",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "AUB|Michael Patrick Cheere Emmett": {
+  "ticker": "AUB",
+  "name": "Michael Patrick Cheere Emmett",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "AZJ|Samantha Tough": {
+  "ticker": "AZJ",
+  "name": "Samantha Tough",
+  "bucket": "ned",
+  "role": "Chair"
+ },
+ "BGA|Richard Dean Cross": {
+  "ticker": "BGA",
+  "name": "Richard Dean Cross",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "BHP|Mike Henry": {
+  "ticker": "BHP",
+  "name": "Mike Henry",
+  "bucket": "exec",
+  "role": "CEO"
+ },
+ "BRG|Dean Warwick Howell": {
+  "ticker": "BRG",
+  "name": "Dean Warwick Howell",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "BRG|James D Clayton": {
+  "ticker": "BRG",
+  "name": "James D Clayton",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "BRG|Lawrence Myers": {
+  "ticker": "BRG",
+  "name": "Lawrence Myers",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "BSL|Mr Vassella": {
+  "ticker": "BSL",
+  "name": "Mr Vassella",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "BXB|Graham Andrew Chipchase": {
+  "ticker": "BXB",
+  "name": "Graham Andrew Chipchase",
+  "bucket": "exec",
+  "role": "CEO"
+ },
+ "CAR|Cameron Lloyd McIntyre": {
+  "ticker": "CAR",
+  "name": "Cameron Lloyd McIntyre",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "CBA|Julie Birgitte Galbo": {
+  "ticker": "CBA",
+  "name": "Julie Birgitte Galbo",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "CBA|Matthew Peter Comyn": {
+  "ticker": "CBA",
+  "name": "Matthew Peter Comyn",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "CGF|Lisa Gray": {
+  "ticker": "CGF",
+  "name": "Lisa Gray",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "CGF|Nicolas Hamilton": {
+  "ticker": "CGF",
+  "name": "Nicolas Hamilton",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "CIA|David Cataford": {
+  "ticker": "CIA",
+  "name": "David Cataford",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "CIA|Gary Lawler": {
+  "ticker": "CIA",
+  "name": "Gary Lawler",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "COH|Caroline Louise Clarke": {
+  "ticker": "COH",
+  "name": "Caroline Louise Clarke",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "COH|Christine Frances McLoughlin": {
+  "ticker": "COH",
+  "name": "Christine Frances McLoughlin",
+  "bucket": "ned",
+  "role": "Chair"
+ },
+ "COH|Diggory William Howitt": {
+  "ticker": "COH",
+  "name": "Diggory William Howitt",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "COH|Karen Lee Collett Penrose": {
+  "ticker": "COH",
+  "name": "Karen Lee Collett Penrose",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "COH|Richard John Freudenstein": {
+  "ticker": "COH",
+  "name": "Richard John Freudenstein",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "COL|Jacqueline Chow": {
+  "ticker": "COL",
+  "name": "Jacqueline Chow",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "CPU|Stuart James Irving": {
+  "ticker": "CPU",
+  "name": "Stuart James Irving",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "CQR|Benjamin David Ellis": {
+  "ticker": "CQR",
+  "name": "Benjamin David Ellis",
+  "bucket": "exec",
+  "role": "Fund Manager/Executive Director"
+ },
+ "CSL|Paul McKenzie": {
+  "ticker": "CSL",
+  "name": "Paul McKenzie",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "CTD|Jamie Pherous": {
+  "ticker": "CTD",
+  "name": "Jamie Pherous",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "CTD|Jon Brett": {
+  "ticker": "CTD",
+  "name": "Jon Brett",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "CTD|Sophie Mitchell": {
+  "ticker": "CTD",
+  "name": "Sophie Mitchell",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "CYL|Bruce Kay": {
+  "ticker": "CYL",
+  "name": "Bruce Kay",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "CYL|James Champion de Crespigny": {
+  "ticker": "CYL",
+  "name": "James Champion de Crespigny",
+  "bucket": "ned",
+  "role": "Chair"
+ },
+ "CYL|Robin MacDiarmid Campbell Scrimgeour": {
+  "ticker": "CYL",
+  "name": "Robin MacDiarmid Campbell Scrimgeour",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "DRO|Peter James": {
+  "ticker": "DRO",
+  "name": "Peter James",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "DXS|Ross Du Vernet": {
+  "ticker": "DXS",
+  "name": "Ross Du Vernet",
+  "bucket": "exec",
+  "role": "Executive Director"
+ },
+ "EOS|Kate Lundy": {
+  "ticker": "EOS",
+  "name": "Kate Lundy",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "EVN|Andrea Hall": {
+  "ticker": "EVN",
+  "name": "Andrea Hall",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "EVN|Jacob Klein": {
+  "ticker": "EVN",
+  "name": "Jacob Klein",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "FLT|Gary Smith": {
+  "ticker": "FLT",
+  "name": "Gary Smith",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "FLT|Graham Turner": {
+  "ticker": "FLT",
+  "name": "Graham Turner",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "FLT|Kirsty Elizabeth Rankin": {
+  "ticker": "FLT",
+  "name": "Kirsty Elizabeth Rankin",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "FMG|Elizabeth Gaines": {
+  "ticker": "FMG",
+  "name": "Elizabeth Gaines",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "GDG|Peter Anthony Smith": {
+  "ticker": "GDG",
+  "name": "Peter Anthony Smith",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "GDG|Robert Neil Coombe": {
+  "ticker": "GDG",
+  "name": "Robert Neil Coombe",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "GDG|William Eric Bessemer": {
+  "ticker": "GDG",
+  "name": "William Eric Bessemer",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "GGP|Mark Barnaba": {
+  "ticker": "GGP",
+  "name": "Mark Barnaba",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "GGP|Shaun Day": {
+  "ticker": "GGP",
+  "name": "Shaun Day",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "GMG|Anthony Rozic": {
+  "ticker": "GMG",
+  "name": "Anthony Rozic",
+  "bucket": "exec",
+  "role": "Executive Director"
+ },
+ "GMG|Danny Peeters": {
+  "ticker": "GMG",
+  "name": "Danny Peeters",
+  "bucket": "exec",
+  "role": "Executive Director"
+ },
+ "GMG|Greg Goodman": {
+  "ticker": "GMG",
+  "name": "Greg Goodman",
+  "bucket": "exec",
+  "role": "Group CEO/Managing Director"
+ },
+ "GPT|Mark John Menhinnitt": {
+  "ticker": "GPT",
+  "name": "Mark John Menhinnitt",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "HDN|David Anthony Di Pilla": {
+  "ticker": "HDN",
+  "name": "David Anthony Di Pilla",
+  "bucket": "exec",
+  "role": "Executive Chair/Managing Director"
+ },
+ "HUB|Andrew Alcock": {
+  "ticker": "HUB",
+  "name": "Andrew Alcock",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "HUB|Anthony McDonald": {
+  "ticker": "HUB",
+  "name": "Anthony McDonald",
+  "bucket": "exec",
+  "role": "Executive Director"
+ },
+ "HUB|Paul Rogan": {
+  "ticker": "HUB",
+  "name": "Paul Rogan",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "HVN|Chris Mentis": {
+  "ticker": "HVN",
+  "name": "Chris Mentis",
+  "bucket": "exec",
+  "role": "Chief Financial Officer/Executive Director"
+ },
+ "HVN|Gerald Harvey": {
+  "ticker": "HVN",
+  "name": "Gerald Harvey",
+  "bucket": "exec",
+  "role": "Executive Chair"
+ },
+ "HVN|Kay Lesley Page": {
+  "ticker": "HVN",
+  "name": "Kay Lesley Page",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "HVN|Michael John Harvey": {
+  "ticker": "HVN",
+  "name": "Michael John Harvey",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "IMD|Anthony Wooles": {
+  "ticker": "IMD",
+  "name": "Anthony Wooles",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "IMD|Paul House": {
+  "ticker": "IMD",
+  "name": "Paul House",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "JBH|Nick Wells": {
+  "ticker": "JBH",
+  "name": "Nick Wells",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "JBH|Terry Smart": {
+  "ticker": "JBH",
+  "name": "Terry Smart",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "JHX|Jesse Singh": {
+  "ticker": "JHX",
+  "name": "Jesse Singh",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "L1G|James Simpson": {
+  "ticker": "L1G",
+  "name": "James Simpson",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "LNW|Hamish Roy McLennan": {
+  "ticker": "LNW",
+  "name": "Hamish Roy McLennan",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "LOV|Tracey Blundy": {
+  "ticker": "LOV",
+  "name": "Tracey Blundy",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "LSF|Mark Landau": {
+  "ticker": "LSF",
+  "name": "Mark Landau",
+  "bucket": "exec",
+  "role": "Co-Managing Director/Executive Director"
+ },
+ "LSF|Raphael Lamm": {
+  "ticker": "LSF",
+  "name": "Raphael Lamm",
+  "bucket": "exec",
+  "role": "Co-Managing Director/Executive Director"
+ },
+ "LTR|Antonino (Tony) Ottaviano": {
+  "ticker": "LTR",
+  "name": "Antonino (Tony) Ottaviano",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "LTR|Timothy R B Goyder": {
+  "ticker": "LTR",
+  "name": "Timothy R B Goyder",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "LYC|Amanda Lacaze": {
+  "ticker": "LYC",
+  "name": "Amanda Lacaze",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "MFG|Andrew Formica": {
+  "ticker": "MFG",
+  "name": "Andrew Formica",
+  "bucket": "exec",
+  "role": "CEO/Executive Director"
+ },
+ "MFG|Hamish McLennan": {
+  "ticker": "MFG",
+  "name": "Hamish McLennan",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "MFG|John Eales": {
+  "ticker": "MFG",
+  "name": "John Eales",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "MIN|Chris Ellison": {
+  "ticker": "MIN",
+  "name": "Chris Ellison",
+  "bucket": "exec",
+  "role": "Managing Director"
+ },
+ "MIN|Xi Xi": {
+  "ticker": "MIN",
+  "name": "Xi Xi",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "MQG|Jillian R Broadbent": {
+  "ticker": "MQG",
+  "name": "Jillian R Broadbent",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "MQG|Shemara Wikramanayake": {
+  "ticker": "MQG",
+  "name": "Shemara Wikramanayake",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "MSB|Eric Rose": {
+  "ticker": "MSB",
+  "name": "Eric Rose",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "MTS|Doug Jones": {
+  "ticker": "MTS",
+  "name": "Doug Jones",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "NAB|Andrew Francis IRVINE": {
+  "ticker": "NAB",
+  "name": "Andrew Francis IRVINE",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "NHF|Mark Fitzgibbon": {
+  "ticker": "NHF",
+  "name": "Mark Fitzgibbon",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "NST|John Daniel Fitzgerald": {
+  "ticker": "NST",
+  "name": "John Daniel Fitzgerald",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "NST|Stuart Peter Tonkin": {
+  "ticker": "NST",
+  "name": "Stuart Peter Tonkin",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "NWH|Adrienne Christina Parker": {
+  "ticker": "NWH",
+  "name": "Adrienne Christina Parker",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWH|Andrew James Parker": {
+  "ticker": "NWH",
+  "name": "Andrew James Parker",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "NWH|Fiona Jane Murdoch": {
+  "ticker": "NWH",
+  "name": "Fiona Jane Murdoch",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWH|Jeffrey Phillip Dowling": {
+  "ticker": "NWH",
+  "name": "Jeffrey Phillip Dowling",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "NWH|Julian Alexander Pemberton": {
+  "ticker": "NWH",
+  "name": "Julian Alexander Pemberton",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWH|Michael Norman Arnett": {
+  "ticker": "NWH",
+  "name": "Michael Norman Arnett",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWL|Davyd Charles Lewis": {
+  "ticker": "NWL",
+  "name": "Davyd Charles Lewis",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWL|Davyd Charles Lewis Lewis": {
+  "ticker": "NWL",
+  "name": "Davyd Charles Lewis Lewis",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWL|Matthew Alexander Max Heine": {
+  "ticker": "NWL",
+  "name": "Matthew Alexander Max Heine",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "NWL|Michael Max Heine": {
+  "ticker": "NWL",
+  "name": "Michael Max Heine",
+  "bucket": "exec",
+  "role": "Executive Director"
+ },
+ "NXT|Craig Ian Scroggie": {
+  "ticker": "NXT",
+  "name": "Craig Ian Scroggie",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "NXT|Gregory J Clark": {
+  "ticker": "NXT",
+  "name": "Gregory J Clark",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "OBM|Luke Creagh": {
+  "ticker": "OBM",
+  "name": "Luke Creagh",
+  "bucket": "exec",
+  "role": "Managing Director"
+ },
+ "ORA|Brian Phillip Lowe": {
+  "ticker": "ORA",
+  "name": "Brian Phillip Lowe",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "ORA|SARAH MYREE HOFMAN": {
+  "ticker": "ORA",
+  "name": "SARAH MYREE HOFMAN",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ORG|Frank Calabria": {
+  "ticker": "ORG",
+  "name": "Frank Calabria",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "ORG|Stephen Mikkelsen": {
+  "ticker": "ORG",
+  "name": "Stephen Mikkelsen",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ORI|Sanjiv Kumar Gandhi": {
+  "ticker": "ORI",
+  "name": "Sanjiv Kumar Gandhi",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "PDI|Sandra Bates": {
+  "ticker": "PDI",
+  "name": "Sandra Bates",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "PDI|Simon Jackson": {
+  "ticker": "PDI",
+  "name": "Simon Jackson",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "PDI|Steven Michael": {
+  "ticker": "PDI",
+  "name": "Steven Michael",
+  "bucket": "exec",
+  "role": "Executive Director"
+ },
+ "PDN|Peter Watson": {
+  "ticker": "PDN",
+  "name": "Peter Watson",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "PLS|Dale Robert Henderson": {
+  "ticker": "PLS",
+  "name": "Dale Robert Henderson",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "PLS|Stephen John Scudamore": {
+  "ticker": "PLS",
+  "name": "Stephen John Scudamore",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "PME|Alice Williams": {
+  "ticker": "PME",
+  "name": "Alice Williams",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "PME|Anthony Barry HALL": {
+  "ticker": "PME",
+  "name": "Anthony Barry HALL",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "PME|Sam Aaron HUPERT": {
+  "ticker": "PME",
+  "name": "Sam Aaron HUPERT",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "PNI|Deborah Beale": {
+  "ticker": "PNI",
+  "name": "Deborah Beale",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "PRN|Mark Alexander John Norwell": {
+  "ticker": "PRN",
+  "name": "Mark Alexander John Norwell",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "PRU|Elissa Sarah Cornelius": {
+  "ticker": "PRU",
+  "name": "Elissa Sarah Cornelius",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "PRU|Jeffrey Quartermaine": {
+  "ticker": "PRU",
+  "name": "Jeffrey Quartermaine",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "PRU|John Francis Gerald McGloin": {
+  "ticker": "PRU",
+  "name": "John Francis Gerald McGloin",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "PXA|Glenn King": {
+  "ticker": "PXA",
+  "name": "Glenn King",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "PXA|Vivek Bhatia": {
+  "ticker": "PXA",
+  "name": "Vivek Bhatia",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "QAN|Vanessa Judith Hudson": {
+  "ticker": "QAN",
+  "name": "Vanessa Judith Hudson",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "REA|Owen Wilson": {
+  "ticker": "REA",
+  "name": "Owen Wilson",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "REG|Linda Jane Mellors": {
+  "ticker": "REG",
+  "name": "Linda Jane Mellors",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "RGN|Anthony Michael Grainger Mellowes": {
+  "ticker": "RGN",
+  "name": "Anthony Michael Grainger Mellowes",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "RHC|Craig Drummond": {
+  "ticker": "RHC",
+  "name": "Craig Drummond",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "RHC|Steven Sargent": {
+  "ticker": "RHC",
+  "name": "Steven Sargent",
+  "bucket": "ned",
+  "role": "Non-Executive Chair"
+ },
+ "RIO|Ben Wyatt": {
+  "ticker": "RIO",
+  "name": "Ben Wyatt",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "RIO|Dean Dalla Valle": {
+  "ticker": "RIO",
+  "name": "Dean Dalla Valle",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "RIO|Simon Trott": {
+  "ticker": "RIO",
+  "name": "Simon Trott",
+  "bucket": "exec",
+  "role": "Chief Executive, Iron Ore & Executive Director"
+ },
+ "RMS|Fiona Jane Murdoch": {
+  "ticker": "RMS",
+  "name": "Fiona Jane Murdoch",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "RRL|Jim Beyer": {
+  "ticker": "RRL",
+  "name": "Jim Beyer",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "RWC|Heath Sharp": {
+  "ticker": "RWC",
+  "name": "Heath Sharp",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "S32|Graham Kerr": {
+  "ticker": "S32",
+  "name": "Graham Kerr",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "SCG|Elliott Chaim Aaron Rusanow": {
+  "ticker": "SCG",
+  "name": "Elliott Chaim Aaron Rusanow",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "SDF|Robert Bernard Kelly AM": {
+  "ticker": "SDF",
+  "name": "Robert Bernard Kelly AM",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "SEK|Andrew Bassat": {
+  "ticker": "SEK",
+  "name": "Andrew Bassat",
+  "bucket": "exec",
+  "role": "Co-Founder & CEO"
+ },
+ "SEK|Ian Narev": {
+  "ticker": "SEK",
+  "name": "Ian Narev",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "SFR|Brendan Harris": {
+  "ticker": "SFR",
+  "name": "Brendan Harris",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "SIG|Danielle Di Pilla": {
+  "ticker": "SIG",
+  "name": "Danielle Di Pilla",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "SIG|Vikesh RAMSUNDER": {
+  "ticker": "SIG",
+  "name": "Vikesh RAMSUNDER",
+  "bucket": "exec",
+  "role": "CEO & Managing Director"
+ },
+ "STO|Kevin Thomas Gallagher": {
+  "ticker": "STO",
+  "name": "Kevin Thomas Gallagher",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "SUL|Anthony Heraghty": {
+  "ticker": "SUL",
+  "name": "Anthony Heraghty",
+  "bucket": "exec",
+  "role": "Managing Director & CEO"
+ },
+ "TLC|Megan Quinn": {
+  "ticker": "TLC",
+  "name": "Megan Quinn",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "TLX|Harry Kevin McCann": {
+  "ticker": "TLX",
+  "name": "Harry Kevin McCann",
+  "bucket": "ned",
+  "role": "Non-Executive Chairman"
+ },
+ "TUA|Craig Linton Levy": {
+  "ticker": "TUA",
+  "name": "Craig Linton Levy",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "TWE|Tim Ford": {
+  "ticker": "TWE",
+  "name": "Tim Ford",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "VCX|Peter Charles Huddle": {
+  "ticker": "VCX",
+  "name": "Peter Charles Huddle",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "VEA|Scott Wyatt": {
+  "ticker": "VEA",
+  "name": "Scott Wyatt",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "VNT|Banks": {
+  "ticker": "VNT",
+  "name": "Banks",
+  "bucket": "unknown",
+  "role": null
+ },
+ "VNT|Damon Rees": {
+  "ticker": "VNT",
+  "name": "Damon Rees",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "VNT|Dean Banks": {
+  "ticker": "VNT",
+  "name": "Dean Banks",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "VNT|Mr Banks": {
+  "ticker": "VNT",
+  "name": "Mr Banks",
+  "bucket": "unknown",
+  "role": null
+ },
+ "WAF|Elizabeth Mounsey": {
+  "ticker": "WAF",
+  "name": "Elizabeth Mounsey",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "WAF|Lyndon George Hopkins": {
+  "ticker": "WAF",
+  "name": "Lyndon George Hopkins",
+  "bucket": "ned",
+  "role": "Non-Executive Chairman"
+ },
+ "WAF|Richard Hyde": {
+  "ticker": "WAF",
+  "name": "Richard Hyde",
+  "bucket": "exec",
+  "role": "Managing Director/CEO"
+ },
+ "WAF|Rodney L Leonard": {
+  "ticker": "WAF",
+  "name": "Rodney L Leonard",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "WBC|Philippa Greenwood": {
+  "ticker": "WBC",
+  "name": "Philippa Greenwood",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "WDS|Marguerite (Meg) Eileen O'Neill": {
+  "ticker": "WDS",
+  "name": "Marguerite (Meg) Eileen O'Neill",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "WES|Michael Alfred Chaney": {
+  "ticker": "WES",
+  "name": "Michael Alfred Chaney",
+  "bucket": "ned",
+  "role": "Non-Executive Chairman"
+ },
+ "WHC|Mark Vaile": {
+  "ticker": "WHC",
+  "name": "Mark Vaile",
+  "bucket": "ned",
+  "role": "Non-Executive Chairman"
+ },
+ "WLE|Geoff Wilson": {
+  "ticker": "WLE",
+  "name": "Geoff Wilson",
+  "bucket": "exec",
+  "role": "Executive Chairman/Portfolio Manager"
+ },
+ "WLE|Geoffrey Wilson": {
+  "ticker": "WLE",
+  "name": "Geoffrey Wilson",
+  "bucket": "exec",
+  "role": "Executive Chairman/Portfolio Manager"
+ },
+ "WTC|Christopher Charlton": {
+  "ticker": "WTC",
+  "name": "Christopher Charlton",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "WTC|Maree Isaacs": {
+  "ticker": "WTC",
+  "name": "Maree Isaacs",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "WTC|Richard White": {
+  "ticker": "WTC",
+  "name": "Richard White",
+  "bucket": "exec",
+  "role": "CEO/Managing Director"
+ },
+ "YAL|Debra Anne Bakker": {
+  "ticker": "YAL",
+  "name": "Debra Anne Bakker",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "YAL|Geoffrey William Raby": {
+  "ticker": "YAL",
+  "name": "Geoffrey William Raby",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "YAL|Xiaolong Huang": {
+  "ticker": "YAL",
+  "name": "Xiaolong Huang",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "YAL|Yaomeng Xiao": {
+  "ticker": "YAL",
+  "name": "Yaomeng Xiao",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ZIP|Cynthia Scott": {
+  "ticker": "ZIP",
+  "name": "Cynthia Scott",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ },
+ "ZIP|John Batistich": {
+  "ticker": "ZIP",
+  "name": "John Batistich",
+  "bucket": "ned",
+  "role": "Non-Executive Director"
+ }
+}

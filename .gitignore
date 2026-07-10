@@ -90,3 +90,5 @@ scripts/_seasonal_proxy.py
 scripts/_md_to_docx.py
 *.docx
 scripts/_exact_confound.py
+scripts/_clean_28.py
+scripts/_role_enrich.py

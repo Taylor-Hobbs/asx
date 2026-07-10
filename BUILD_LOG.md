@@ -921,3 +921,15 @@ first accuracy number; parallelizes with step 7.
 - RIO Q4-production filing in the corpus is not an earnings doc — exclude from the
   earnings golden set at labeling time.
 
+
+## 2026-07-10 (role verdict) - exec hypothesis dies; final lead characterized
+
+LLM role enrichment: 179/181 selling directors classified (89 exec, 88 NED,
+data/enrichment/director_roles_llm.json). Role carries NOTHING: exec sales
+overall -0.3% ns; exec x clean -0.3% ns; adding exec to the clean+big cell
+DILUTES it (n=20, -4.3%, t=-1.38 vs -5.7%, t=-2.15 without). The earlier
+"three converging lenses" were the same few events counted thrice. FINAL
+surviving lead: large ($1M+) freely-timed (>30d post-results) sales, -5.7%/
+qtr, t=-2.15, n=28, tail-risk shaped (9/31 events preceded <=-17% quarters;
+worst 3 carry half the mean; CYL pair the standout case). Role-agnostic.
+Verification path: appointment-notice extraction once parse completes.
