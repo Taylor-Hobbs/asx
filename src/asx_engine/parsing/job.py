@@ -54,11 +54,20 @@ class ParseSummary:
 FLUSH_EVERY = 250
 
 
-def run(backend: ParseBackend, *, parser_version: str = PARSER_VERSION) -> ParseSummary:
+def run(
+    backend: ParseBackend,
+    *,
+    parser_version: str = PARSER_VERSION,
+    skip: set[str] | None = None,
+) -> ParseSummary:
     summary = ParseSummary()
     announced = backend.announcement_hashes()
     done = backend.parsed_hashes(parser_version)
-    pending = sorted(announced - done)
+    # skip: documents that hard-crash the parser (e.g. pdfplumber memory
+    # explosion with no Python traceback — discovered 2026-07-10 when one
+    # half-year report killed two runs at the same hash). Skipped docs stay
+    # unparsed and visible; they are never silently marked good.
+    pending = sorted(announced - done - (skip or set()))
     summary.already_parsed = len(announced & done)
     log.info(
         "parse.start",
@@ -154,8 +163,25 @@ class GcpParseBackend:
 
 
 def main() -> None:
+    import argparse
+
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--skip",
+        nargs="*",
+        default=[],
+        metavar="CONTENT_HASH",
+        help="hashes of documents that crash the parser (prefix match ok)",
+    )
+    args = parser.parse_args()
     settings = load_settings()
-    run(GcpParseBackend(settings))
+    backend = GcpParseBackend(settings)
+    skip = {
+        h
+        for h in backend.announcement_hashes()
+        if any(h.startswith(prefix) for prefix in args.skip)
+    }
+    run(backend, skip=skip)
 
 
 if __name__ == "__main__":
