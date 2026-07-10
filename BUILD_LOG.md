@@ -5,6 +5,35 @@ Feeds the weekly public build-log posts. Newest entries first.
 
 ---
 
+## 2026-07-10 — EXACT earnings dates overturn the seasonal proxy
+
+P0 crawl delivered 1,500 price-sensitive results filings (185 tickers, median
+4 dates each) — the confound test no longer needs a calendar guess. Result
+(`scripts/_exact_confound.py`, 63d market-adjusted, deduped):
+
+| cohort | within 30d of results | clean (>30d) |
+|---|---|---|
+| ALL sales | −0.4% (n=112, ns) | +0.9% (n=102, ns) |
+| **$1M+ sales** | +3.1% (n=27, ns) | **−5.7% (n=28, t=−2.15)** |
+
+**The proxy's conclusion inverts.** The Feb/Mar/Aug/Sep month-split was too
+coarse (median sale is 28 days after results; 52% within 30d — the proxy
+misclassified heavily). With exact dates: post-results sales show NOTHING —
+and the negative drift concentrates in **large, freely-timed sales**, exactly
+where insider information should live. The earnings-momentum explanation is
+NOT supported for the big-sale cohort.
+
+Status: the hypothesis is (partially) back — "large director sales NOT
+adjacent to results precede ~−5.7%/quarter (p≈0.04, n=28)". Same evidentiary
+tier as before (small n, many cells scanned), but now with the confound
+CONTROLLED rather than suspected, and in the theoretically-predicted cell.
+Also: PR-001's evaluation must use exact dates (spec already allows).
+Findings report §4.5 amended by this entry. Remaining: role extraction
+(parse ~60% done), exec × clean-timing interaction — the two leads may be
+the same lead.
+
+---
+
 ## 2026-07-08 (coda) — the earnings confound confirmed by a calendar
 
 yfinance earnings dates: 0/106 ASX coverage (US-only API). Fallback: ASX
