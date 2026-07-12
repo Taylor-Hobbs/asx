@@ -100,7 +100,10 @@ def main() -> None:
     else:
         est = len(pending) * (3 * 450 * 0.5 + 300 * 2.5) / 1e6
         if not args.confirm:
-            print(f"would extract roles from {len(pending)} documents (~${est:.0f}). --confirm to run.")
+            print(
+                f"would extract roles from {len(pending)} documents (~${est:.0f}). "
+                "--confirm to run."
+            )
             return
         if not pending:
             print("nothing pending")
