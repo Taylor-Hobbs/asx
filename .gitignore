@@ -99,3 +99,4 @@ assets/
 scripts/_parse_status.py
 overnight_watcher.ps1
 watcher_status.txt
+scripts/_preflight_earnings.py

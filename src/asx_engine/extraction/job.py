@@ -31,6 +31,7 @@ eyeball the payloads against the PDFs, then widen.
 """
 
 import argparse
+import sys
 import time
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -423,6 +424,10 @@ class GcpExtractionBackend:
 
 
 def main() -> None:
+    # Windows consoles default to cp1252; a unicode hyphen in an extracted
+    # period string killed two collection runs via the LOG line before this.
+    sys.stdout.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
+    sys.stderr.reconfigure(encoding="utf-8")  # type: ignore[union-attr]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=None, help="extract at most N documents")
     parser.add_argument(
