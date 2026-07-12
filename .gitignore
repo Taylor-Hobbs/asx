@@ -93,3 +93,9 @@ scripts/_exact_confound.py
 scripts/_clean_28.py
 scripts/_role_enrich.py
 scripts/_find_killer.py
+
+# Personal video/post assets
+assets/
+scripts/_parse_status.py
+overnight_watcher.ps1
+watcher_status.txt

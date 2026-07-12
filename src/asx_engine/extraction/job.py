@@ -349,20 +349,41 @@ class GcpExtractionBackend:
         self._bucket = storage.Client(project=settings.gcp_project).bucket(settings.gcs_raw_bucket)
         self._bq = bigquery.Client(project=settings.gcp_project)
         self._parsed_id = f"{settings.gcp_project}.{settings.bq_dataset}.parsed_documents"
+        self._announcements_id = f"{settings.gcp_project}.{settings.bq_dataset}.announcements"
         self._extractions_id = f"{settings.gcp_project}.{settings.bq_dataset}.{EXTRACTIONS_TABLE}"
         self._extractions_schema = self._bq.get_table(self._extractions_id).schema
 
     def parsed_hashes(self, parser_version: str) -> set[str]:
-        # Only good parses: extraction over partial/empty text would produce
-        # records whose failures measure the parser, not the prompt.
+        # Only good parses of RESULTS-shaped announcements. The corpus now
+        # contains multiple verticals (3Y forms, appointment notices); running
+        # the earnings prompt over a director-trade form would produce a junk
+        # record at real cost. Same headline pattern as the P0 crawl filter,
+        # price-sensitive-gated, RE2 syntax for BigQuery.
         query = (
-            f"SELECT content_hash FROM `{self._parsed_id}` "  # noqa: S608 - own table
-            "WHERE parser_version = @parser_version AND quality = @quality"
+            "SELECT DISTINCT p.content_hash "
+            f"FROM `{self._parsed_id}` p "  # noqa: S608 - own tables
+            f"JOIN `{self._announcements_id}` a USING (content_hash) "
+            "WHERE p.parser_version = @parser_version AND p.quality = @quality "
+            "AND a.price_sensitive "
+            "AND REGEXP_CONTAINS(a.headline, @results_pattern) "
+            "AND NOT REGEXP_CONTAINS(a.headline, @false_positives)"
         )
         job_config = bigquery.QueryJobConfig(
             query_parameters=[
                 bigquery.ScalarQueryParameter("parser_version", "STRING", parser_version),
                 bigquery.ScalarQueryParameter("quality", "STRING", ParseQuality.GOOD.value),
+                bigquery.ScalarQueryParameter(
+                    "results_pattern",
+                    "STRING",
+                    r"(?i)appendix\s*4[cde]|half[\s-]*year|full[\s-]*year|annual\s+report"
+                    r"|preliminary final|results (announcement|presentation|release)"
+                    r"|results for announcement",
+                ),
+                bigquery.ScalarQueryParameter(
+                    "false_positives",
+                    "STRING",
+                    r"(?i)results of (annual general )?meeting|resignation of auditor",
+                ),
             ]
         )
         return {
