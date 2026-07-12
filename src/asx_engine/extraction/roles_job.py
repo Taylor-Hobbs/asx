@@ -127,14 +127,22 @@ def main() -> None:
                 params["thinking"] = {"type": "adaptive"}
             requests.append(Request(custom_id=h, params=params))
         batch = client.messages.batches.create(requests=requests)
-        log.info("roles.batch.submitted", batch_id=batch.id, requests=len(requests),
-                 resume_hint=f"--resume {batch.id}")
+        log.info(
+            "roles.batch.submitted",
+            batch_id=batch.id,
+            requests=len(requests),
+            resume_hint=f"--resume {batch.id}",
+        )
 
     while batch.processing_status != "ended":
         time.sleep(30)
         batch = client.messages.batches.retrieve(batch.id)
-        log.info("roles.batch.status", status=batch.processing_status,
-                 succeeded=batch.request_counts.succeeded, errored=batch.request_counts.errored)
+        log.info(
+            "roles.batch.status",
+            status=batch.processing_status,
+            succeeded=batch.request_counts.succeeded,
+            errored=batch.request_counts.errored,
+        )
 
     buffer: list[dict[str, object]] = []
     stored = failed = 0
@@ -164,8 +172,11 @@ def main() -> None:
             failed += 1
             continue
         record = ExtractionRecord[RolesResult](
-            content_hash=h, model=EXTRACTION_MODEL, prompt_version=prompt_version,
-            extracted_at=utc_now(), payload=payload,
+            content_hash=h,
+            model=EXTRACTION_MODEL,
+            prompt_version=prompt_version,
+            extracted_at=utc_now(),
+            payload=payload,
         )
         row = record.model_dump(mode="json", exclude={"payload"})
         row["payload"] = record.payload.model_dump_json()

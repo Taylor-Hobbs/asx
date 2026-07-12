@@ -86,7 +86,8 @@ _RESULTS_HEADLINE = re.compile(
 _APPOINTMENT_HEADLINE = re.compile(
     r"appendix\s*3[xz]|appointment of|resignation of (a )?director"
     r"|(initial|final) director.s interest|ceases (as|to be) (a )?director"
-    r"|(managing director|ceo|chief executive|chairman|director) (appointment|succession|transition|retirement)",
+    r"|(managing director|ceo|chief executive|chairman|director) "
+    r"(appointment|succession|transition|retirement)",
     re.IGNORECASE,
 )
 _RESULTS_FALSE_POSITIVES = re.compile(
