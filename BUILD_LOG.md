@@ -933,3 +933,18 @@ surviving lead: large ($1M+) freely-timed (>30d post-results) sales, -5.7%/
 qtr, t=-2.15, n=28, tail-risk shaped (9/31 events preceded <=-17% quarters;
 worst 3 carry half the mean; CYL pair the standout case). Role-agnostic.
 Verification path: appointment-notice extraction once parse completes.
+
+## 2026-07-13 - Q1 DATA COMPLETE: earnings corpus extracted overnight
+
+The overnight autopilot: parse finished 605/605 good at 00:26, watcher
+fired the batch at 00:28 (1,476 results-shaped docs -- the scoping fix
+the night before stopped it extracting 3,200 director-trade forms by
+mistake). Collection died twice on a unicode hyphen in a period string
+crashing the LOG line on cp1252 consoles (not a laptop nap -- the
+extraction job was the one main() missing the utf-8 reconfigure; fixed).
+Final: **1,440 earnings records extracted, 36 failed** (oversized/errored,
+cost $0), ~34.9M tokens ~= $19 -- half the estimate, quarter of the naive
+un-scoped run. extraction_records now holds BOTH verticals: 3,232 director
+-trade docs + 1,440 earnings docs, all benchmarked prompts. Remaining Q1:
+P1-P3 broad sweep (optional), appointment-notice role extraction (verify
+LLM labels). The dataset the study needed is banked.
