@@ -948,3 +948,17 @@ un-scoped run. extraction_records now holds BOTH verticals: 3,232 director
 -trade docs + 1,440 earnings docs, all benchmarked prompts. Remaining Q1:
 P1-P3 broad sweep (optional), appointment-notice role extraction (verify
 LLM labels). The dataset the study needed is banked.
+
+## 2026-07-13 (roles) - role extraction + LLM-label verification
+
+director_roles_v1 over 893 appointment/cessation notices: 890 extracted,
+~$1, minutes. Verification vs the 2026-07-10 LLM-knowledge labels: only
+51/179 sellers verifiable (long-tenured directors predate the window);
+**72% agreement (18/25)**. LLM failure modes are systematic: famous-
+elsewhere executives labeled exec at companies where they are NEDs
+(Drummond/RHC, Formica/MFG, James/DRO), post-cutoff CEOs labeled NED
+(Wells/JBH, Banks/VNT), and time-dependent roles (Kelly/SDF MD->NED).
+Exec-verdict stands (noise attenuates, and the exec cell was already
+weaker than unconditioned) but carries a label-noise caveat in the
+write-up. Lesson worth publishing: LLM-knowledge people-enrichment has
+predictable failure modes; $1 of primary-document extraction catches them.
