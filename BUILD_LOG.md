@@ -962,3 +962,124 @@ Exec-verdict stands (noise attenuates, and the exec cell was already
 weaker than unconditioned) but carries a label-noise caveat in the
 write-up. Lesson worth publishing: LLM-knowledge people-enrichment has
 predictable failure modes; $1 of primary-document extraction catches them.
+
+## 2026-07-13 (link) - mechanism test: clean big sales do NOT precede bad earnings
+
+First model on the banked earnings corpus (scripts/_sales_earnings_link.py):
+joined the surviving-lead cohort (clean-timed $1M+ sales - now 31 episodes
+under the fuller P0 announcements table, mean -5.5%, vs the published 28)
+to each ticker's NEXT extracted earnings report (earnings_v7: 751 ticker-
+results-days, 684 with usable NPAT/EPS pairs). 26/31 linked; 5 censored
+(no later report in the corpus window). **The information mechanism is
+absent - and points the other way.** NPAT declined at the next report
+after 5/26 = 19% of sales vs 36% macro-matched expectation (Poisson-
+binomial z = -1.79, the WRONG direction); dividend cuts 0/19 vs 20% base;
+median NPAT YoY +40% vs corpus +10%. The tail is not earnings-mediated:
+CYL, the standout -43% CAR pair, reported +40% NPAT growth at the very
+next result. Directors are selling into results that are, if anything,
+BETTER than the corpus - consistent with selling winners after run-ups,
+not front-running bad reports. Whatever the -5.7%/qtr drift is, it is not
+"insiders dodging a bad result." Caveats: no consensus data (deterioration
+= YoY decline; an expectations miss is invisible to this test), 4C
+quarterlies excluded from "next report" (a miner's bad production news
+between results is not captured - NST/RRL/CYL are in the cohort), and the
+5 censored events are the most recent sales. The lead survives as a price
+phenomenon but loses its cleanest insider-information story; the write-up
+should say so.
+
+## 2026-07-13 (CYL forensics) - the standout tail case is a GOLD-SECTOR move
+
+What crashed CYL (-43% CAR, the lead's biggest contributor)? Not guidance,
+not production news. Full live listing (scripts/_cyl_listing.py) vs worst
+days: the single worst day (Mar 23, -14.4%) had NO announcement; Jan 30 /
+Feb 6 / Apr 2 legs also news-free. Peer check (scripts/_cyl_sector.py, 11
+ASX gold miners): every CYL crash day was a sector-wide down day (peers
+-3% to -9% the same days), daily corr(CYL, peer avg) = +0.73; window total
+CYL -24.5% vs peer average -11.5% (RMS -25.4%, NST -24.4% - CYL is not
+even the worst). The half-year result itself (+40% NPAT, Feb 27) caused no
+crash. Reading: a gold drawdown amplified by beta, which index-adjustment
+(vs ASX 200) wrongly credits to the sale. And the seller context is
+retirement-shaped: the Jan 23 sale sits beside a "Non-Executive Chairman
+Transition Plan" (Feb 2) and a Final Director's Interest Notice (Mar 2).
+Implication: the surviving lead's tail is partly sector exposure, not
+sale-specific information - re-scoring the clean-31 CARs SECTOR-adjusted
+(as the stat-arb variant already did) is the obvious next robustness cut,
+and the write-up's CYL anecdote must be reframed.
+
+## 2026-07-13 (sector re-score) - the lead SURVIVES sector adjustment; shape improves
+
+The robustness cut built to kill the lead strengthened it
+(scripts/_clean31_sector.py; GICS baskets from the universe file, event
+ticker self-excluded, gold miners additionally re-scored vs an 11-miner
+gold basket since GICS Materials hides gold):
+
+| adjustment | mean | med | t | neg |
+|---|---|---|---|---|
+| vs INDEX (published) | -5.5% | -3.5% | -2.20 | 19/31 |
+| vs GICS sector | **-6.2%** | **-5.1%** | **-2.73** | 21/31 |
+| vs sector, gold vs gold basket* | -5.2% | -5.1% | -2.64 | 21/31 |
+
+Sector adjustment moves individual tails a lot but in BOTH directions:
+CYL -42.9 -> -24.8 (gold-adj), WHC -18.2 -> -0.1 (pure energy move),
+MSB -19.1 -> -5.9; but NAB -19.9 -> -24.6, CSL -8.7 -> -18.8,
+ALL -5.1 -> -11.8, and LTR/NWH/WLE flip negative. Net: the median moves
+toward the mean (-3.5 -> -5.1%) and the effect gets LESS tail-driven -
+broader-based idiosyncratic underperformance, a healthier signal shape.
+Even CYL kept ~20-25% underperformance vs its own gold peers - the sale
+did precede real idiosyncratic damage on top of the sector move.
+
+*Gold variant is post-hoc (decided after CYL forensics), and this is
+another iteration on the same in-sample events - the t=-2.73 carries
+accumulated scan debt and must not be read at face value. Combined
+2026-07-13 picture: the lead is not earnings-mediated (link test) and not
+a sector artifact (this) - a diffuse ~-5-6%/qtr idiosyncratic drift after
+large freely-timed sales, mechanism unknown. Q4 forward paper remains the
+real verdict.
+
+## 2026-07-13 (ES-1) - PEAD study: INCONCLUSIVE; ASX200 drift is weak
+
+New-dataset discipline: three studies specified with frozen endpoints and
+a Bonferroni family (docs/analysis-plan-2026-07-earnings.md) BEFORE any
+was run. ES-1 (scripts/_pead.py): 712 results-day events scored, quintiles
+by day-0 market-adjusted reaction, endpoint = Q5-Q1 spread in +1..+63 CAR.
+Result: **+3.7%, Welch t=+1.51 - INCONCLUSIVE** at the pre-specified
+t>=2.41 (nominal t<2 anyway). Monotone Q1<Q3<Q5 holds but Q2 (+4.2%,
+highest cell) breaks any clean pattern; per-season spread +9.2/+2.7/+2.8%
+then -3.5% in 2026Q1 (sign-inconsistent). The informative negative:
+**big misses do not drift - Q1 (day-0 -9.5%) shows CAR63 -0.6% ns.**
+Winners show a mild +3.6% first-month continuation (exploratory). YoY
+secondary sort: weak monotone gradient (Y1 +1.3% -> Y5 +2.5%, all ns);
+Spearman(reaction, YoY) = +0.12 - the YoY proxy barely captures surprise,
+as suspected. Calibration value for the sales study: at 63d in ASX200
+large caps the "post-earnings momentum" monster is SMALL - consistent
+with the exact-date confound verdict that post-results sales carry
+nothing. Caveats: overlapping season windows (pooled t optimistic),
+survivorship-lite universe lifts all cells (+0.6..+4.2% base), yfinance.
+ES-2 (dividend actions) and ES-3 (director buys after crashes) specified
+but not yet run.
+
+## 2026-07-13 (ES-2/ES-3) - both REFUTED: two more clean nulls
+
+ES-2 dividend actions (scripts/_es2_es3.py, 509 events with stated DPS
+pairs: 101 cuts + 4 omissions / 82 holds / 322 raises): cuts are noticed
+on day 0 (-1.6%) then show ZERO drift - CUT-HOLD spread +0.1%, Welch
+t=+0.04. **REFUTED** at spec. Secondary: raises drift +1.6% (within-group
+t=+2.22; vs HOLD +2.1%, t=+1.07 ns) - rhymes with ES-1's upside-
+underreaction glimmer, same not-significant tier.
+
+ES-3 buys-after-crashes (112 results-day crashes <= -5%; TREAT = on-market
+director purchase within 30d, n=50; CONTROL = untreated crashes anchored
+at the 8d median lag, n=62): TREAT CAR63 -0.1% (med -1.5%) vs CONTROL
++1.7% (med +4.6%), Welch t=-0.48. **REFUTED** - insider dip-buys carry no
+recovery information; treated names include XRO -49.7% and COH -66.5%
+post-buy. The descriptive gem: **directors bought after 45% of results
+crashes** (50/112) - dip-buying is near-reflexive behavior, which is exactly
+why it carries nothing. Corroborates the Q2-era purchases null from the
+other direction.
+
+Earnings-corpus family scoreboard (all pre-specified, Bonferroni bar
+t>=2.41): ES-1 INCONCLUSIVE, ES-2 REFUTED, ES-3 REFUTED. Day's honest
+headline: ASX200 results news is priced same-day (down instantly, up with
+a mild unconfirmed 1-month echo); neither dividend actions nor insider
+dip-buys add exploitable drift. Three clean nulls > one shaky positive -
+this is the write-up's backbone.

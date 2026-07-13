@@ -101,3 +101,10 @@ overnight_watcher.ps1
 watcher_status.txt
 scripts/_preflight_earnings.py
 scripts/_verify_roles.py
+scripts/_sales_earnings_link.py
+scripts/_cyl_crash.py
+scripts/_cyl_listing.py
+scripts/_cyl_sector.py
+scripts/_clean31_sector.py
+scripts/_pead.py
+scripts/_es2_es3.py
