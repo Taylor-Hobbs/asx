@@ -97,3 +97,26 @@ from the median TREAT lag after the crash.
 If TREAT n < 15 the study is reported as underpowered, no test claimed.
 Overlap with PR-001 noted: any confirmed cell here still requires its own
 forward pre-registration before being called a signal.
+
+---
+
+## Exploratory extensions (added 2026-07-13, after ES-1..3 ran)
+
+Four further angles, all EXPLORATORY — no frozen endpoints, no membership
+in the Bonferroni family, no significance claims. EX-3 in particular is a
+further cut on the same 31 in-sample sale events and is reported as
+characterization only.
+
+- **EX-1 flag-vs-content divergence:** price-sensitive flag vs market
+  reaction and extracted content. Known limitation stated upfront: the P0
+  crawl gated results filings ON the PS flag, so unflagged results are
+  under-collected; the full test needs the P1-P3 broad sweep.
+- **EX-2 cross-document consistency:** among multi-document results days,
+  per-field agreement rates across independently-extracted documents, and
+  whether per-field confidence is calibrated (lower on disagreeing values).
+  Methodology study — no goldens consumed.
+- **EX-3 retirement purge:** tag clean-31 sales where the seller has a
+  CEASED role event (director_roles_v1, same ticker, name-matched) within
+  −30..+180 days of the sale; re-score the cohort without them.
+- **EX-4 board-change events:** CEO/MD appointment and cessation notices
+  as events; day-0 AR and +1..+63 CAR by action. Descriptive.

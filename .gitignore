@@ -108,3 +108,7 @@ scripts/_cyl_sector.py
 scripts/_clean31_sector.py
 scripts/_pead.py
 scripts/_es2_es3.py
+scripts/_ex1_flag_divergence.py
+scripts/_ex2_crossdoc.py
+scripts/_ex3_retirement_purge.py
+scripts/_ex4_board_events.py

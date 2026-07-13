@@ -1083,3 +1083,42 @@ headline: ASX200 results news is priced same-day (down instantly, up with
 a mild unconfirmed 1-month echo); neither dividend actions nor insider
 dip-buys add exploitable drift. Three clean nulls > one shaky positive -
 this is the write-up's backbone.
+
+## 2026-07-13 (EX-1..4) - four exploratory sweeps: two keepers
+
+All four labeled EXPLORATORY in the analysis plan (no frozen endpoints,
+no significance claims). Scripts _ex1..4_*.py, gitignored.
+
+**EX-3 retirement purge - the lead survives its fourth attack.** Only
+2/31 clean sales had the seller's own CEASED role event within -30..+180d
+(REA's Owen Wilson sold 39d before ceasing; GDG's Bessemer +155d). Purged
+cohort: mean -5.7%, t=-2.24 (vs -5.5%/-2.20 full) - retirement-shaped
+sellers were NOT driving it. Caveat: cessation coverage is the 24mo
+notice window; announced-but-not-yet-effective departures (CYL's
+chairman transition plan) aren't captured as ceased.
+
+**EX-2 cross-doc consistency - the methodology keeper.** 447 results days
+have >=2 extracted docs (1,160 docs): only 45% of field pairs agree
+exactly, 27% within 1% (rounding: media release "3.8m" vs 4D 3,754,256),
+and **28% disagree outright** - worst is EPS (~47-48% disagreement:
+basic-vs-diluted, cents-vs-dollars decimal shifts, e.g. A2M 1.51 vs 15.5;
+statutory-vs-underlying, e.g. AGL NPAT 711m vs 812m). And **confidence is
+NOT calibrated for this failure mode**: consensus values 0.962 vs deviant
+0.951 - the model is nearly as confident when wrong-by-convention. The
+same-event-different-docs disagreement is the extraction risk goldens
+underestimate (goldens score one doc at a time). Publishable methodology
+finding #3.
+
+**EX-1 flag divergence - real, in the predicted direction.** PS-flagged
+results days move |AR| 4.95% (55% exceed 3%); ordinary unflagged 3Y days
+1.40%. The divergence case: **$1M+ on-market director sales (n=108, never
+PS-flagged) move 2.81% |AR| with directional mean -1.32% on day 0** -
+2x the 3Y baseline, a fifth exceeding 3%. The exchange's materiality flag
+misses a category the market demonstrably prices same-day. Collection
+bias caveat: results were PS-gated in the P0 crawl (composition table
+shows results 100% PS by construction); full test needs P1-P3.
+
+**EX-4 board changes - nothing.** 63 CEO/MD events: appointments CAR63
++4.2% (t=+1.38), cessations +5.6% (t=+1.57), both ns and both roughly the
+corpus's survivorship-positive base drift. WTC's post-cessation -40.8% is
+the one anecdote (Richard White again). Not pursued.
