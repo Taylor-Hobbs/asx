@@ -120,3 +120,53 @@ characterization only.
   −30..+180 days of the sale; re-score the cohort without them.
 - **EX-4 board-change events:** CEO/MD appointment and cessation notices
   as events; day-0 AR and +1..+63 CAR by action. Descriptive.
+
+---
+
+## REP-1 — Cross-sectional replication of the director-sales lead on the ASX 201–300 band (frozen 2026-07-14, BEFORE any new-ticker data was analyzed)
+
+**Purpose.** The surviving lead (large freely-timed director sales, ~−5–6%/qtr,
+in-sample on ASX 200, 2024–26) gets its first test on data that played no part
+in finding it: the next ~107 tickers by market cap. This is replication in the
+cross-section, NOT out-of-sample in time — a regime-specific artifact would
+replicate too. The forward test (Q4→2027) remains the verdict; this can only
+raise or lower confidence.
+
+**Universe.** `data/universe/asx300_delta_2026-07-14_directory.csv` — today's
+top-300-by-market-cap band from the ASX company directory, minus the existing
+ASX 200 file. Known impurities accepted and reported: not the official S&P
+index; today's constituents (survivorship, as elsewhere); ~7 band-drift names.
+Crawled 2026-07-14 (3Y + P0 results filters, 24 months).
+
+**Event definition (copied verbatim from the ASX 200 cell — no tuning).**
+On-market disposals, total_consideration ≥ $1,000,000, extracted by
+director_trades_v3; day 0 = first tradeable day; dedup one event per
+(ticker, director) per 30 days; CLEAN gate = >30 calendar days since the
+ticker's most recent price-sensitive results filing (results-headline regex,
+as in the original). The gate's known asymmetry (it never looks FORWARD to
+the next results — found 2026-07-14 by the hygiene study) is kept AS-IS for
+comparability and reported alongside.
+
+**Measurement.** Cumulative (stock log return − XJO log return), trading days
++1..+63, full window required. XJO retained (not a small-cap index) for
+comparability with the original cell; noted as a limitation. Secondary:
+sector-adjusted CAR where a GICS sector basket of ≥3 members exists within
+the COMBINED (ASX 200 + delta) price universe, event ticker self-excluded.
+
+**Endpoints (stated now).**
+- SUPPORTIVE: new-ticker clean $1M+ cohort mean CAR ≤ −2.0% AND one-sided
+  t ≤ −1.0. (Expected n is small — ~10–25; this is a direction-and-magnitude
+  check, not a significance claim.)
+- UNSUPPORTIVE: mean CAR ≥ 0.
+- INCONCLUSIVE: anything between; reported as such, no re-slicing.
+- Also reported, labeled descriptive: pooled ASX300 estimate (original 31 +
+  new events), the non-clean and sub-$1M cells for contrast, and per-event
+  table. No new cells may be promoted to "lead" status from this data.
+
+**Commitments.** No parameter above changes after seeing new-ticker data.
+Result goes in BUILD_LOG and the write-up with equal prominence either way.
+Known risks stated now: thin cell (small caps have fewer $1M+ sales),
+yfinance quality degrades below the ASX 200, delistings within the window
+are invisible (survivorship inflates CARs upward — which biases AGAINST
+finding the negative drift, so a supportive result survives it; an
+unsupportive one is partially confounded).

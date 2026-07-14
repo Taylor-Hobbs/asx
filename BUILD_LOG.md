@@ -1122,3 +1122,41 @@ shows results 100% PS by construction); full test needs P1-P3.
 +4.2% (t=+1.38), cessations +5.6% (t=+1.57), both ns and both roughly the
 corpus's survivorship-positive base drift. WTC's post-cessation -40.8% is
 the one anecdote (Richard White again). Not pursued.
+
+## 2026-07-14 - disclosure hygiene study (descriptive; no scan debt)
+
+scripts/_hygiene.py, on-market trades only (1,710; 1,319 with results
+dates both sides).
+
+**Blackout map: ASX200 directors are overwhelmingly compliant.** Only
+2.9% of trades fall within 30d BEFORE the company's next results vs 50.9%
+within 30d after - the trading-window-opens pattern in one histogram
+(63% of trades are >120d from the next results). The pre-results tail is
+tiny but pointed: 9 sells, of which 2 are $1M+ - **CYL de Crespigny $5.8M
+17 days pre-results, MSB Rose $1.9M 23 days pre-results. Both are tail
+events of the surviving clean-31 cohort.** Methodological catch: the
+"clean" gate conditions on days SINCE last results only - it never looked
+FORWARD, so 2 of 31 "freely-timed" sales were actually pre-results
+trades. (Both preceded GOOD results - +40%/+16% NPAT - consistent with
+the no-earnings-mechanism finding; removing them would slightly weaken
+the lead. Flagged for the write-up; the gate definition should be
+symmetric in any forward spec revision... except PR-001 and the strategy
+spec are FROZEN - so it goes in as a documented limitation, not a patch.)
+
+**Late filing (LR 3.19B, 5 business days): 4.0% late, with a fat and
+directional tail.** Median lag 2bd, p95 = 5bd - most directors comply
+easily. But: **disposals 7.8% late vs acquisitions 2.8% (~3x), and $1M+
+trades 10.2% late** - the trades carrying the most information are the
+most likely to miss the deadline. 19 trades filed >63bd late; extremes
+include ~1-2 YEARS (RHC 523bd, AAI 386bd, GDG 368bd, ZIP 266bd x3 -
+Kevin Moss; GDG's Bessemer is a clean-31 seller too). ⚠ Before any
+public naming: eyeball the extreme lags against source PDFs - a 523bd
+lag could be an extraction year-typo (93.1% accuracy leaves room), and
+several suspicious ~2y gaps pattern-match to year misreads. The
+aggregate rates are robust to a few extraction errors; the league table
+is not.
+
+With the flag-divergence result (EX-1), this completes the "market
+plumbing" trilogy for Paper 03/04: the exchange's materiality flag
+misses market-moving filings; directors respect blackout windows almost
+perfectly; the filing deadline leaks precisely where it matters most.

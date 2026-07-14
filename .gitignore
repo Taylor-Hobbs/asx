@@ -116,6 +116,9 @@ scripts/_wrap_site.py
 scripts/_live_dashboard_data.py
 scripts/_xjo_weekly.py
 scripts/_cyl_series.py
+scripts/_hygiene.py
+scripts/_build_asx300_delta.py
+backfill_asx300_*.log
 
 # site build artifact (assembled in Docker; never commit the 10MB bundle)
 site/public/
