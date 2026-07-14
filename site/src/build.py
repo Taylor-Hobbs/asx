@@ -26,14 +26,17 @@ rest = rest.replace("<!--CFSCRIPTS-->", cf_tags)
 template = (
     '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
     '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
-    + title + "\n</head>\n<body>" + rest + "\n</body>\n</html>"
+    + title
+    + "\n</head>\n<body>"
+    + rest
+    + "\n</body>\n</html>"
 )
 
 esc = lambda s: s.replace("</", "<\\/")  # noqa: E731
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text(
-    "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n"
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n"
+    '<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n'
+    '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
     "<title>ASX Alpha — Forward Paper Terminal</title>\n"
     "<style>body{background:#000;margin:0}"
     "#__bundler_loading{position:fixed;bottom:20px;right:20px;"
