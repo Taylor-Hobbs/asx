@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ASX announcement alpha research: interim findings, honest nulls, and LLM extraction methodology lessons.">
+<title>ASX Announcement Alpha — Interim Findings</title>
+</head>
+<body>
+<style>
+  :root {
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --baseline: #c3c2b7; --ring: rgba(11,11,11,0.10);
+    --pos: #2a78d6; --neg: #e34948; --s1: #2a78d6; --s2: #1baf7a;
+    --s-flag: #2a78d6; --s-unflag: #eb6834;
+    --seq-mid: #1baf7a;
+    --good: #0ca30c; --warn: #fab219; --crit: #d03b3b;
+    --good-ink: #006300;
+    --chip-good-bg: rgba(12,163,12,0.10); --chip-warn-bg: rgba(250,178,25,0.14);
+    --chip-crit-bg: rgba(208,59,59,0.10); --chip-mute-bg: rgba(11,11,11,0.05);
+  }
+  @media (prefers-color-scheme: dark) { :root {
+    --page: #0d0d0d; --surface: #1a1a19;
+    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --baseline: #383835; --ring: rgba(255,255,255,0.10);
+    --pos: #3987e5; --neg: #e66767; --s1: #3987e5; --s2: #199e70;
+    --s-flag: #3987e5; --s-unflag: #d95926;
+    --seq-mid: #199e70;
+    --good-ink: #0ca30c;
+    --chip-good-bg: rgba(12,163,12,0.16); --chip-warn-bg: rgba(250,178,25,0.14);
+    --chip-crit-bg: rgba(208,59,59,0.18); --chip-mute-bg: rgba(255,255,255,0.07);
+  } }
+  :root[data-theme="light"] {
+    --page: #f9f9f7; --surface: #fcfcfb;
+    --ink: #0b0b0b; --ink-2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --baseline: #c3c2b7; --ring: rgba(11,11,11,0.10);
+    --pos: #2a78d6; --neg: #e34948; --s1: #2a78d6; --s2: #1baf7a;
+    --s-flag: #2a78d6; --s-unflag: #eb6834;
+    --seq-mid: #1baf7a;
+    --good-ink: #006300;
+    --chip-good-bg: rgba(12,163,12,0.10); --chip-warn-bg: rgba(250,178,25,0.14);
+    --chip-crit-bg: rgba(208,59,59,0.10); --chip-mute-bg: rgba(11,11,11,0.05);
+  }
+  :root[data-theme="dark"] {
+    --page: #0d0d0d; --surface: #1a1a19;
+    --ink: #ffffff; --ink-2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --baseline: #383835; --ring: rgba(255,255,255,0.10);
+    --pos: #3987e5; --neg: #e66767; --s1: #3987e5; --s2: #199e70;
+    --s-flag: #3987e5; --s-unflag: #d95926;
+    --seq-mid: #199e70;
+    --good-ink: #0ca30c;
+    --chip-good-bg: rgba(12,163,12,0.16); --chip-warn-bg: rgba(250,178,25,0.14);
+    --chip-crit-bg: rgba(208,59,59,0.18); --chip-mute-bg: rgba(255,255,255,0.07);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--page); color: var(--ink);
+    font: 16px/1.65 system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  .prose { max-width: 720px; }
+  .prose p { color: var(--ink-2); }
+  .prose strong { color: var(--ink); }
+  a { color: var(--pos); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+
+  header.hero { padding: 72px 0 40px; border-bottom: 1px solid var(--grid); }
+  .eyebrow {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(30px, 5.4vw, 46px); line-height: 1.12; margin: 0 0 20px;
+    letter-spacing: -0.015em; font-weight: 750; text-wrap: balance;
+  }
+  .dek { font-size: 18px; line-height: 1.6; color: var(--ink-2); max-width: 640px; margin: 0; }
+  .dek strong { color: var(--ink); }
+
+  .statband {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px; background: var(--grid); border: 1px solid var(--grid);
+    border-radius: 10px; overflow: hidden; margin: 40px 0 0;
+  }
+  .stat { background: var(--surface); padding: 16px 16px 14px; }
+  .stat .v {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .stat .k { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+
+  section { padding: 56px 0 8px; }
+  .sec-eyebrow {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 10px;
+  }
+  h2 { font-size: 27px; line-height: 1.25; letter-spacing: -0.01em; margin: 0 0 14px; font-weight: 700; text-wrap: balance; }
+  h3 { font-size: 18px; margin: 28px 0 8px; font-weight: 650; }
+
+  figure.viz {
+    margin: 28px 0 8px; background: var(--surface); border: 1px solid var(--ring);
+    border-radius: 12px; padding: 20px 20px 12px;
+  }
+  figure.viz figcaption { padding: 0 2px 10px; }
+  .fig-title { font-weight: 650; font-size: 15.5px; }
+  .fig-sub { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .chart-scroll { overflow-x: auto; }
+  svg text {
+    font-family: ui-monospace, "Cascadia Code", Consolas, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; padding: 4px 2px 8px; font-size: 12.5px; color: var(--ink-2); }
+  .legend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: baseline; }
+  .legend .dotsw { display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:6px; border:2px solid var(--ink); background:transparent; vertical-align: baseline; }
+
+  details.tbl { margin: 6px 2px 14px; font-size: 13px; color: var(--ink-2); }
+  details.tbl summary { cursor: pointer; color: var(--muted); }
+  details.tbl table { border-collapse: collapse; margin-top: 10px; min-width: 420px; }
+  details.tbl th, details.tbl td {
+    text-align: right; padding: 4px 12px 4px 0; border-bottom: 1px solid var(--grid);
+    font-variant-numeric: tabular-nums;
+  }
+  details.tbl th:first-child, details.tbl td:first-child { text-align: left; }
+  .tbl-scroll { overflow-x: auto; }
+
+  #tip {
+    position: fixed; pointer-events: none; z-index: 50; display: none;
+    background: var(--ink); color: var(--page);
+    font: 12.5px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace;
+    padding: 8px 11px; border-radius: 8px; max-width: 280px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  }
+  #tip .t-h { font-weight: 700; }
+
+  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 14px; margin: 26px 0 10px; }
+  .vcard { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 18px 18px 16px; }
+  .vcard h4 { margin: 0 0 6px; font-size: 15.5px; font-weight: 650; }
+  .vcard p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+  .vcard .num { font-family: ui-monospace, Consolas, monospace; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px; margin-bottom: 10px;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+    padding: 4px 9px; border-radius: 999px;
+  }
+  .chip.refuted { color: var(--crit); background: var(--chip-crit-bg); }
+  .chip.inconclusive { color: var(--warn); background: var(--chip-warn-bg); }
+  .chip.survives { color: var(--good-ink); background: var(--chip-good-bg); }
+  .chip.null { color: var(--ink-2); background: var(--chip-mute-bg); }
+
+  .lessons { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 14px; margin: 26px 0 10px; }
+  .lesson { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 18px; }
+  .lesson .n {
+    font-family: ui-monospace, Consolas, monospace; font-size: 12px;
+    color: var(--muted); letter-spacing: 0.12em;
+  }
+  .lesson h4 { margin: 8px 0 8px; font-size: 16px; font-weight: 650; line-height: 1.35; }
+  .lesson p { margin: 0; font-size: 13.5px; color: var(--ink-2); line-height: 1.55; }
+
+  .pipeline { display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; margin: 14px 0 0; }
+  .pstep {
+    background: var(--surface); border: 1px solid var(--ring); border-radius: 8px;
+    padding: 8px 12px; min-width: 108px;
+  }
+  .pstep b { display: block; font-size: 12.5px; font-weight: 650; }
+  .pstep small { color: var(--muted); font-size: 11px; line-height: 1.35; display: block; margin-top: 1px; }
+  .parrow {
+    align-self: center; color: var(--muted);
+    font-family: ui-monospace, Consolas, monospace; font-size: 14px;
+  }
+
+  .caveats { background: var(--surface); border: 1px solid var(--ring); border-radius: 12px; padding: 22px 24px; margin: 30px 0; }
+  .caveats h3 { margin: 0 0 10px; font-size: 15px; }
+  .caveats ul { margin: 0; padding-left: 18px; font-size: 13.5px; color: var(--ink-2); line-height: 1.7; }
+  footer { border-top: 1px solid var(--grid); margin-top: 40px; padding: 28px 0 56px; font-size: 13.5px; color: var(--muted); }
+  footer a { color: var(--ink-2); }
+  @media (max-width: 640px) { header.hero { padding-top: 48px; } }
+</style>
+
+<div id="tip" role="status"></div>
+
+<header class="hero"><div class="wrap">
+  <p class="eyebrow">ASX announcement alpha &middot; interim findings &middot; July 2026</p>
+  <h1>We taught an LLM to read 5,364 ASX filings — then tried to kill everything it found.</h1>
+  <p class="dek">A solo research study of two years of ASX&nbsp;200 company announcements:
+  director trades, earnings, dividends, board changes. <strong>Five popular anomalies came
+  back null. One signal survived seven attacks.</strong> Every number below — including the
+  failures — is reproducible from the public repo.</p>
+  <div class="statband">
+    <div class="stat"><div class="v mono">5,364</div><div class="k">PDFs collected &amp; parsed</div></div>
+    <div class="stat"><div class="v mono">199&times;24</div><div class="k">tickers &times; months</div></div>
+    <div class="stat"><div class="v mono">4,743</div><div class="k">director trades extracted</div></div>
+    <div class="stat"><div class="v mono">1,440</div><div class="k">earnings records extracted</div></div>
+    <div class="stat"><div class="v mono">93.1%</div><div class="k">extraction accuracy vs hand-labeled goldens</div></div>
+    <div class="stat"><div class="v mono">&lt;$40</div><div class="k">total LLM spend (batched Haiku)</div></div>
+  </div>
+  <div class="pipeline" aria-label="Pipeline: ASX announcements to GCS and BigQuery to parsed text to Claude extraction to event store to event studies">
+    <div class="pstep"><b>ASX announcements</b><small>polite crawler &middot; 3s/req &middot; resumable</small></div>
+    <span class="parrow">&rarr;</span>
+    <div class="pstep"><b>GCS + BigQuery</b><small>immutable &middot; content-hash keyed</small></div>
+    <span class="parrow">&rarr;</span>
+    <div class="pstep"><b>Parsed text</b><small>pdfplumber &middot; quality-flagged</small></div>
+    <span class="parrow">&rarr;</span>
+    <div class="pstep"><b>Claude extraction</b><small>batched &middot; eval-gated prompts</small></div>
+    <span class="parrow">&rarr;</span>
+    <div class="pstep"><b>Event store</b><small>point-in-time &middot; no lookahead</small></div>
+    <span class="parrow">&rarr;</span>
+    <div class="pstep"><b>Event studies</b><small>numpy &middot; tested vs synthetic truth</small></div>
+  </div>
+</div></header>
+
+<section><div class="wrap">
+  <p class="sec-eyebrow">01 &middot; the interrogation</p>
+  <div class="prose">
+    <h2>A −7.1% "signal" walks into a robustness battery</h2>
+    <p>The first event study said on-market director sales preceded <span class="mono">−7.1%</span>
+    abnormal returns (z&nbsp;=&nbsp;−7.5). Instead of publishing that, the study spent a week attacking it:
+    deduplicating serial sellers, swapping return models, matching controls, buying exact earnings
+    dates, adjusting for sectors, purging retirees. Most of the magnitude was self-inflicted
+    artifact — <strong>but a core refused to die</strong>: large ($1M+), freely-timed director sales,
+    roughly −5–6% per quarter, and it got <em>cleaner</em> under attack.</p>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">The headline number under eight successive attacks</div>
+      <div class="fig-sub">Mean abnormal return over the ~3 months after a director-sale filing, as each confound is removed &middot; hover for detail</div>
+    </figcaption>
+    <div class="chart-scroll"><div id="chart-decay"></div></div>
+    <details class="tbl"><summary>View as table</summary><div class="tbl-scroll"><table>
+      <tr><th>Stage</th><th>Effect</th><th>Statistic</th></tr>
+      <tr><td>First pass (all sales)</td><td>−7.1%</td><td>z −7.5, n 397</td></tr>
+      <tr><td>Dedup overlapping windows</td><td>−3.1%</td><td>z −2.6, n 201</td></tr>
+      <tr><td>Market-adjusted returns</td><td>−1.2%</td><td>not significant</td></tr>
+      <tr><td>Vs the stock's own drift</td><td>−5.0%</td><td>placebo p≈0.03</td></tr>
+      <tr><td>Run-up-matched control</td><td>−4.5%</td><td>p≈0.09, n 43</td></tr>
+      <tr><td>Exact dates: clean $1M+ sales</td><td>−5.7%</td><td>t −2.15, n 28</td></tr>
+      <tr><td>Sector-adjusted</td><td>−6.2%</td><td>t −2.73, n 31</td></tr>
+      <tr><td>Retirement sellers removed</td><td>−5.7%</td><td>t −2.24, n 29</td></tr>
+    </table></div></details>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <p class="sec-eyebrow">02 &middot; the survivor</p>
+  <div class="prose">
+    <h2>Thirty-one sales, one stubborn drift</h2>
+    <p>The surviving cell: on-market sales over $1M, filed more than 30 days after the company's
+    last results — free-choice trades, exactly where insider information should live.
+    <strong>21 of 31 underperformed</strong> their sector over the next quarter. It is not
+    front-running bad earnings (the next results were, if anything, <em>better</em> than average),
+    not a sector artifact, and not retirement liquidations. It is a diffuse ~−5–6%/quarter
+    idiosyncratic drift with <strong>no identified mechanism</strong> — which is precisely why it
+    goes to a pre-registered forward test on a paper account, not a trading account.</p>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">Forward 63-day abnormal return after each qualifying sale</div>
+      <div class="fig-sub">Bars: vs ASX 200 &middot; dots: vs the stock's own GICS sector basket &middot; sorted by index-adjusted return</div>
+    </figcaption>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--neg)"></span>Underperformed (vs index)</span>
+      <span><span class="sw" style="background:var(--pos)"></span>Outperformed (vs index)</span>
+      <span><span class="dotsw"></span>Sector-adjusted</span>
+    </div>
+    <div class="chart-scroll"><div id="chart-survivor"></div></div>
+  </figure>
+
+  <div class="prose">
+    <h3>Anatomy of the scariest data point</h3>
+    <p>The worst event — Catalyst Metals, −43% after a director's $9M sale — looked like the
+    smoking gun. Forensics said otherwise: the crash was a <strong>gold-sector drawdown</strong>
+    (every big down day was sector-wide; the worst, −14.4%, had no company news at all), and the
+    company's next result was NPAT <strong>+40%</strong>. But even against its own gold peers,
+    CYL still underperformed by ~20% — the sale preceded real idiosyncratic damage <em>and</em>
+    a sector slide the index-adjusted number wrongly bundled in. This one chart is why the whole
+    cohort got re-scored sector-adjusted.</p>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">CYL vs the other 11 ASX gold miners, indexed to 100</div>
+      <div class="fig-sub">Jan 15 – May 15 2026 &middot; markers: the two $1M+ director sales and the half-year result &middot; hover for values</div>
+    </figcaption>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--neg)"></span>CYL</span>
+      <span><span class="sw" style="background:var(--s1)"></span>Gold-peer average (11 miners)</span>
+    </div>
+    <div class="chart-scroll"><div id="chart-cyl"></div></div>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <p class="sec-eyebrow">03 &middot; the graveyard</p>
+  <div class="prose">
+    <h2>Five popular anomalies, tested and buried</h2>
+    <p>Each test below was specified — cohort, endpoint, success threshold — <em>before</em> it ran,
+    with a shared multiple-testing correction. Honest nulls are the study's main product:
+    they are what make the one survivor credible rather than cherry-picked.</p>
+  </div>
+  <div class="verdicts">
+    <div class="vcard"><span class="chip null">&empty; NULL</span>
+      <h4>Director purchases</h4>
+      <p>1,254 buys: <span class="num">+0.45%</span> (z=+0.12). Placebo-confirmed nothing, at every horizon. Directors buy dips; the dips don't care.</p></div>
+    <div class="vcard"><span class="chip inconclusive">&#9888; INCONCLUSIVE</span>
+      <h4>Post-earnings drift (PEAD)</h4>
+      <p>712 results days. Best-vs-worst reaction quintile spread <span class="num">+3.7%</span> (t=1.5), sign flips across seasons. Big misses show <em>zero</em> drift — bad news is priced same-day.</p></div>
+    <div class="vcard"><span class="chip refuted">&times; REFUTED</span>
+      <h4>Dividend-cut drift</h4>
+      <p>105 cuts vs 82 holds: spread <span class="num">+0.1%</span> (t=0.04). A cut is fully priced the morning it lands.</p></div>
+    <div class="vcard"><span class="chip refuted">&times; REFUTED</span>
+      <h4>Insider dip-buying</h4>
+      <p>Directors bought after <strong>45%</strong> of results-day crashes — near-reflexive. Bought crashes recovered <em>no better</em> than ignored ones (<span class="num">−0.1%</span> vs <span class="num">+1.7%</span>).</p></div>
+    <div class="vcard"><span class="chip null">&empty; NOTHING</span>
+      <h4>CEO / MD changes</h4>
+      <p>63 appointments &amp; cessations: both indistinguishable from base drift. One anecdote (WTC <span class="num">−41%</span>), no pattern.</p></div>
+    <div class="vcard"><span class="chip refuted">&times; DEAD</span>
+      <h4>The exec-seller theory</h4>
+      <p>Executive vs non-executive seller adds nothing — and the LLM role labels it rested on were only <strong>72%</strong> right vs primary documents.</p></div>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">PEAD, quintiles by day-0 market reaction</div>
+      <div class="fig-sub">712 results-day events, 2024–26 &middot; the market's own reaction is the surprise measure</div>
+    </figcaption>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--s1)"></span>Day-0 reaction (mean)</span>
+      <span><span class="sw" style="background:var(--s2)"></span>Following 63 trading days</span>
+    </div>
+    <div class="chart-scroll"><div id="chart-pead"></div></div>
+    <details class="tbl"><summary>View as table</summary><div class="tbl-scroll"><table>
+      <tr><th>Quintile</th><th>n</th><th>Day-0</th><th>CAR +1..+63</th></tr>
+      <tr><td>Q1 worst</td><td>143</td><td>−9.5%</td><td>−0.6%</td></tr>
+      <tr><td>Q2</td><td>142</td><td>−2.1%</td><td>+4.2%</td></tr>
+      <tr><td>Q3</td><td>142</td><td>+0.4%</td><td>+0.6%</td></tr>
+      <tr><td>Q4</td><td>142</td><td>+2.9%</td><td>+3.4%</td></tr>
+      <tr><td>Q5 best</td><td>143</td><td>+9.2%</td><td>+3.1%</td></tr>
+    </table></div></details>
+  </figure>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">Dividend actions: noticed on the day, then nothing</div>
+      <div class="fig-sub">509 results events with a stated dividend pair &middot; cuts include 4 omissions</div>
+    </figcaption>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--s1)"></span>Day-0 reaction (mean)</span>
+      <span><span class="sw" style="background:var(--s2)"></span>Following 63 trading days</span>
+    </div>
+    <div class="chart-scroll"><div id="chart-div"></div></div>
+  </figure>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">Every insider dip-buy, and what happened next</div>
+      <div class="fig-sub">50 results-day crashes (&le;&minus;5%) followed by an on-market director purchase within 30 days &middot; hover any dot</div>
+    </figcaption>
+    <div class="chart-scroll"><div id="chart-dip"></div></div>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <p class="sec-eyebrow">04 &middot; market plumbing</p>
+  <div class="prose">
+    <h2>The exchange's "price sensitive" flag misses what moves prices</h2>
+    <p>Director-trade notices are <strong>never</strong> flagged price-sensitive on the ASX.
+    Yet a $1M+ insider sale moves its stock <span class="mono">2.8%</span> on filing day —
+    double the baseline for the same form type, a fifth of them beyond 3%. The market
+    demonstrably prices a category the exchange's materiality flag ignores.</p>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">Day-0 price move by announcement category</div>
+      <div class="fig-sub">Mean |abnormal return| on the filing's first tradeable day</div>
+    </figcaption>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--s-flag)"></span>Flagged price-sensitive</span>
+      <span><span class="sw" style="background:var(--s-unflag)"></span>Not flagged</span>
+    </div>
+    <div class="chart-scroll"><div id="chart-flag"></div></div>
+  </figure>
+</div></section>
+
+<section><div class="wrap">
+  <p class="sec-eyebrow">05 &middot; the LLM under the microscope</p>
+  <div class="prose">
+    <h2>When two documents describe one result, they disagree 28% of the time</h2>
+    <p>Most results events arrive as several documents — the statutory 4D, a media release, an
+    investor deck. Extracting all of them independently creates a free, golden-label-less audit:
+    <strong>do the documents agree?</strong> Only 45% of field pairs match exactly. EPS is the
+    disaster zone — basic vs diluted, cents vs dollars, statutory vs underlying. And the model's
+    self-reported confidence barely notices: <span class="mono">0.962</span> on consensus values
+    vs <span class="mono">0.951</span> on deviant ones. Convention errors feel exactly like
+    correct answers from the inside.</p>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">Cross-document agreement by extracted field</div>
+      <div class="fig-sub">447 results events with &ge;2 independently extracted documents</div>
+    </figcaption>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--s1)"></span>Exact match</span>
+      <span><span class="sw" style="background:var(--seq-mid)"></span>Within 1% (rounding)</span>
+      <span><span class="sw" style="background:var(--neg)"></span>Disagree</span>
+    </div>
+    <div class="chart-scroll"><div id="chart-crossdoc"></div></div>
+  </figure>
+
+  <div class="prose">
+    <h3>How the extractor earned trust: eval-driven prompt development</h3>
+    <p>No bulk extraction ran on an unbenchmarked prompt. Each prompt version was scored against
+    hand-labeled goldens before touching the corpus — including the iteration where the
+    <em>goldens themselves</em> turned out to be wrong (v4 and v5 regressed and were binned;
+    the director-trades jump came partly from fixing labels the eval exposed).</p>
+  </div>
+  <figure class="viz">
+    <figcaption>
+      <div class="fig-title">Extraction accuracy by prompt version</div>
+      <div class="fig-sub">Overall field accuracy vs golden labels, all on the same small model (Haiku) &middot; hover for what changed</div>
+    </figcaption>
+    <div class="chart-scroll"><div id="chart-eval"></div></div>
+  </figure>
+
+  <h3>Three lessons that generalize beyond this study</h3>
+  <div class="lessons">
+    <div class="lesson"><div class="n">LESSON 01</div>
+      <h4>Your golden labels can be the bug</h4>
+      <p>The eval flagged the model 15.6% on director roles. Investigation showed 30 of 36 golden
+      labels named roles that appear <em>nowhere in the documents</em> — labeled from memory, not
+      text. The model was right; the labels were wrong. Accuracy jumped 75%&rarr;93% across two
+      honest prompt iterations.</p></div>
+    <div class="lesson"><div class="n">LESSON 02</div>
+      <h4>LLM world-knowledge enrichment fails predictably</h4>
+      <p>Asking a model "what role does this person hold?" was only 72% right vs primary filings —
+      famous-elsewhere executives, post-cutoff CEOs, time-dependent roles. $1 of extraction from
+      actual appointment notices caught every failure mode.</p></div>
+    <div class="lesson"><div class="n">LESSON 03</div>
+      <h4>Confidence scores don't see convention errors</h4>
+      <p>Per-field confidence separates "couldn't read it" from "read it fine" — but not
+      "read the wrong convention". Cross-document disagreement is the cheap detector goldens
+      can't be: it scales with the corpus and costs nothing.</p></div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <p class="sec-eyebrow">06 &middot; what would make this real</p>
+  <div class="prose">
+    <h2>In-sample survival is not an edge</h2>
+    <p>The surviving signal was <em>found</em> in this data, then re-cut repeatedly — every printed
+    t-statistic is optimistic. So the study does what the checklist says: the hypothesis is frozen,
+    and from here it is judged only on <strong>filings it has never seen</strong> — a pre-registered
+    forward test running through mid-2027 on a paper account. Confirmed or refuted, the result
+    gets published with equal prominence.</p>
+  </div>
+  <div class="caveats">
+    <h3>Read the fine print — it's the point</h3>
+    <ul>
+      <li><strong>In-sample throughout.</strong> 2024–26 discovery window; heavy accumulated multiple-testing debt, partially controlled by pre-specified endpoints and Bonferroni families.</li>
+      <li><strong>Prototype prices.</strong> yfinance daily closes; today's ASX 200 constituents (survivorship lifts every baseline — visible in the data). Delisting-aware data gates anything published as a backtest.</li>
+      <li><strong>No consensus estimates.</strong> "Surprise" is proxied by the market's own reaction; reported YoY changes explain almost none of it (&rho;=0.12).</li>
+      <li><strong>Small n.</strong> The surviving cohort is 31 events. One bad quarter of luck could produce it.</li>
+      <li><strong>Paper trading only.</strong> Simulated fills are optimistic; backtest &ne; live; no real capital, ever.</li>
+    </ul>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  Built solo with an LLM-assisted pipeline: ASX filings &rarr; GCS/BigQuery &rarr; parsed text &rarr;
+  benchmarked Claude extraction &rarr; event studies (numpy, tested against synthetic truth).
+  Code, eval methodology, build log and every negative result:
+  <a href="https://github.com/Taylor-Hobbs/asx">github.com/Taylor-Hobbs/asx</a>.
+  &middot; Nothing here is investment advice; this is a methods study.
+</div></footer>
+
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, parent) {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  const tip = document.getElementById("tip");
+  function showTip(html, evt) {
+    tip.innerHTML = html; tip.style.display = "block";
+    const pad = 14, w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = evt.clientX + pad, y = evt.clientY - h - pad;
+    if (x + w > innerWidth - 8) x = evt.clientX - w - pad;
+    if (y < 8) y = evt.clientY + pad;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  function hideTip() { tip.style.display = "none"; }
+  function hover(node, html) {
+    node.addEventListener("mousemove", e => showTip(html, e));
+    node.addEventListener("mouseleave", hideTip);
+  }
+
+  /* ---------- 1. decay chart ---------- */
+  (function () {
+    const data = [
+      { s: "First pass",        v: -7.1, stat: "z = −7.5 · n=397", note: "Naive event study, every on-market sale" },
+      { s: "Dedup windows",     v: -3.1, stat: "z = −2.6 · n=201", note: "Serial sellers had been triple-counted" },
+      { s: "Market-adjusted",   v: -1.2, stat: "not significant",  note: "−12…−16% CARs were alpha-extrapolation artifact" },
+      { s: "Vs own drift",      v: -5.0, stat: "placebo p ≈ 0.03", note: "These tickers drift +3.9% unconditionally; sale-timed windows don't" },
+      { s: "Matched control",   v: -4.5, stat: "p ≈ 0.09 · n=43",  note: "Matched on prior 6-month run-up; matched winners kept climbing" },
+      { s: "Exact dates",       v: -5.7, stat: "t = −2.15 · n=28", note: "Clean $1M+ sales, >30d from results — the theoretically-predicted cell" },
+      { s: "Sector-adjusted",   v: -6.2, stat: "t = −2.73 · n=31", note: "Strengthens: not a sector artifact" },
+      { s: "Retirees removed",  v: -5.7, stat: "t = −2.24 · n=29", note: "Only 2/31 sellers were departure-shaped" }
+    ];
+    const W = 860, H = 320, L = 46, R = 16, T = 26, B = 64;
+    const iw = W - L - R, ih = H - T - B;
+    const y = v => T + (v / -8) * ih;
+    const x = i => L + (i + 0.5) * iw / data.length;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Line chart: the director-sales effect across eight robustness stages, from minus 7.1 percent to minus 5.7 percent." });
+    document.getElementById("chart-decay").appendChild(svg);
+    for (let g = 0; g >= -8; g -= 2) {
+      el("line", { x1: L, x2: W - R, y1: y(g), y2: y(g),
+        stroke: g === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = g + "%";
+    }
+    const path = data.map((d, i) => (i ? "L" : "M") + x(i) + " " + y(d.v)).join(" ");
+    el("path", { d: path, fill: "none", stroke: "var(--neg)", "stroke-width": 2,
+      "stroke-linejoin": "round" }, svg);
+    data.forEach((d, i) => {
+      el("circle", { cx: x(i), cy: y(d.v), r: 5, fill: "var(--neg)",
+        stroke: "var(--surface)", "stroke-width": 2 }, svg);
+      el("text", { x: x(i), y: y(d.v) - 12, "text-anchor": "middle", "font-size": 12,
+        "font-weight": 700, fill: "var(--ink)" }, svg).textContent = d.v.toFixed(1) + "%";
+      const words = d.s.split(" ");
+      words.forEach((wd, li) => {
+        el("text", { x: x(i), y: H - B + 18 + li * 13, "text-anchor": "middle",
+          "font-size": 10.5, fill: "var(--muted)" }, svg).textContent = wd;
+      });
+      const hit = el("rect", { x: x(i) - iw / data.length / 2, y: T, width: iw / data.length,
+        height: H - T - B + 30, fill: "transparent" }, svg);
+      hover(hit, `<div class="t-h">${d.s} · ${d.v.toFixed(1)}%</div>${d.stat}<br>${d.note}`);
+    });
+  })();
+
+  /* ---------- 2. survivor chart ---------- */
+  (function () {
+    const data = [
+      ["CYL","2026-01-27","Materials",-42.9,-35.6],["CYL","2026-02-11","Materials",-29.1,-32.2],
+      ["JHX","2026-02-16","Materials",-27.9,-27.3],["REA","2025-09-22","Comm. Services",-20.0,-11.2],
+      ["NAB","2026-02-27","Financials",-19.9,-24.6],["MSB","2026-01-14","Healthcare",-19.1,-5.9],
+      ["WHC","2026-03-27","Energy",-18.2,-0.1],["GDG","2025-10-10","Financials",-18.2,-16.1],
+      ["NST","2025-05-27","Materials",-17.1,-21.6],["CSL","2024-11-05","Healthcare",-8.7,-18.8],
+      ["LTR","2025-05-16","Materials",-8.0,-13.0],["GMG","2025-10-20","Real Estate",-7.1,-6.9],
+      ["ALL","2025-07-17","Cons. Disc.",-5.1,-11.8],["NWL","2024-10-15","Financials",-4.6,-7.3],
+      ["NWL","2024-10-15","Financials",-4.6,-7.3],["VCX","2025-04-24","Real Estate",-3.5,-2.6],
+      ["WLE","2026-03-26","Financials",-1.9,-5.1],["BRG","2025-09-29","Cons. Disc.",-1.5,5.3],
+      ["GMG","2024-10-04","Real Estate",-1.0,8.2],["GMG","2024-09-23","Real Estate",0.5,10.7],
+      ["BRG","2024-09-24","Cons. Disc.",2.1,2.2],["REA","2024-12-02","Comm. Services",2.5,0.9],
+      ["WLE","2026-04-07","Financials",2.7,-5.5],["NWL","2024-11-25","Financials",2.9,2.4],
+      ["CYL","2025-12-04","Materials",5.3,-1.9],["NAB","2025-03-04","Financials",7.9,4.7],
+      ["NWH","2025-10-20","Industrials",9.0,-1.6],["HVN","2025-01-02","Cons. Disc.",9.9,13.0],
+      ["LTR","2025-11-14","Materials",11.2,-0.8],["GDG","2025-06-18","Financials",14.2,10.5],
+      ["RRL","2025-11-20","Materials",18.5,6.9]
+    ];
+    const rowH = 19, L = 118, R = 30, T = 8, B = 30;
+    const W = 860, H = T + data.length * rowH + B;
+    const min = -46, max = 22, iw = W - L - R;
+    const x = v => L + (v - min) / (max - min) * iw;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Bar chart of 31 director-sale events: forward 63-day abnormal return, index- and sector-adjusted." });
+    document.getElementById("chart-survivor").appendChild(svg);
+    for (let g = -40; g <= 20; g += 10) {
+      el("line", { x1: x(g), x2: x(g), y1: T, y2: H - B,
+        stroke: g === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: x(g), y: H - B + 16, "text-anchor": "middle", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = (g > 0 ? "+" : "") + g + "%";
+    }
+    data.forEach((d, i) => {
+      const tk = d[0], dt = d[1], sec = d[2], idx = d[3], sadj = d[4];
+      const yy = T + i * rowH;
+      el("text", { x: L - 8, y: yy + rowH / 2 + 4, "text-anchor": "end", "font-size": 11,
+        fill: "var(--ink-2)" }, svg).textContent = tk + " " + dt.slice(2, 7);
+      const x0 = Math.min(x(0), x(idx)), bw = Math.max(Math.abs(x(idx) - x(0)), 1.5);
+      el("rect", { x: x0, y: yy + 3, width: bw, height: rowH - 8,
+        rx: 3, fill: idx < 0 ? "var(--neg)" : "var(--pos)" }, svg);
+      el("circle", { cx: x(sadj), cy: yy + rowH / 2 - 1, r: 4, fill: "none",
+        stroke: "var(--ink)", "stroke-width": 2 }, svg);
+      const hit = el("rect", { x: 0, y: yy, width: W, height: rowH, fill: "transparent" }, svg);
+      hover(hit, `<div class="t-h">${tk} · sale filed ${dt}</div>${sec}<br>` +
+        `vs index ${idx > 0 ? "+" : ""}${idx.toFixed(1)}% · vs sector ${sadj > 0 ? "+" : ""}${sadj.toFixed(1)}%`);
+    });
+  })();
+
+  /* ---------- 3. PEAD chart ---------- */
+  (function () {
+    const data = [
+      { q: "Q1 worst", n: 143, d0: -9.5, car: -0.6 },
+      { q: "Q2",       n: 142, d0: -2.1, car:  4.2 },
+      { q: "Q3",       n: 142, d0:  0.4, car:  0.6 },
+      { q: "Q4",       n: 142, d0:  2.9, car:  3.4 },
+      { q: "Q5 best",  n: 143, d0:  9.2, car:  3.1 }
+    ];
+    const W = 860, H = 300, L = 46, R = 16, T = 20, B = 40;
+    const iw = W - L - R, ih = H - T - B, min = -10, max = 10;
+    const y = v => T + (max - v) / (max - min) * ih;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Grouped bar chart: day-0 reaction and following 63-day return by reaction quintile." });
+    document.getElementById("chart-pead").appendChild(svg);
+    for (let g = -10; g <= 10; g += 5) {
+      el("line", { x1: L, x2: W - R, y1: y(g), y2: y(g),
+        stroke: g === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = (g > 0 ? "+" : "") + g + "%";
+    }
+    const gw = iw / data.length, bw = 34;
+    data.forEach((d, i) => {
+      const cx = L + (i + 0.5) * gw;
+      [["d0", "var(--s1)", d.d0, "Day-0 reaction"], ["car", "var(--s2)", d.car, "Next 63 days"]]
+        .forEach((series, si) => {
+          const color = series[1], v = series[2], label = series[3];
+          const bx = cx - bw - 1 + si * (bw + 2);
+          const y0 = Math.min(y(0), y(v)), bh = Math.max(Math.abs(y(v) - y(0)), 1.5);
+          const bar = el("rect", { x: bx, y: y0, width: bw, height: bh, rx: 3, fill: color }, svg);
+          el("text", { x: bx + bw / 2, y: v >= 0 ? y(v) - 6 : y(v) + 14, "text-anchor": "middle",
+            "font-size": 11.5, "font-weight": 700, fill: "var(--ink)" }, svg)
+            .textContent = (v > 0 ? "+" : "") + v.toFixed(1);
+          hover(bar, `<div class="t-h">${d.q} · ${label}</div>${v > 0 ? "+" : ""}${v.toFixed(1)}% · n=${d.n}`);
+        });
+      el("text", { x: cx, y: H - B + 20, "text-anchor": "middle", "font-size": 11.5,
+        fill: "var(--muted)" }, svg).textContent = d.q;
+    });
+  })();
+
+  /* ---------- 4. flag divergence chart ---------- */
+  (function () {
+    const data = [
+      { c: "Results filing",           ps: true,  v: 4.95, n: 783, note: "55% move >3%" },
+      { c: "Board appointment",        ps: true,  v: 3.62, n: 36,  note: "39% move >3%" },
+      { c: "Director sale ≥ $1M",      ps: false, v: 2.81, n: 108, note: "mean signed move −1.3% · 21% move >3% · never flagged", hot: true },
+      { c: "Board appointment",        ps: false, v: 1.69, n: 387, note: "16% move >3%" },
+      { c: "Other announcement",       ps: false, v: 1.60, n: 348, note: "15% move >3%" },
+      { c: "Director trade (routine)", ps: false, v: 1.40, n: 797, note: "10% move >3%" }
+    ];
+    const rowH = 40, L = 190, R = 60, T = 6, B = 30;
+    const W = 860, H = T + data.length * rowH + B, iw = W - L - R;
+    const x = v => L + v / 5.5 * iw;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Bar chart: average day-0 absolute abnormal return by announcement category and price-sensitive flag." });
+    document.getElementById("chart-flag").appendChild(svg);
+    for (let g = 0; g <= 5; g++) {
+      el("line", { x1: x(g), x2: x(g), y1: T, y2: H - B,
+        stroke: g === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: x(g), y: H - B + 16, "text-anchor": "middle", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = g + "%";
+    }
+    data.forEach((d, i) => {
+      const yy = T + i * rowH;
+      el("text", { x: L - 10, y: yy + rowH / 2 + 4, "text-anchor": "end", "font-size": 12,
+        "font-weight": d.hot ? 700 : 400, fill: d.hot ? "var(--ink)" : "var(--ink-2)" }, svg)
+        .textContent = d.c;
+      const bar = el("rect", { x: x(0), y: yy + 8, width: x(d.v) - x(0), height: rowH - 18,
+        rx: 4, fill: d.ps ? "var(--s-flag)" : "var(--s-unflag)" }, svg);
+      el("text", { x: x(d.v) + 8, y: yy + rowH / 2 + 4, "font-size": 12, "font-weight": 700,
+        fill: "var(--ink)" }, svg).textContent = d.v.toFixed(2) + "%";
+      hover(bar, `<div class="t-h">${d.c} — ${d.ps ? "flagged" : "NOT flagged"}</div>` +
+        `mean |AR| ${d.v.toFixed(2)}% · n=${d.n}<br>${d.note}`);
+    });
+  })();
+
+  /* ---------- 5. cross-doc chart ---------- */
+  (function () {
+    const data = [
+      { f: "Dividend (current)", n: 383, a: [81, 1, 17] },
+      { f: "Dividend (prior)",   n: 280, a: [76, 6, 17] },
+      { f: "EPS (current)",      n: 262, a: [41, 13, 47] },
+      { f: "EPS (prior)",        n: 249, a: [39, 14, 48] },
+      { f: "NPAT (current)",     n: 424, a: [37, 35, 28] },
+      { f: "NPAT (prior)",       n: 401, a: [31, 39, 30] },
+      { f: "Revenue (current)",  n: 294, a: [26, 50, 23] },
+      { f: "Revenue (prior)",    n: 277, a: [25, 51, 25] }
+    ];
+    const names = ["exact match", "within 1%", "disagree"];
+    const colors = ["var(--s1)", "var(--seq-mid)", "var(--neg)"];
+    const rowH = 34, L = 160, R = 16, T = 6, B = 30;
+    const W = 860, H = T + data.length * rowH + B, iw = W - L - R;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Stacked bar chart: share of exact, near, and disagreeing values per field across multi-document results events." });
+    document.getElementById("chart-crossdoc").appendChild(svg);
+    for (let g = 0; g <= 100; g += 25) {
+      const gx = L + g / 100 * iw;
+      el("line", { x1: gx, x2: gx, y1: T, y2: H - B, stroke: "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: gx, y: H - B + 16, "text-anchor": "middle", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = g + "%";
+    }
+    data.forEach((d, i) => {
+      const yy = T + i * rowH;
+      const total = d.a[0] + d.a[1] + d.a[2];
+      el("text", { x: L - 10, y: yy + rowH / 2 + 4, "text-anchor": "end", "font-size": 12,
+        fill: "var(--ink-2)" }, svg).textContent = d.f;
+      let cx = L;
+      d.a.forEach((v, si) => {
+        const w = Math.max(v / total * iw - 2, 0);
+        const seg = el("rect", { x: cx, y: yy + 6, width: w, height: rowH - 14, rx: 3,
+          fill: colors[si] }, svg);
+        if (v >= 10) el("text", { x: cx + w / 2, y: yy + rowH / 2 + 3.5, "text-anchor": "middle",
+          "font-size": 11, "font-weight": si === 2 ? 700 : 400,
+          fill: si === 1 ? "var(--ink)" : "#ffffff" }, svg).textContent = v + "%";
+        hover(seg, `<div class="t-h">${d.f}</div>${names[si]}: ${v}% · n=${d.n} comparable pairs`);
+        cx += w + 2;
+      });
+    });
+  })();
+
+  /* ---------- 6. CYL case study ---------- */
+  (function () {
+    const dates = ["2026-01-15","2026-01-16","2026-01-19","2026-01-20","2026-01-21","2026-01-22","2026-01-23","2026-01-27","2026-01-28","2026-01-29","2026-01-30","2026-02-02","2026-02-03","2026-02-04","2026-02-05","2026-02-06","2026-02-09","2026-02-10","2026-02-11","2026-02-12","2026-02-13","2026-02-16","2026-02-17","2026-02-18","2026-02-19","2026-02-20","2026-02-23","2026-02-24","2026-02-25","2026-02-26","2026-02-27","2026-03-02","2026-03-03","2026-03-04","2026-03-05","2026-03-06","2026-03-09","2026-03-10","2026-03-11","2026-03-12","2026-03-13","2026-03-16","2026-03-17","2026-03-18","2026-03-19","2026-03-20","2026-03-23","2026-03-24","2026-03-25","2026-03-26","2026-03-27","2026-03-30","2026-03-31","2026-04-01","2026-04-02","2026-04-07","2026-04-08","2026-04-09","2026-04-10","2026-04-13","2026-04-14","2026-04-15","2026-04-16","2026-04-17","2026-04-20","2026-04-21","2026-04-22","2026-04-23","2026-04-24","2026-04-27","2026-04-28","2026-04-29","2026-04-30","2026-05-01","2026-05-04","2026-05-05","2026-05-06","2026-05-07","2026-05-08","2026-05-11","2026-05-12","2026-05-13","2026-05-14","2026-05-15"];
+    const cyl = [100.0,114.6,122.8,118.2,118.0,116.2,120.4,121.3,121.4,119.4,109.8,101.0,100.1,101.4,98.3,91.0,97.6,99.5,101.3,98.0,95.9,96.2,95.3,96.9,101.8,100.9,105.5,105.4,109.7,108.0,108.4,111.2,106.5,103.3,101.1,89.7,85.0,86.4,85.9,82.7,80.3,78.3,84.3,84.8,77.3,83.8,71.7,74.6,79.7,76.4,76.4,75.8,80.3,85.6,78.0,79.9,88.7,88.7,86.8,83.9,85.9,84.6,86.2,81.9,84.5,83.6,83.8,83.3,80.0,80.1,76.9,72.0,65.9,66.4,68.8,64.2,65.6,68.3,69.4,68.5,70.7,72.5,74.6,75.5];
+    const peers = [100.0,100.1,103.3,104.4,109.2,102.7,107.6,108.1,110.7,112.9,105.8,98.5,99.7,103.3,98.6,95.7,101.0,101.9,105.6,105.8,101.9,103.2,101.8,100.8,102.2,102.3,105.9,105.8,107.6,106.3,108.2,112.9,109.8,105.5,103.5,97.6,93.5,95.9,96.8,94.5,89.8,85.7,87.9,87.9,79.9,78.7,73.5,75.8,82.2,80.8,79.7,80.8,83.9,89.6,85.3,86.7,94.4,94.3,93.6,91.6,91.5,95.3,94.0,92.6,93.9,93.6,92.5,91.5,89.1,89.9,87.5,87.8,83.6,84.7,85.2,85.2,85.4,89.3,88.7,87.8,90.6,91.7,90.3,87.8];
+    const marks = [
+      { i: 7,  label: "sale #1 ($9.2M)" },
+      { i: 18, label: "sale #2" },
+      { i: 30, label: "HY result: NPAT +40%" }
+    ];
+    const W = 860, H = 320, L = 46, R = 90, T = 24, B = 34;
+    const iw = W - L - R, ih = H - T - B, lo = 60, hi = 126;
+    const x = i => L + i / (dates.length - 1) * iw;
+    const y = v => T + (hi - v) / (hi - lo) * ih;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Line chart: CYL indexed price versus the gold-peer average, January to May 2026." });
+    document.getElementById("chart-cyl").appendChild(svg);
+    for (let g = 60; g <= 120; g += 20) {
+      el("line", { x1: L, x2: W - R, y1: y(g), y2: y(g),
+        stroke: g === 100 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = g;
+    }
+    [0, 21, 42, 63, 83].forEach(i => {
+      el("text", { x: x(i), y: H - B + 18, "text-anchor": "middle", "font-size": 10.5,
+        fill: "var(--muted)" }, svg).textContent = dates[i].slice(5);
+    });
+    marks.forEach(m => {
+      el("line", { x1: x(m.i), x2: x(m.i), y1: T, y2: H - B,
+        stroke: "var(--baseline)", "stroke-width": 1, "stroke-dasharray": "3 4" }, svg);
+      el("text", { x: x(m.i) + 4, y: T + 10, "font-size": 10, fill: "var(--ink-2)" }, svg)
+        .textContent = m.label;
+    });
+    const mkPath = arr => arr.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1)).join(" ");
+    el("path", { d: mkPath(peers), fill: "none", stroke: "var(--s1)", "stroke-width": 2 }, svg);
+    el("path", { d: mkPath(cyl), fill: "none", stroke: "var(--neg)", "stroke-width": 2 }, svg);
+    el("text", { x: W - R + 6, y: y(cyl[cyl.length - 1]) + 4, "font-size": 11.5,
+      "font-weight": 700, fill: "var(--ink)" }, svg).textContent = "CYL −24.5%";
+    el("text", { x: W - R + 6, y: y(peers[peers.length - 1]) + 4, "font-size": 11.5,
+      fill: "var(--ink-2)" }, svg).textContent = "peers −12.2%";
+    const cross = el("line", { x1: 0, x2: 0, y1: T, y2: H - B, stroke: "var(--baseline)",
+      "stroke-width": 1, visibility: "hidden" }, svg);
+    const ov = el("rect", { x: L, y: T, width: iw, height: ih, fill: "transparent" }, svg);
+    ov.addEventListener("mousemove", e => {
+      const r = svg.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width * W;
+      const i = Math.max(0, Math.min(dates.length - 1,
+        Math.round((px - L) / iw * (dates.length - 1))));
+      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i));
+      cross.setAttribute("visibility", "visible");
+      showTip(`<div class="t-h">${dates[i]}</div>CYL ${cyl[i].toFixed(1)} · peers ${peers[i].toFixed(1)}`, e);
+    });
+    ov.addEventListener("mouseleave", () => { cross.setAttribute("visibility", "hidden"); hideTip(); });
+  })();
+
+  /* ---------- 7. dividend actions ---------- */
+  (function () {
+    const data = [
+      { g: "Cut / omit", n: 105, d0: -1.6, car: -0.4 },
+      { g: "Hold",       n: 82,  d0:  0.6, car: -0.5 },
+      { g: "Raise",      n: 322, d0:  0.3, car:  1.6 }
+    ];
+    const W = 860, H = 240, L = 46, R = 16, T = 18, B = 36;
+    const iw = W - L - R, ih = H - T - B, min = -3, max = 3;
+    const y = v => T + (max - v) / (max - min) * ih;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Grouped bar chart: day-0 reaction and 63-day drift after dividend cuts, holds and raises." });
+    document.getElementById("chart-div").appendChild(svg);
+    for (let g = -3; g <= 3; g += 1) {
+      el("line", { x1: L, x2: W - R, y1: y(g), y2: y(g),
+        stroke: g === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = (g > 0 ? "+" : "") + g + "%";
+    }
+    const gw = iw / data.length, bw = 44;
+    data.forEach((d, i) => {
+      const cx = L + (i + 0.5) * gw;
+      [["var(--s1)", d.d0, "Day-0 reaction"], ["var(--s2)", d.car, "Next 63 days"]]
+        .forEach((series, si) => {
+          const color = series[0], v = series[1], label = series[2];
+          const bx = cx - bw - 1 + si * (bw + 2);
+          const y0 = Math.min(y(0), y(v)), bh = Math.max(Math.abs(y(v) - y(0)), 1.5);
+          const bar = el("rect", { x: bx, y: y0, width: bw, height: bh, rx: 3, fill: color }, svg);
+          el("text", { x: bx + bw / 2, y: v >= 0 ? y(v) - 6 : y(v) + 15, "text-anchor": "middle",
+            "font-size": 11.5, "font-weight": 700, fill: "var(--ink)" }, svg)
+            .textContent = (v > 0 ? "+" : "") + v.toFixed(1);
+          hover(bar, `<div class="t-h">${d.g} · ${label}</div>${v > 0 ? "+" : ""}${v.toFixed(1)}% · n=${d.n}`);
+        });
+      el("text", { x: cx, y: H - B + 20, "text-anchor": "middle", "font-size": 11.5,
+        fill: "var(--muted)" }, svg).textContent = d.g + " (n=" + d.n + ")";
+    });
+  })();
+
+  /* ---------- 8. dip-buy scatter ---------- */
+  (function () {
+    const pts = [
+      ["MGR",-9.2,2.9],["AZJ",-9.7,-4.1],["BPT",-14.0,-1.9],["NWL",-5.9,25.5],
+      ["SEK",-7.0,16.1],["COH",-7.8,-5.8],["A2M",-20.8,-3.3],["DXS",-9.6,-8.0],
+      ["EDV",-7.9,-19.5],["TAH",-16.3,28.4],["MIN",-8.1,6.5],["RHC",-7.6,-3.9],
+      ["CSL",-5.1,-5.5],["AMP",-16.3,-4.7],["BEN",-16.0,10.0],["FMG",-5.3,-12.5],
+      ["SUL",-12.2,1.9],["MFG",-9.5,-5.3],["REH",-14.3,-12.8],["VEA",-30.6,7.2],
+      ["FLT",-10.6,-20.4],["PPT",-10.0,-12.1],["EDV",-6.2,-7.7],["NWH",-10.6,2.6],
+      ["ALL",-9.4,7.4],["QBE",-8.9,-1.9],["AGL",-13.4,16.5],["CSL",-17.8,-10.3],
+      ["EVT",-16.0,6.3],["S32",-7.7,31.8],["MSB",-10.4,29.4],["XRO",-8.9,-49.7],
+      ["MTS",-9.1,-9.4],["REA",-6.1,7.2],["CSL",-6.4,-36.7],["AMP",-31.3,22.0],
+      ["PME",-27.6,12.6],["COH",-19.5,-66.5],["RWC",-9.4,-2.3],["MPL",-6.7,11.7],
+      ["WES",-6.7,9.3],["LOV",-14.6,-1.1],["WHC",-5.9,15.4],["ZIP",-43.0,31.2],
+      ["MIN",-5.3,18.3],["PRN",-14.3,-8.6],["ASB",-11.0,-19.9],["ARB",-14.0,-17.2],
+      ["QAN",-10.2,7.9],["WOR",-11.3,19.6]
+    ];
+    const W = 860, H = 360, L = 52, R = 20, T = 18, B = 46;
+    const iw = W - L - R, ih = H - T - B;
+    const x = v => L + (v - (-46)) / (0 - (-46)) * iw;
+    const y = v => T + (36 - v) / (36 - (-70)) * ih;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Scatter plot: crash size versus return after the insider purchase — no relationship." });
+    document.getElementById("chart-dip").appendChild(svg);
+    for (let g = -60; g <= 20; g += 20) {
+      el("line", { x1: L, x2: W - R, y1: y(g), y2: y(g),
+        stroke: g === 0 ? "var(--baseline)" : "var(--grid)", "stroke-width": 1 }, svg);
+      el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = (g > 0 ? "+" : "") + g + "%";
+    }
+    for (let g = -40; g <= -10; g += 10) {
+      el("text", { x: x(g), y: H - B + 18, "text-anchor": "middle", "font-size": 11,
+        fill: "var(--muted)" }, svg).textContent = g + "%";
+    }
+    el("text", { x: L + iw / 2, y: H - 8, "text-anchor": "middle", "font-size": 11.5,
+      fill: "var(--ink-2)" }, svg).textContent = "results-day crash (abnormal return)";
+    el("line", { x1: L, x2: W - R, y1: y(1.7), y2: y(1.7), stroke: "var(--ink-2)",
+      "stroke-width": 1, "stroke-dasharray": "5 4" }, svg);
+    el("text", { x: W - R - 4, y: y(1.7) - 6, "text-anchor": "end", "font-size": 10.5,
+      fill: "var(--ink-2)" }, svg).textContent = "crashes nobody bought: avg +1.7%";
+    pts.forEach(p => {
+      const tk = p[0], cr = p[1], car = p[2];
+      const dot = el("circle", { cx: x(cr), cy: y(car), r: 5, fill: "var(--s1)",
+        "fill-opacity": 0.75, stroke: "var(--surface)", "stroke-width": 1.5 }, svg);
+      hover(dot, `<div class="t-h">${tk}</div>crash ${cr.toFixed(1)}% · after the buy: ${car > 0 ? "+" : ""}${car.toFixed(1)}%`);
+    });
+    [["XRO",-8.9,-49.7],["COH",-19.5,-66.5],["ZIP",-43.0,31.2]].forEach(p => {
+      el("text", { x: x(p[1]) + 8, y: y(p[2]) + 4, "font-size": 10.5,
+        fill: "var(--ink-2)" }, svg).textContent = p[0];
+    });
+  })();
+
+  /* ---------- 9. eval progression ---------- */
+  (function () {
+    const panels = [
+      { title: "Earnings (4D/4E)", final: "87.8%",
+        pts: [["v1",67.8,"baseline prompt"],["v2",76.1,"multi-currency conventions"],
+              ["v3",82.2,"canonical revenue rules"],["v4",78.3,"regressed — binned"],
+              ["v5",78.3,"regressed — binned"],["v6",84.3,"period long-form rule (+26pp on period)"],
+              ["v7",87.8,"'before significant items' + prior-year column rules"]] },
+      { title: "Director trades (3Y)", final: "93.1%",
+        pts: [["v2",75.0,"first scored version"],["v2*",81.7,"same model — GOLDEN LABELS corrected"],
+              ["v3",93.1,"class canonicalisation, never-derive rules"]] }
+    ];
+    const W = 860, H = 280, PW = 400, GAP = 60, T = 34, B = 40;
+    const lo = 60, hi = 100, ih = H - T - B;
+    const y = v => T + (hi - v) / (hi - lo) * ih;
+    const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, width: "100%", role: "img",
+      "aria-label": "Two small line charts: extraction accuracy improving across prompt versions for earnings and director trades." });
+    document.getElementById("chart-eval").appendChild(svg);
+    panels.forEach((p, pi) => {
+      const L0 = pi === 0 ? 46 : 46 + PW + GAP;
+      const pw = PW - 40;
+      el("text", { x: L0, y: 16, "font-size": 12.5, "font-weight": 700,
+        fill: "var(--ink)" }, svg).textContent = p.title + " → " + p.final;
+      for (let g = 60; g <= 100; g += 10) {
+        el("line", { x1: L0, x2: L0 + pw, y1: y(g), y2: y(g), stroke: "var(--grid)",
+          "stroke-width": 1 }, svg);
+        if (pi === 0) el("text", { x: L0 - 8, y: y(g) + 4, "text-anchor": "end",
+          "font-size": 11, fill: "var(--muted)" }, svg).textContent = g + "%";
+      }
+      const x = i => L0 + (p.pts.length === 1 ? 0 : i / (p.pts.length - 1) * pw);
+      const path = p.pts.map((d, i) => (i ? "L" : "M") + x(i) + " " + y(d[1])).join(" ");
+      el("path", { d: path, fill: "none", stroke: "var(--s1)", "stroke-width": 2 }, svg);
+      p.pts.forEach((d, i) => {
+        const dot = el("circle", { cx: x(i), cy: y(d[1]), r: 5, fill: "var(--s1)",
+          stroke: "var(--surface)", "stroke-width": 2 }, svg);
+        el("text", { x: x(i), y: y(d[1]) - 11, "text-anchor": "middle", "font-size": 11,
+          "font-weight": 700, fill: "var(--ink)" }, svg).textContent = d[1].toFixed(1);
+        el("text", { x: x(i), y: H - B + 18, "text-anchor": "middle", "font-size": 11,
+          fill: "var(--muted)" }, svg).textContent = d[0];
+        hover(dot, `<div class="t-h">${p.title} ${d[0]} · ${d[1].toFixed(1)}%</div>${d[2]}`);
+      });
+    });
+  })();
+})();
+</script>
+
+</body>
+</html>

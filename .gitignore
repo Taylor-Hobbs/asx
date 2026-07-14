@@ -112,3 +112,10 @@ scripts/_ex1_flag_divergence.py
 scripts/_ex2_crossdoc.py
 scripts/_ex3_retirement_purge.py
 scripts/_ex4_board_events.py
+scripts/_wrap_site.py
+scripts/_live_dashboard_data.py
+scripts/_xjo_weekly.py
+scripts/_cyl_series.py
+
+# site build artifact (assembled in Docker; never commit the 10MB bundle)
+site/public/
