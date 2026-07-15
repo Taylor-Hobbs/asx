@@ -1232,6 +1232,48 @@ Honest reading, in order:
 REP-1 result published per commitment, prominence equal to any positive.
 Script: scripts/_rep1.py (gitignored); numbers above reproducible from
 the committed spec + event store.
+
+## 2026-07-15 (band compare) - what the 201-300 band teaches beyond the verdict
+
+scripts/_band_compare.py descriptives: **late filing DOUBLES below the
+ASX 200** (9.8% vs 5.0% >5bd) - disclosure hygiene degrades with cap
+size, the plumbing paper gains a gradient. **The $49k gesture-buy is
+invariant across bands** (median buy $48.9k vs $48.0k - eerily
+identical); conviction asymmetry universal ($1M+ buys:sells 3:43 and
+18:110). Median sale is 3x smaller in the band ($461k vs $1.30M).
+Activity per ticker (~25/24mo) and exercise/vesting share (~47-49%)
+constant. Mechanism candidate for REP-1's sign flip: in small caps a
+$1M+ ON-MARKET sale is only executable INTO strength (someone must be
+buying) - the size+on-market filter selects momentum situations there,
+while in large caps $1M is frictionless and timing is genuinely free.
+Same filter, different meaning across bands. Extraction held up on
+unseen small-cap forms (1,582/1,583) but accuracy is ASSUMED, not
+measured - no small-cap goldens exist (cheap gap to close if the band
+matters later).
+
+## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
+
+scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap
+back-cast to event date via adjusted-price ratio, each event's CAR
+measured as EXCESS over its own ticker's random-day baseline (so the
+small-cap survivorship updraft can't pose as a cap effect).
+
+Raw CAR: **-9.4pp per 10x of market cap (t=-2.60, Spearman -0.48)**.
+Excess-vs-own-baseline: -5.8pp per 10x (t=-1.33, Spearman -0.38) - the
+gradient survives baseline correction at ~60% strength. Terciles
+(excess): small $0.5-2.1B **+4.5%**; mid $2.2-6.9B -7.9%; large
+$7B-153B **-8.6% (t=-2.93)**. The post-sale drift is monotone in cap:
+positive below ~$2B, negative above, strongest at the top.
+
+Reading: consistent with liquidity-conditioned selling - below ~$2B a
+$1M+ on-market sale is only executable into strength (momentum
+selection); above it the sale is a frictionless free choice and carries
+whatever information it carries. Caveats: n=41, third slice of the same
+in-sample events (the gradient is partly a re-description of REP-1),
+cap back-cast ignores share-count changes, CYL's two events dominate
+the mid tercile. EXPLORATORY - no promotion; PR-002's forward book
+spans both bands, so the gradient gets a real out-of-sample reading
+for free by 2027.
 paper_broker.py (ib_insync, lazy import, port+account guards),
 daily.py (freshen crawl 1mo -> parse -> extract pending -> rebuild
 events -> gates -> orders or DRY_* ledger rows -> equity snapshot;

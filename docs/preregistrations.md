@@ -109,3 +109,55 @@ acknowledged. This registration deploys it forward on an IBKR paper account.
 **Commitments.** Spec frozen at registration; deviations logged and reported.
 Result published with equal prominence, supportive or not. If anything in
 this document tempts live capital: the answer is no.
+
+---
+
+## PR-003 — Scale-invariant, domain-gated director-sales signal (registered 2026-07-15)
+
+**Origin — full disclosure: every parameter below is in-sample-tuned.** The
+2026-07-15 cap-gradient and relative-size analyses (BUILD_LOG same date)
+showed: (a) the post-sale trailing effect is monotone in market cap
+(−5.8pp per 10× of cap, excess vs own baseline), positive below ~$2B and
+strongest above ~$7B; (b) sale size AS A FRACTION OF CAP carries nothing
+pooled but shows a dose-response within large caps (above-median relative
+size −9.7% vs −0.4%); (c) the fixed A$1M threshold of the original lead is
+what created its cap-dependence. This spec is the scale-invariant
+restatement those findings suggest. Because its thresholds were read off
+the same 41–71 in-sample events the lead was found on, **it deserves zero
+credibility until it survives forward data** — which is the only reason
+this registration exists. REP-1's out-of-band failure (2026-07-15) is
+already one strike against the family; this is the family's best remaining
+formulation, stated before any forward data exists.
+
+**Frozen specification.**
+- Universe / domain gate: the **top 100 ASX-listed companies by market
+  capitalization at the time of filing** (scale-invariant proxy for "sales
+  are frictionless free choices"; ~cap ≥ A$7B at registration).
+- Signal: Appendix 3Y on-market disposal with stated total consideration
+  **≥ 0.5 basis points of the issuer's market cap** at filing (the
+  in-sample large-cap median; at A$7B ≈ A$350k, at A$150B ≈ A$7.5M).
+  Extraction by the then-current benchmarked prompt.
+- Clean gate: >30 calendar days since the ticker's most recent
+  price-sensitive results filing. The gate remains backward-only BY
+  NECESSITY: the next results date is not knowable at signal time without
+  a results calendar, so forward-blindness is inherent to any real-time
+  implementation, not a defect to patch.
+- Dedup: one event per (ticker, director) per 30 calendar days.
+- Measurement: analytical, not traded (PR-002 owns the traded book):
+  cumulative (stock log return − XJO log return) over trading days
+  +1..+63 from the first tradeable day, adjusted closes.
+- **Test data: filings announced on or after 2026-07-15 only.**
+
+**Endpoints (stated now).** Evaluate at ≥ 2027-07-15 AND ≥ 20 qualifying
+events (if fewer than 20 by then, extend and report the delay).
+- SUPPORTIVE: mean ≤ −2.0% with one-sided t ≤ −1.28.
+- REFUTED: mean ≥ 0, or t > −0.5.
+- INCONCLUSIVE: otherwise. No re-slicing; the relative-size dose-response
+  (above/below-median split) is reported as a pre-named secondary, not an
+  escape hatch.
+- Overlap with PR-002's book (events qualifying under both specs) is
+  reported so the two tests are not presented as independent.
+
+**Commitments.** No parameter changes after this commit. Result published
+with equal prominence either way. Paper measurement only; no live capital,
+ever.
