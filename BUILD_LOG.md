@@ -1251,6 +1251,117 @@ unseen small-cap forms (1,582/1,583) but accuracy is ASSUMED, not
 measured - no small-cap goldens exist (cheap gap to close if the band
 matters later).
 
+## 2026-07-15 (autopsy) - blinded event autopsies: no hidden drift; a dilution fingerprint
+
+New permanent dataset: `headline_index` (69,154 headlines, 301 tickers,
+metadata-only crawl, ~50min, ingestion/headline_index.py). Then 605
+BLINDED autopsies ($0.62 Haiku batch): 330 on-market sale windows + 275
+matched no-sale controls, director-interest headlines stripped, model
+never told sales exist; fixed attribution taxonomy + permutation tests
+(scripts/_autopsy_submit.py / _autopsy_collect.py, manifest+results in
+data/enrichment/).
+
+**Finding 1 - the "quiet bleed" story is dead.** no_news_drift is rare
+and IDENTICAL across groups (down-moves: 4% vs 5%, p=0.76); 78-85% of
+biggest down days had coincident news in both groups. Post-sale declines
+are ordinary news-driven declines, not slow diffusion of the sale.
+
+**Finding 2 - the fingerprint differs where it's interesting.** Among
+down-moves, control declines are results-driven 53% vs sale-window
+declines only 37% (p=0.015, the one significant pre-named contrast) -
+partly MECHANICAL (sales cluster post-results, so their windows contain
+fewer results events than random windows). The excess is the story:
+sale-window declines over-index on **capital_raise_or_dilution (18% vs
+6%)** and board_or_management (11% vs 5%). New mechanism candidate:
+**directors sell before dilutive capital raises** - the CYL -43% story
+was attributed (blind) to "multiple dilutive capital raises", SLX/ZIP
+similar. Directly testable WITHOUT the LLM: P(raise announcement within
+63d | sale) vs base rate, from headline_index. Down-move share: sale 45%
+vs control 37%. Caveats: LLM attribution noise, 5 contrasts scanned,
+exploratory - the raise-rate join is the hard-data follow-up.
+
+## 2026-07-15 (raise join) - the dilution mechanism dies on hard data
+
+scripts/_raise_join.py, no LLM: 223 raise events (clustered from 553
+matching headlines, 118 tickers) joined to 334 deduped sales with full
+91d horizons, vs TICKER-MATCHED base rates. **Raises follow sales at
+exactly base rate**: all sales 3.9% vs 4.6% expected (z=-0.66); $1M+
+sales 7.0% vs 6.7% (z=+0.11). And the CAR check inverts the story: $1M+
+sales followed by a raise ran **+10.1%** (raises happen INTO strength -
+MAF, RRL, gold miners placing from positions of strength), not the
+negative drift. Reverse direction also thin (4.2% of sales follow a
+raise). **Directors do not sell ahead of dilution at any detectable
+rate.**
+
+Reconciling with the autopsy fingerprint (18% vs 6% raise-attribution
+among down-moves): that was a COMPOSITION effect, not incidence - sale
+windows mechanically contain fewer results events (sales cluster
+post-results), so when a sale-window decline happens, non-results causes
+claim larger attribution shares. Narrative share != event rate.
+Methodology lesson for Paper 03: **LLM attribution fingerprints must be
+validated against hard incidence joins before they mean anything** -
+this one took 10 minutes to test and died. Autopsy's surviving findings:
+quiet-bleed dead (declines are news-driven), down-share 45% vs 37%, and
+the results-timing composition artifact itself.
+
+## 2026-07-15 (raise participation) - directors DO buy into raises; it means nothing
+
+scripts/_raise_participation.py: (a) 248 acquisitions (5.0% of all) state
+placement/SPP/entitlement participation in the nature field, median
+$30k - gesture-sized, only 26 of 120 stated >= $100k. (b) Timing join:
+**51% of raise events are followed by >=1 director acquisition filing
+within 45d vs 32% ticker-matched expectation (z=+5.48)** - strongly
+elevated, mean 4.3 filings per participating raise (whole boards file
+together: pro-rata entitlements + optics of "supporting the raise").
+(c) EXPLORATORY: participation carries NO return information -
+post-raise 63td CAR +5.0% with director buying vs +6.8% without
+(medians -0.6% vs +2.2%). Consistent with the $49k gesture-buy
+constant: raise participation is governance custom, not signal.
+Caveat: timing join counts any acquisition type in-window (DRP etc.);
+the ticker-matched base absorbs ambient rates.
+
+## 2026-07-15 (raises vs price, EXPLORATORY) - raising is strength-seeking, convex, not linear
+
+scripts/_raise_price.py: 190 raise events vs 1,888 ticker-matched random
+windows. Propensity by trailing 6mo market-adjusted return: worst-decile
+run-ins raise at **0.42x** base, best-decile at **1.63x** - roughly
+monotone increasing with convexity at the top, definitively not linear
+and NOT the predicted U-shape (rescue raises barely exist in the
+top-300; crashed companies mostly don't raise). Raise events' mean
+run-in +20.4% vs +8.9% for random windows - "raises happen into
+strength" now measured, not asserted. Day-0 reaction mildly negative
+everywhere (-1 to -2.4%, worst for strength raises - dilution
+repricing). EXPLORATORY outcome barbell: strength raises +11.7% fwd63
+(t=+2.28), distress raises +8.8%, middle ~0 - unpromoted, in-sample.
+Prior prediction (U-shape) recorded as WRONG - the data beat the
+modeler, which is the point of running it.
+
+Strength-raise cell modeled (scripts/_strength_raise.py, top-decile
+run-in >= +49%/6mo): **32 events, ~15/yr across the ASX 300, 17% of all
+raises**, 21 tickers. Pricing timeline: dilution dip is shallow and
+FAST (trough -3.4% at +2td, median recovery 1td, all 32 recover within
+the quarter; one -47.8% day-0 disaster in the tail) - but the excess
+drift is SLOW and back-loaded: of +22.8% mean post-announcement move,
+only 22% accrues by +21td, 67% by +42td. The market prices the dilution
+in days and the continuation over months. REQUIRED CONTROL before this
+means anything: matched top-decile-momentum windows WITHOUT raises -
+the drift may be pure momentum wearing a raise timestamp. EXPLORATORY,
+unpromoted.
+
+Momentum control run (scripts/_momentum_control.py, 2026-07-16):
+same +49% run-in threshold, >=91d clear of any raise, non-overlapping.
+**Momentum alone drifts +8.1%/qtr (n=219, t=+4.11; same-ticker subset
++10.3%)** - roughly half the strength-raise move is generic momentum
+continuation (levels survivorship-lifted, but both groups measured
+identically so the comparison stands). The raise-specific increment:
+**+14.6pp, Welch t=+1.62** - the largest unpromoted effect size in the
+project, at sub-significance. Also: momentum-only accrues FRONT-loaded
+(+4.1% of +8.1% by day 21) while raise events are back-loaded - the
+dilution dip suppresses the first month, then overtakes. Verdict: the
+strength-raise cell = momentum + a possible ~15pp raise kicker,
+unproven at n=32. If pursued, the route is a PR-004 forward
+registration, not more slices of this data.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap

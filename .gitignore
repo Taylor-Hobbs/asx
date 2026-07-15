@@ -125,6 +125,24 @@ parse_asx300.log
 prices_asx300.log
 extract_asx300.log
 trading_daily_*.log
+headline_index.log
+autopsy.log
+data/enrichment/autopsy_*.json
+scripts/_rep1.py
+scripts/_band_compare.py
+scripts/_band_grid.py
+scripts/_cap_gradient.py
+scripts/_relsize.py
+scripts/_autopsy_submit.py
+scripts/_autopsy_collect.py
+scripts/_raise_join.py
+scripts/_raise_participation.py
+scripts/_raise_price.py
+scripts/_strength_raise.py
+scripts/_momentum_control.py
+scripts/_strength_raise_backtest.py
+scripts/_sr_dd.py
+scripts/_cyl_crash.py
 
 # site build artifact (assembled in Docker; never commit the 10MB bundle)
 site/public/

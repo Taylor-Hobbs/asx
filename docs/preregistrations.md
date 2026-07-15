@@ -161,3 +161,58 @@ events (if fewer than 20 by then, extend and report the delay).
 **Commitments.** No parameter changes after this commit. Result published
 with equal prominence either way. Paper measurement only; no live capital,
 ever.
+
+---
+
+## PR-004 — The strength-raise kicker (registered 2026-07-16)
+
+**Origin — every parameter in-sample-tuned; full audit trail in BUILD_LOG
+2026-07-15/16.** Exploration of the headline_index found: raises are
+strength-seeking (top-decile 6-month run-ins raise at 1.63× base); those
+"strength raises" (~15/yr, 17% of raises) showed a shallow 2-day dilution
+dip followed by back-loaded drift (+22.8% mean over 63td, two-thirds
+accruing after day +21); matched momentum-only windows drifted +8.1%, so
+the raise-specific increment was **+14.6pp at Welch t=+1.62** — the
+largest unpromoted effect size the project has produced, at
+sub-significance, on n=32, in a momentum regime, on a survivorship-lifted
+universe. An in-sample backtest (fixed 1/8 sizing) showed ~+29%/yr,
+maxDD −19%, Sharpe 1.3 — numbers this project's own history says to
+distrust until forward data speaks. Hence this registration.
+
+**The claim being tested.** After a capital raise announced by a stock in
+a strong uptrend, the stock's subsequent quarter beats what momentum alone
+would deliver — i.e., the raise itself carries positive information
+(institutional validation + funded growth) beyond the trend it rides.
+
+**Frozen specification.**
+- Universe: the combined ASX 300 file current at signal time.
+- Raise event: headline in `headline_index` matching the frozen regex
+  (placement | capital rais | entitlement offer | rights issue | share
+  purchase plan | SPP | equity raising | institutional offer | retail
+  offer | renounceable), clustered one event per ticker per 30 days.
+- Momentum gate: trailing 126-trading-day cumulative (stock log return −
+  XJO log return) through day −1 **≥ +49%**.
+- Measurement: analytical (no traded book): cumulative market-adjusted
+  log return over trading days **+1..+63** from the announcement's first
+  tradeable day. Adjusted closes. Day 0 excluded (halt-realism).
+- CONTROL, measured contemporaneously on forward data: all windows in the
+  same universe/period passing the same +49% gate with NO raise event
+  within 91 calendar days, non-overlapping per ticker.
+- Descriptive portfolio metric (secondary): fixed 1/8-capital sizing,
+  next-day entry, 20 bps per side.
+- **Test data: raise announcements on or after 2026-07-16.**
+
+**Endpoints (stated now).** Evaluate at ≥ 2027-07-16 AND ≥ 12 qualifying
+events (expected ~15/yr; if fewer, extend and report the delay).
+- SUPPORTIVE: event mean CAR ≥ +5.0% AND event mean exceeds the
+  contemporaneous momentum-control mean (the kicker exists forward).
+- REFUTED: event mean ≤ 0, OR event mean ≤ control mean (momentum
+  explains everything).
+- INCONCLUSIVE: otherwise. Pre-named secondaries (no escape hatches):
+  back-loaded accrual (≤ 35% of the total move by day +21) and dilution-
+  dip recovery (median ≤ 10 trading days).
+
+**Commitments.** Frozen at this commit. Published either way. The forward
+universe is fixed today, so the survivorship/backfill bias that inflates
+the in-sample numbers cannot recur forward — a deliberately harder test.
+Analytical measurement only; no live capital, ever.
