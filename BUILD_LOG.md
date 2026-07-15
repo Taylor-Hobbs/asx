@@ -1362,6 +1362,25 @@ strength-raise cell = momentum + a possible ~15pp raise kicker,
 unproven at n=32. If pursued, the route is a PR-004 forward
 registration, not more slices of this data.
 
+Decomposition (scripts/_sr_who.py, 2026-07-16, post-PR-004): **the move
+is sub-$1B Materials, concentrated to the point of near-anecdote.**
+By cap: <$1B = 94.7% of the total move (mean +49.3%); $1-3B +6.8%;
+>=$3B NEGATIVE (-14.0%) - the exact mirror of the sales cap-gradient.
+By band: 201-300 = 89.5% (ASX200 events mean just +5.1%, i.e. BELOW the
+momentum-only baseline - no kicker in the investable segment in-sample).
+By sector: Materials = 86.4% (the 2024-26 gold/critical-minerals run).
+Concentration: top 3 events = 54% of the move, top 5 = 76%; serial
+raisers dominate (SRL x3 = 44% alone, AYA x5, LIN/FFM/DRO/ZIP/4DX x2) -
+effective independent n is far below 32. And the caps at event time
+(SRL $60-70M!) mean these were microcaps that grew INTO today's top-300
+band - **the <$1B cohort is close to pure backfill bias personified**.
+PR-004's fixed-forward universe eliminates exactly this, so the forward
+expectation should be humble: the in-sample kicker looks like
+survivorship + one commodities bull + a few serial raisers. Unified
+picture with the sales work: below ~$1-2B, liquidity events of every
+kind accompany momentum; above it, insider sales carry the only
+information found in this study.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap
