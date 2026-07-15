@@ -1,0 +1,307 @@
+ticker,company,sector
+4DX,4DMedical,Healthcare
+A2M,a2 Milk Company,Consumer Staples
+AAI,Alcoa,Materials
+AFI,Australian Foundation Investment Company,Financials
+AGL,AGL Energy,Utilities
+AIA,Auckland International Airport Limited,Industrials
+ALD,Ampol,Energy
+ALK,Alkane Resources,Materials
+ALL,Aristocrat Leisure,Consumer Discretionary
+ALQ,ALS,Industrials
+ALX,Atlas Arteria,Industrials
+AMC,Amcor,Materials
+AMP,AMP,Financials
+ANN,Ansell,Healthcare
+ANZ,Australia & New Zealand Banking Group,Financials
+APA,APA Group,Utilities
+APE,Eagers Automotive,Consumer Discretionary
+ARB,ARB Corporation,Consumer Discretionary
+ARG,Argo Investments,Financials
+ASB,Austal,Industrials
+ASK,Abacus Storage King,Real Estate
+ASX,ASX,Financials
+AUB,AUB Group,Financials
+AZJ,Aurizon,Industrials
+BEN,Bendigo & Adelaide Bank,Financials
+BFL,BSP Financial Group,Financials
+BGA,Bega Cheese,Consumer Staples
+BGL,Bellevue Gold,Materials
+BHP,BHP,Materials
+BOQ,Bank of Queensland,Financials
+BPT,Beach Energy,Energy
+BRG,Breville Group,Consumer Discretionary
+BSL,BlueScope,Materials
+BWP,BWP Trust,Real Estate
+BXB,Brambles,Industrials
+CAR,CAR Group,Communication Services
+CBA,Commonwealth Bank,Financials
+CDA,Codan,Information Technology
+CEN,Contact Energy,Utilities
+CGF,Challenger,Financials
+CHC,Charter Hall,Real Estate
+CIA,Champion Iron,Materials
+CIP,Centuria Industrial REIT,Real Estate
+CLW,Charter Hall Long WALE REIT,Real Estate
+CMM,Capricorn Metals,Materials
+CNU,Chorus,Communication Services
+COH,Cochlear,Healthcare
+COL,Coles Group,Consumer Staples
+CPU,Computershare,Information Technology
+CQR,Charter Hall Retail REIT,Real Estate
+CSC,Capstone Copper,Materials
+CSL,CSL,Healthcare
+CTD,Corporate Travel Management,Consumer Discretionary
+CWY,Cleanaway,Industrials
+CYL,Catalyst Metals,Materials
+DBI,Dalrymple Bay Infrastructure,Industrials
+DNL,Dyno Nobel,Materials
+DOW,Downer Group,Industrials
+DRO,Droneshield,Industrials
+DRR,Deterra Royalties,Materials
+DXS,Dexus,Real Estate
+DYL,Deep Yellow,Energy
+EBO,EBOS Group,Healthcare
+EDV,Endeavour Group,Consumer Staples
+EMR,Emerald Resources,Materials
+EOS,Electro Optic Systems Holdings,Industrials
+EVN,Evolution Mining,Materials
+EVT,EVT,Communication Services
+FBU,Fletcher Building,Industrials
+FLT,Flight Centre Travel Group,Consumer Discretionary
+FMG,Fortescue,Materials
+FPH,Fisher & Paykel Healthcare,Healthcare
+FRW,Freightways Group,Industrials
+GDG,Generation Development Group,Financials
+GGP,Greatland Resources,Materials
+GMD,Genesis Minerals,Materials
+GMG,Goodman Group,Real Estate
+GNE,Genesis Energy,Utilities
+GPT,GPT Group,Real Estate
+GQG,GQG Partners,Financials
+HDN,HomeCo Daily Needs REIT,Real Estate
+HUB,HUB24,Financials
+HVN,Harvey Norman,Consumer Discretionary
+IAG,Insurance Australia Group,Financials
+IFL,Insignia Financial,Financials
+IFT,Infratil,Financials
+IGO,IGO,Materials
+ILU,Iluka Resources,Materials
+IMD,IMDEX,Materials
+JBH,JB Hi-Fi,Consumer Discretionary
+JHX,James Hardie,Materials
+L1G,L1 Group,Financials
+LLC,Lendlease,Real Estate
+LNW,Light & Wonder,Consumer Discretionary
+LOV,Lovisa,Consumer Discretionary
+LSF,L1 Long Short Fund,Financials
+LTR,Liontown Resources,Materials
+LYC,Lynas Rare Earths,Materials
+MCY,Mercury NZ,Utilities
+MEZ,Meridian Energy,Utilities
+MFF,MFF Capital Investments,Financials
+MFG,Magellan Financial Group,Financials
+MGR,Mirvac,Real Estate
+MIN,Mineral Resources,Materials
+MND,Monadelphous Group,Industrials
+MPL,Medibank,Financials
+MQG,Macquarie Group,Financials
+MSB,Mesoblast,Healthcare
+MTS,Metcash,Consumer Staples
+MXT,Metrics Master Income Trust,Financials
+NAB,National Australia Bank,Financials
+NEM,Newmont,Materials
+NHC,New Hope,Energy
+NHF,Nib,Financials
+NIC,Nickel Industries,Materials
+NSR,National Storage,Real Estate
+NST,Northern Star Resources,Materials
+NWH,NRW Holdings,Industrials
+NWL,Netwealth Group,Financials
+NWS,News Corp Class B,Communication Services
+NXG,Nexgen Energy,Energy
+NXT,NextDC,Information Technology
+OBM,Ora Banda Mining,Materials
+ORA,Orora,Materials
+ORG,Origin Energy,Utilities
+ORI,Orica,Materials
+PDI,Predictive Discovery,Materials
+PDN,Paladin Energy,Energy
+PLS,PLS Group,Materials
+PME,Pro Medicus,Healthcare
+PMV,Premier Investments,Consumer Discretionary
+PNI,Pinnacle Investment Management,Financials
+PPT,Perpetual,Financials
+PRN,Perenti,Materials
+PRU,Perseus Mining,Materials
+PXA,Pexa Group,Real Estate
+QAN,Qantas,Industrials
+QBE,QBE Insurance,Financials
+QUB,Qube Holdings,Industrials
+RDX,Redox,Industrials
+REA,REA Group,Communication Services
+REG,Regis Healthcare,Healthcare
+REH,Reece Group,Industrials
+RGN,Region Group,Real Estate
+RHC,Ramsay Health Care,Healthcare
+RIO,Rio Tinto,Materials
+RMD,ResMed,Healthcare
+RMS,Ramelius Resources,Materials
+RRL,Regis Resources,Materials
+RSG,Resolute Mining,Materials
+RWC,Reliance Worldwide Corporation,Industrials
+RYM,Ryman Healthcare,Healthcare
+S32,South32,Materials
+SCG,Scentre Group,Real Estate
+SDF,Steadfast Group,Financials
+SEK,Seek,Communication Services
+SFR,Sandfire Resources,Materials
+SGH,SGH,Industrials
+SGM,Sims Metal,Materials
+SGP,Stockland,Real Estate
+SHL,Sonic Healthcare,Healthcare
+SIG,Sigma Healthcare,Healthcare
+SMR,Stanmore Resources,Materials
+SNZ,Summerset Group Holdings,Healthcare
+SOL,Soul Patts,Financials
+SPK,Spark New Zealand,Communication Services
+STO,Santos,Energy
+SUL,Super Retail Group,Consumer Discretionary
+SUN,Suncorp,Financials
+TAH,Tabcorp,Consumer Discretionary
+TCL,Transurban,Industrials
+TLC,The Lottery Corporation,Consumer Discretionary
+TLS,Telstra,Communication Services
+TLX,Telix Pharmaceuticals,Healthcare
+TNE,TechnologyOne,Information Technology
+TPG,TPG Telecom,Communication Services
+TUA,Tuas,Communication Services
+TWE,Treasury Wine Estates,Consumer Staples
+VAU,Vault Minerals,Materials
+VCX,Vicinity Centres,Real Estate
+VEA,Viva Energy,Energy
+VGN,Virgin Australia Holdings,Industrials
+VNT,Ventia Services Group,Industrials
+WAF,West African Resources,Materials
+WAM,WAM Capital,Financials
+WBC,Westpac,Financials
+WDS,Woodside Energy Group,Energy
+WES,Wesfarmers,Consumer Discretionary
+WGX,Westgold Resources,Materials
+WHC,Whitehaven Coal,Energy
+WLE,WAM Leaders,Financials
+WOR,Worley,Energy
+WOW,Woolworths Group,Consumer Staples
+WTC,Wisetech Global,Information Technology
+XRO,Xero,Information Technology
+XYX,"Block, Inc.",Financials
+YAL,Yancoal Australia,Materials
+ZIM,Zimplats Holdings,Materials
+ZIP,Zip,Financials
+XYZ,"BLOCK, INC.",Financial Services
+NWSLV,NEWS CORPORATION..,Media & Entertainment
+DPM,DPM METALS INC.,Materials
+360,LIFE360 INC.,Software & Services
+AII,ALMONTY INDUSTRIES INC.,Materials
+MP1,MEGAPORT LIMITED,Software & Services
+ATM,PT ANTAM (PERSERO) TBK,Materials
+PAF,PAN AFRICAN RESOURCES PLC,Class Pend
+SRL,SUNRISE ENERGY METALS LIMITED,Materials
+SX2,SOUTHERN CROSS GOLD CONSOLIDATED LTD.,Materials
+TEA,TASMEA LIMITED,Capital Goods
+AUI,AUSTRALIAN UNITED INVESTMENT COMPANY LIMITED,Not Applic
+SRG,SRG GLOBAL LIMITED,Capital Goods
+DDR,DICKER DATA LIMITED,Technology Hardware & Equipment
+NEU,NEUREN PHARMACEUTICALS LIMITED,"Pharmaceuticals, Biotechnology & Life Sciences"
+GYG,GUZMAN Y GOMEZ LIMITED,Consumer Services
+MGH,MAAS GROUP HOLDINGS LIMITED,Capital Goods
+DVP,DEVELOP GLOBAL LIMITED,Materials
+MAH,MACMAHON HOLDINGS LIMITED,Materials
+GNP,GENUSPLUS GROUP LTD,Capital Goods
+WBT,WEEBIT NANO LTD,Semiconductors & Semiconductor Equipment
+INA,INGENIA COMMUNITIES GROUP,Equity Real Estate Investment Trusts (REITs)
+CBO,COBRAM ESTATE OLIVES LIMITED,"Food, Beverage & Tobacco"
+GLF,GEMLIFE COMMUNITIES GROUP,Real Estate Management & Development
+CNI,CENTURIA CAPITAL GROUP,Equity Real Estate Investment Trusts (REITs)
+ELV,ELEVRA LITHIUM LIMITED,Materials
+ELS,ELSIGHT LIMITED,Technology Hardware & Equipment
+SIQ,SMARTGROUP CORPORATION LTD,Commercial & Professional Services
+MAQ,MACQUARIE TECHNOLOGY GROUP LIMITED,Software & Services
+SKG,STORAGE KING GROUP,Equity Real Estate Investment Trusts (REITs)
+GOZ,GROWTHPOINT PROPERTIES AUSTRALIA,Equity Real Estate Investment Trusts (REITs)
+MAD,MADER GROUP LIMITED,Commercial & Professional Services
+SLC,SUPERLOOP LIMITED,Telecommunication Services
+SLX,SILEX SYSTEMS LIMITED,Capital Goods
+WPR,WAYPOINT REIT,Equity Real Estate Investment Trusts (REITs)
+ORE,OREZONE GOLD CORPORATION,Materials
+PGF,PM CAPITAL GLOBAL OPPORTUNITIES FUND LIMITED,Not Applic
+TBN,TAMBORAN RESOURCES CORPORATION,Energy
+SSM,SERVICE STREAM LIMITED,Capital Goods
+HLI,HELIA GROUP LIMITED,Financial Services
+PYC,PYC THERAPEUTICS LIMITED,"Pharmaceuticals, Biotechnology & Life Sciences"
+DMP,DOMINO'S PIZZA ENTERPRISES LIMITED,Consumer Services
+AXQ,"AURA CONSOLIDATED GROUP, INC.",Class Pend
+LIN,LINDIAN RESOURCES LIMITED,Materials
+NEC,NINE ENTERTAINMENT CO. HOLDINGS LIMITED,Media & Entertainment
+NGI,NAVIGATOR GLOBAL INVESTMENTS LIMITED,Financial Services
+ABB,AUSSIE BROADBAND LIMITED,Telecommunication Services
+BKI,BKI INVESTMENT COMPANY LIMITED,Not Applic
+DTL,DATA#3 LIMITED,Software & Services
+ARU,ARAFURA RARE EARTHS LTD,Materials
+EQR,EQ RESOURCES LIMITED,Materials
+DGT,DIGICO INFRASTRUCTURE REIT,Class Pend
+MI6,MINERALS 260 LIMITED,Materials
+SNL,SUPPLY NETWORK LIMITED,Consumer Discretionary Distribution & Retail
+FFM,FIREFLY METALS LTD,Materials
+NCK,NICK SCALI LIMITED,Consumer Discretionary Distribution & Retail
+VUL,VULCAN ENERGY RESOURCES LIMITED,Materials
+SXE,SOUTHERN CROSS ELECTRICAL ENGINEERING LTD,Capital Goods
+MMS,MCMILLAN SHAKESPEARE LIMITED,Commercial & Professional Services
+KCN,KINGSGATE CONSOLIDATED LIMITED.,Materials
+GCI,GRYPHON CAPITAL INCOME TRUST,Not Applic
+ARF,ARENA REIT.,Equity Real Estate Investment Trusts (REITs)
+IPX,IPERIONX LIMITED,Materials
+AVR,ANTERIS TECHNOLOGIES GLOBAL CORP.,Health Care Equipment & Services
+MAF,MA FINANCIAL GROUP LIMITED,Financial Services
+MLX,METALS X LIMITED,Materials
+RPL,REGAL PARTNERS LIMITED,Financial Services
+UOS,UNITED OVERSEAS AUSTRALIA LIMITED,Real Estate Management & Development
+EIQ,ECHOIQ LIMITED,Software & Services
+HMC,HMC CAPITAL LIMITED,Financial Services
+BCI,BCI MINERALS LIMITED,Materials
+ELD,ELDERS LIMITED,"Food, Beverage & Tobacco"
+KLS,KELSIAN GROUP LIMITED,Transportation
+IRE,IRESS LIMITED,Software & Services
+APZ,ASPEN GROUP,Equity Real Estate Investment Trusts (REITs)
+AIZ,AIR NEW ZEALAND LIMITED,Transportation
+GLS,L1 GLOBAL LONG SHORT FUND LIMITED,Not Applic
+FDC,FDC CONSOLIDATED HOLDINGS LIMITED,Class Pend
+BRE,BRAZILIAN RARE EARTHS LIMITED,Materials
+CMW,CROMWELL PROPERTY GROUP,Equity Real Estate Investment Trusts (REITs)
+CHI,CHANNEL INFRASTRUCTURE NZ LIMITED,Energy
+GNC,GRAINCORP LIMITED,Consumer Staples Distribution & Retail
+CAT,CATAPULT SPORTS LTD,Software & Services
+BVS,BRAVURA SOLUTIONS LIMITED.,Software & Services
+SDR,SITEMINDER LIMITED,Software & Services
+PL8,PLATO INCOME MAXIMISER LIMITED.,Not Applic
+NUF,NUFARM LIMITED,Materials
+JDO,JUDO CAPITAL HOLDINGS LIMITED,Banks
+RIC,RIDLEY CORPORATION LIMITED,"Food, Beverage & Tobacco"
+IPH,IPH LIMITED,Commercial & Professional Services
+MC2,MARIMACA COPPER CORP.,Materials
+KAR,KAROON ENERGY LTD,Energy
+PMT,PMET RESOURCES INC.,Materials
+CCL,CUSCAL LIMITED,Financial Services
+LFG,LIBERTY FINANCIAL GROUP,Financial Services
+QRI,QUALITAS REAL ESTATE INCOME FUND,Financial Services
+CQE,CHARTER HALL SOCIAL INFRASTRUCTURE REIT,Equity Real Estate Investment Trusts (REITs)
+NAN,NANOSONICS LIMITED,Health Care Equipment & Services
+SKS,SKS TECHNOLOGIES GROUP LIMITED,Capital Goods
+QAL,QUALITAS LIMITED,Real Estate Management & Development
+WEB,WEB TRAVEL GROUP LIMITED,Consumer Services
+LFS,LATITUDE GROUP HOLDINGS LIMITED,Financial Services
+LGF,L1 GOLD FUND LIMITED,Not Applic
+CKF,COLLINS FOODS LIMITED,Consumer Services
+AYA,ARTRYA LIMITED,Health Care Equipment & Services
+HGH,HEARTLAND GROUP HOLDINGS LIMITED,Banks
+SGLLV,RICEGROWERS LIMITED,"Food, Beverage & Tobacco"

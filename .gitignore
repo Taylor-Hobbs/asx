@@ -118,7 +118,13 @@ scripts/_xjo_weekly.py
 scripts/_cyl_series.py
 scripts/_hygiene.py
 scripts/_build_asx300_delta.py
+scripts/_family2_eval.py
+scripts/_load_prices_asx300.py
 backfill_asx300_*.log
+parse_asx300.log
+prices_asx300.log
+extract_asx300.log
+trading_daily_*.log
 
 # site build artifact (assembled in Docker; never commit the 10MB bundle)
 site/public/

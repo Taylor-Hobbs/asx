@@ -29,6 +29,7 @@ dependencies = [
     "pandas>=3.0.3",
     "numpy>=2.5.1",
     "db-dtypes>=1.7.0",
+    "ib-insync>=0.9.86",
 ]
 
 [dependency-groups]
@@ -86,8 +87,17 @@ module = [
     "pdfplumber",
     "yfinance.*",
     "yfinance",
+    "ib_insync.*",
+    "ib_insync",
 ]
 ignore_missing_imports = true
+
+# ib_insync ships py.typed but leaves many methods untyped; the broker wrapper
+# is the one module allowed to call them. It is exercised against the real
+# paper gateway, never in CI.
+[[tool.mypy.overrides]]
+module = ["asx_engine.trading.paper_broker"]
+disallow_untyped_calls = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

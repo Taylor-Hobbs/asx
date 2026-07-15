@@ -1160,3 +1160,58 @@ With the flag-divergence result (EX-1), this completes the "market
 plumbing" trilogy for Paper 03/04: the exchange's materiality flag
 misses market-moving filings; directors respect blackout windows almost
 perfectly; the filing deadline leaks precisely where it matters most.
+
+## 2026-07-14 (family 2) - calibration + the 7.7x error detector
+
+scripts/_family2_eval.py: earnings_v7/haiku scored against the 23 goldens
+with the official harness semantics (incl. bank-revenue filter), joined
+to sibling documents of the same results event.
+
+**Calibration (ECE 0.072, structured not uniform):** confidence >=0.95
+is well-calibrated (0.95 bin -> 95.0% accurate, 0.98+ -> 97.5%). Below
+0.95 the wheels come off: the 0.90-0.95 bin is 21% accurate (n=14) and
+0.80-0.90 is 63%. The model's confidence is USABLE - but as a binary
+flag (<0.95 = probably wrong), not a probability. Mean conf when wrong:
+0.901 vs 0.968 when correct.
+
+**Cross-doc disagreement is a 7.7x error detector.** Numeric golden
+fields where >=1 sibling doc stated a value (n=132): corroborated
+(all sibs within 1%) -> 6.1% error rate; contested -> **47.1%**. And
+**87% of errors (13/15) have the golden value sitting in a sibling
+document's extraction** - consensus voting across documents of the same
+event would fix nearly every detectable error, for zero extra spend.
+The actionable production rule: conf < 0.95 OR contested -> review
+queue; agree-and-confident -> trust. Caveats: n small (23 docs, 17
+contested instances), one results season, per-document golden truth
+means some contests are legitimate statutory-vs-underlying differences
+- which makes the 47% error rate among them MORE striking, not less.
+This is Paper 03's centerpiece experiment. Remaining Family-2 item
+(cost-accuracy frontier: goldens re-run on Sonnet/Opus, ~$5-20) not run
+- extraction spend stays gated.
+
+## 2026-07-14/15 - PR-002 registered; the paper-trading build (Q4 starts early)
+
+**PR-002 frozen** (docs/preregistrations.md): forward paper test of the
+surviving lead. Short A$10k per qualifying sale (on-market disposal >=
+$1M, >30d clean gate kept AS-IS incl. its known forward-blindness, dedup
+1/(ticker,director)/30d, enter next open within 5 days of filing, exit
+after 63 trading days, max 12 concurrent, STW long hedge ~= short
+notional). Endpoints frozen: SUPPORTIVE if mean market-adjusted 63d
+return <= -2.0% w/ one-sided t <= -1.0 at >= 30 round trips or
+2027-07-14; UNSUPPORTIVE if >= 0. Skips (borrow/cap/stale) are logged
+findings. PAPER ONLY - the broker module refuses live ports AND
+non-paper account ids at construction.
+
+**Built `trading/`**: signals.py (pure frozen-gate engine - every gate
+pinned by a test that fails if anyone "improves" the spec; 16 tests),
+paper_broker.py (ib_insync, lazy import, port+account guards),
+daily.py (freshen crawl 1mo -> parse -> extract pending -> rebuild
+events -> gates -> orders or DRY_* ledger rows -> equity snapshot;
+paper_ledger + paper_equity BQ tables created idempotently).
+scripts/run_daily_paper.ps1 + Task Scheduler registration for 18:30
+Sydney weekdays, dry mode default. ib_insync dep added (mypy override
+scoped to the one wrapper module). Universe = combined ASX300 file.
+Blocked on Taylor: IBKR account + local TWS/Gateway; until then the
+job runs dry and builds the ledger. First dry run failed on the same
+overnight network outage that killed the P0 crawl at 98/107 - both
+relaunched 07-15; ASX300 3Y extraction (1,583 docs, ~$5) submitted.
