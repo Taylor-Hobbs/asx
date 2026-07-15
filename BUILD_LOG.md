@@ -1202,8 +1202,36 @@ return <= -2.0% w/ one-sided t <= -1.0 at >= 30 round trips or
 findings. PAPER ONLY - the broker module refuses live ports AND
 non-paper account ids at construction.
 
-**Built `trading/`**: signals.py (pure frozen-gate engine - every gate
-pinned by a test that fails if anyone "improves" the spec; 16 tests),
+## 2026-07-15 - REP-1 verdict: UNSUPPORTIVE. The lead fails to replicate
+
+The ASX 201-300 band (107 new tickers, frozen spec e340d48, endpoints set
+before any data): 43 $1M+ on-market disposal filings -> 10 clean-cohort
+events after the verbatim gates (excl: 15 dirty, 8 dedup, 6 no results
+coverage, 4 no window). Result: **mean +14.9%, median +18.6%, t=+3.10,
+only 2/10 negative** - not just "no drift", the OPPOSITE direction, and
+sector-adjusted agrees (+11.7%, t=+2.36). Pooled ASX300 estimate
+collapses to -0.5%. Small-cap directors' big freely-timed sales preceded
+strong OUTperformance (SSM +24.7%, CAT +30.3%, GNP +37.4%).
+
+Honest reading, in order:
+1. **Verdict stands as registered: UNSUPPORTIVE** (spec: mean >= 0).
+2. The pre-declared confound cuts hard here: the universe is TODAY'S
+   top-300 band, so the new tickers are disproportionately stocks that
+   GREW into the band - band-selection bias inflates small-cap CARs
+   upward (the small_clean contrast cell's +5.7% base drift corroborates
+   a universe-level updraft). The +14.9% magnitude is not trustworthy;
+   the absence of negative drift is harder to wave away.
+3. n=10 is thin, as the spec anticipated.
+4. Net effect on the lead: confidence DOWN, materially. A real
+   information effect should not flip sign out-of-band. Either the
+   ASX 200 result was regime/sample noise despite surviving seven
+   attacks, or the mechanism (whatever it is) is band-specific. The
+   write-up gains a section either way; the PR-002 forward paper test
+   proceeds unchanged and remains the decider.
+
+REP-1 result published per commitment, prominence equal to any positive.
+Script: scripts/_rep1.py (gitignored); numbers above reproducible from
+the committed spec + event store.
 paper_broker.py (ib_insync, lazy import, port+account guards),
 daily.py (freshen crawl 1mo -> parse -> extract pending -> rebuild
 events -> gates -> orders or DRY_* ledger rows -> equity snapshot;
