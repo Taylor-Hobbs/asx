@@ -1402,6 +1402,33 @@ any short book, incl. PR-002's), and it sets PR-004 expectations - the
 Behavior model, not a return claim; forward-validatable for free as
 headline_index accrues.
 
+## 2026-07-16 (REP-2) - UNSUPPORTIVE: the strength-raise alpha was the survivor universe
+
+Full-market test per the frozen spec (56c3a00): 1,837 tickers crawled
+(headline_index now 1,821 tickers with prices in daily_prices_full,
+1.35M rows), 3,486 raise events, 372 passing the top-10%-of-market
+same-day momentum gate + guardrails, vs 1,687 momentum-only controls.
+
+**Raise events: mean -3.1%, median -5.4%. Momentum-only control: -6.1%.
+Verdict: UNSUPPORTIVE** (event mean <= 0; kicker +3.0pp at t=+1.14 also
+under the bar). On the whole exchange, buying hot stocks at their raise
+LOSES ~3%/quarter vs market. The full-market top-decile momentum cohort
+mean-REVERTS (-6.1%/qtr) - the exact opposite of the top-300 band's
++8.1% drift, because whole-market top-decile = spiked microcaps. The
+arc, complete: top-300 in-sample +22.8%/event -> decomposed into
+momentum + backfill -> full market with the band bias removed: NEGATIVE.
+The +90%/yr backtest was the survivor universe, start to finish.
+
+Residual observations (descriptive): raises "stabilize" relative to
+pure spike-reversion (+3.0pp vs momentum-only, t=1.1 - fresh capital /
+placement-price anchor?, unproven); serial raisers = 187/372 gated
+events; the concentration secondary printed a divide-by-near-zero
+artifact (summed move ~ 0) - noted, harmless. PR-004 remains running on
+its own frozen top-300 terms; expectation now firmly REFUTED. Lesson
+sealed for the write-up: a 10x-larger, less-biased sample flipped the
+sign of a Sharpe-1.5 backtest within 36 hours of its discovery -
+pre-registration and universe hygiene are not optional decorations.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap
