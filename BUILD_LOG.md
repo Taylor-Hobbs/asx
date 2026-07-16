@@ -1381,6 +1381,27 @@ picture with the sales work: below ~$1-2B, liquidity events of every
 kind accompany momentum; above it, insider sales carry the only
 information found in this study.
 
+## 2026-07-16 (raise hazard model) - momentum does NOT predict raises; identity does
+
+scripts/_raise_hazard.py: P(raise within 63td) on 33,119 ticker-week
+snapshots, logistic (numpy IRLS), trained <=2025, tested OUT-OF-TIME on
+2026 (n=4,104). **AUC 0.754; top predicted decile raises at 26.8% =
+3.8x base; bottom half 2.7%.** Well calibrated (slight top-decile
+overconfidence). But the coefficients kill the premise: mom6 +0.09 and
+mom1 +0.09 (standardized log-odds) vs **past_raises +0.32, band300
++0.26, vol +0.24**, materials +0.12 - and dropping momentum entirely
+leaves AUC IDENTICAL (0.756). The earlier propensity gradient (top-
+decile run-ins raise at 1.63x) was CONFOUNDED: momentum and raising are
+both symptoms of being a volatile small-cap serial raiser; conditional
+on identity, momentum contributes nothing to timing. **Raising is a
+company trait, not a momentum-triggered action** - explorers/biotechs
+raise on ~9-12mo funding cycles regardless of price. Practical uses:
+dilution-risk screen (a 27%-per-quarter raise probability matters to
+any short book, incl. PR-002's), and it sets PR-004 expectations - the
+"momentum gate" mostly selects serial raisers in their good stretch.
+Behavior model, not a return claim; forward-validatable for free as
+headline_index accrues.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap

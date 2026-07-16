@@ -170,3 +170,53 @@ yfinance quality degrades below the ASX 200, delistings within the window
 are invisible (survivorship inflates CARs upward — which biases AGAINST
 finding the negative drift, so a supportive result survives it; an
 unsupportive one is partially confounded).
+
+---
+
+## REP-2 — Strength-raise test on the FULL listed market (frozen 2026-07-16, BEFORE the full-market crawl is analyzed)
+
+**Purpose.** The strength-raise cell (raise + strong run-in → back-loaded
+drift) was found on the top-300 band, where its returns decomposed into
+momentum + band-backfill bias (BUILD_LOG 2026-07-16). This tests the same
+reactive trade on ALL currently ASX-listed companies (~1,800 tickers,
+~1,500 of them never touched by any prior analysis). Using today's FULL
+listing removes the grew-into-the-band selection that inflated the
+original; the remaining known bias is delistings during the window
+(failed companies invisible; inflates results; disclosed, not fixable
+without EODHD). Same 2024–26 period — this is universe-generalization,
+NOT time-generalization; the regime caveat stands.
+
+**Frozen specification.**
+- Universe: every company in the ASX directory as fetched 2026-07-16 with
+  ≥ 189 trading days of yfinance price history in the window (126 lookback
+  + 63 forward). Coverage counts reported.
+- Raise event: headline matching the frozen regex (as PR-004), clustered
+  one event per ticker per 30 days, announced in the 24 months to
+  2026-07-16, with full forward window.
+- Momentum gate (the user-specified, scale-free form): trailing
+  126-trading-day cumulative (stock log return − XJO log return) through
+  day −1 in the **top 10% of the cross-sectional distribution across all
+  universe stocks measured on the same day**.
+- Measurement: cumulative market-adjusted log return, trading days
+  +1..+63 from the announcement's first tradeable day (day 0 excluded).
+- CONTROL: all (ticker, day) windows passing the same same-day top-decile
+  gate with no raise event within 91 calendar days, non-overlapping per
+  ticker; same measurement.
+- Guardrails: minimum price 5c at day 0 (sub-5c microcap returns on
+  yfinance are unreliable); events on tickers with >20% missing daily
+  bars in the window excluded and counted.
+
+**Endpoints (stated now).**
+- SUPPORTIVE: raise-event mean CAR exceeds the control mean by ≥ +5.0pp
+  with Welch t ≥ +1.5, AND event mean > 0.
+- UNSUPPORTIVE: event mean ≤ control mean (momentum explains everything),
+  or event mean ≤ 0.
+- INCONCLUSIVE: otherwise.
+- Pre-named secondaries (descriptive): back-loaded accrual signature
+  (share of move by day +21), cap tercile split, Materials share,
+  concentration (top-3 event share), serial-raiser share. No cell
+  promotion; no re-slicing.
+
+**Commitments.** Frozen before the full-market headline crawl completes
+or is analyzed. Published either way, with the delisting-bias and
+same-regime caveats attached to any supportive result.
