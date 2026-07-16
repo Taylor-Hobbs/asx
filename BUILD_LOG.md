@@ -1429,6 +1429,52 @@ sealed for the write-up: a 10x-larger, less-biased sample flipped the
 sign of a Sharpe-1.5 backtest within 36 hours of its discovery -
 pre-registration and universe hygiene are not optional decorations.
 
+## 2026-07-16 (raise feature screen) - nothing predicts OUTperformance; one axis predicts disaster
+
+scripts/_raise_features.py: 1,757 full-market raise events, 18 features
+known at day 0, each scored on TRAIN (<=2025, n=1,584) and TEST (2026,
+n=173) separately; consistent = same sign, |IC|>0.05, both periods
+(chance expects ~1.8 of 18; got 4, all one axis).
+
+Base rates first: post-raise is NEGATIVE everywhere - train -6.6%,
+test -19.0% (2026 brutal for raisers). **No feature or cell produces
+outperformance**; the best test quintiles sit at -9% to -12%.
+
+The four consistents are one QUALITY/DISTRESS axis:
+- **off_high (IC +0.18/+0.17, the strongest)**: raising near the
+  52-week high -> least bad; raising far below it -> slaughtered
+  (test Q1: **-40.5%**).
+- vol63 (-0.14/-0.11): volatile raisers worse.
+- log_price (+0.10/+0.08): penny-stock raisers worse.
+- mom126 (+0.10/+0.10) - but test quintiles are NON-monotone
+  (Q1 -38%, Q2-Q5 flat): momentum's entire value is AVOIDING crashed
+  raisers, not selecting winners. The strength-raise idea inverted:
+  it was never "momentum wins", it was "distress loses".
+
+Key robustness note: the delisting bias works AGAINST the distress
+finding (the worst raisers delist and vanish from today's directory),
+yet Q1 still shows -40% - the one direction in the whole raise arc
+where survivorship strengthens rather than manufactures the result.
+Practical: shorting distressed microcap raisers is borrow-impossible,
+but as a RISK SCREEN ("a raise >30% below the 52w high is a red flag")
+it's usable by anyone, incl. PR-002's book. EXPLORATORY; the raise
+research arc closes here.
+
+Shortability check (scripts/_distress_shortable.py, Taylor's challenge):
+distress raises (>30% off 52w high) are 62% of ALL raises - 1,939
+events, mean -7.3%, t=-7.06. But **only 35 of 1,939 (1.8%) are in the
+borrowable ASX300 universe, and there the effect INVERTS: mean +4.5%
+(median -7.2%, 20/35 negative)** - the distribution is majority-down /
+occasionally-rips, i.e. a short has NEGATIVE expectancy with
+squeeze-shaped tail risk, on ~16 events/yr. The -40% disasters live
+exclusively below the borrow line. Textbook limits-to-arbitrage: the
+anomaly survives precisely where it cannot be traded, and evaporates
+(or is already arbitraged) exactly at the boundary where shorting
+becomes possible. Confirmed: not shortable - not because borrow is
+merely scarce, but because where borrow exists the edge doesn't.
+Write-up framing upgraded from "risk screen" to a clean ASX
+limits-to-arbitrage exhibit.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap
