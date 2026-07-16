@@ -1507,6 +1507,118 @@ useless as an outcome signal; classification of PURPOSE/STAGE is where
 the information is. If the purpose axis is ever pursued: PR-005 with
 the classifier prompt frozen, forward raises only.
 
+## 2026-07-16 (adjective index) - desperation-spin REFUTED; a disclosure-drumroll found
+
+scripts/_adjective_index.py: two-tier promo lexicon over 305,636
+headlines (11.6% contain promo language). The hypothesis (adjectives =
+desperation, inverse quality signal) FAILS on every leg: H1 promo vs
+raise count rho +0.09; H2 firewalled prediction (promo Jul24-Jun25 ->
+return Jul25-26) rho -0.03, quintiles noise (Q1 mean corrupted by an
+inf log-return artifact - read medians); H3 NO promo escalation before
+distress raises (delta -0.000). Confound identified: the lexicon
+measures PERFORMANCE vocabulary, not spin - the most promotional
+companies are IEL/PPT/MQG/CCP announcing "record profit" and "strong
+growth" factually; ASX300 scores HIGHER (0.166) than microcaps (0.106).
+
+What emerged instead: **healthy raisers ramp promotional language in
+the 90 days BEFORE their raise (+0.010 vs own baseline, t=+2.60;
+distress raisers show zero ramp)** - the drumroll: firms manage the
+news flow ahead of planned placements. This is the ASX-headline
+replication of the disclosure-management-before-SEO literature (Lang &
+Lundholm 2000), for free. And H4: adjective-heavy price-sensitive
+announcements move 7x more on day 0 (+5.5% vs +0.8%) with only mild
+give-back (+21td -3.1% vs -2.7%) - superlatives mark genuinely big
+news; no clean overreaction to fade. Net: tone still carries no
+outcome signal (uniform-positivity finding stands); the informative
+tonal object is the TRAJECTORY around corporate actions, not the level.
+
+## 2026-07-16 (project finance) - the raise is pre-emptable; the trade is not
+
+scripts/_project_finance.py, mechanical regex definitions (no LLM):
+MILESTONE = feasibility/PFS/DFS/FID/offtake/permit headlines, clustered.
+
+(1) **The pipeline is real: P(raise within 91d | milestone) = 33.9% vs
+~5-7% base - a 5-7x lift, median lag 33 days.** The feasibility cascade
+telegraphs financing a month ahead. Behavior claim, robust (same family
+as the hazard model).
+
+(2) PF-raise cell (milestone within 365d + healthy): full-period 2x2 is
+beautifully monotone (+9.0% > -5.6% > -8.8% > -14.7%, all |t|>2.8) -
+the mechanical confirmation of the LLM portrait. But the firewall
+kills the absolute trade AGAIN: TRAIN +14.7% (t=+4.3) -> TEST -13.6%
+(t=-2.1). Every raise-adjacent LONG cell this week flips sign in 2026 -
+they are all long-small-cap-froth in disguise, and the froth ended.
+NUANCE that survives: RELATIVE ordering held - 2026 PF+healthy -13.6%
+vs 2026 all-raise baseline ~-19%, i.e. still the best raises in both
+regimes. A relative endpoint would have survived the regime change;
+if anything is ever registered from the raise work (PR-005), it should
+be RELATIVE (PF+healthy vs contemporaneous raises), not absolute.
+
+(3) Pre-emption trade (buy the milestone itself): healthy milestones
+TRAIN +4.8% -> TEST -12.5% (t=-2.7). Same flip. Buying the telegraph
+doesn't work either - and eats the dilution ~33d later.
+
+Net: you CAN see project-finance raises coming (a genuinely useful
+anticipation tool for holders/shorts - dilution warning with a month's
+notice); you cannot profitably front-run them long in either form
+tested. The milestone->raise pipeline + relative-quality ranking join
+the write-up; no absolute trade claims.
+
+## 2026-07-16 (composite) - eight variables vs one: the one wins
+
+scripts/_raise_composite.py: ridge composite of 8 point-in-time
+features (quality axis, PF milestone, vol, price, momentum, raise
+count, news ramp, promo delta), trained <=2025, tested on 2026 as a
+RELATIVE ranking, horizons 21/63/126td.
+
+The relative ranking HOLDS out-of-regime: 63td test IC +0.158, test
+Q5-Q1 spread **+20.7pp even inside the 2026 bloodbath (Q5 -16.4% vs
+Q1 -37.1%)**. Horizon: 63td is where quality expresses (21td IC 0.10,
+spread 2.3pp); 126td untestable OOS (n=10) - the horizon question
+needs more calendar, not more variables.
+
+The sting: **the composite's test IC (+0.158) equals off_high alone
+(+0.162)**. Train IC 0.26 -> test 0.16 = the seven extra variables
+(incl. drumroll and promo qual proxies) fit noise that evaporated
+OOS. One honest variable beats eight fitted ones. Final answer to "a
+raise should indicate future performance": it indicates RELATIVE
+performance among raises, through a single robust axis (distance from
+the 52-week high), at the quarterly horizon, in both regimes - and it
+indicates NOTHING about absolute direction, which the regime owns
+(even Q5 lost 16% in 2026). Ranking != profit; the quality axis is
+real information without being a trade.
+
+## 2026-07-16 (unified model) - the announcement layer adds +0.003 IC over price
+
+scripts/_unified_model.py: the study's capstone question - does the
+combined announcement layer (insider flow, big clean sales, gesture
+buys, raise recency/frequency, late-filing rate) add cross-sectional
+ranking power over price features (off_high, momentum, vol, price)?
+Panel of 6,304 ticker-snapshots on the combined-306 universe (both
+verticals exist there), monthly snapshots, fwd63, ridge, firewall.
+
+**PRICE only: test IC +0.073, Q5-Q1 +9.2pp. PRICE+ANNOUNCEMENTS: test
+IC +0.076, +9.6pp. The entire announcement layer adds +0.003 IC** -
+rounding error. Univariate announcement features all ~0 OOS (insider
+net -0.04, big_clean_sale flips sign train->test in this crude panel
+form, late_rate -0.05). Cross-correlations confirm known structure:
+insiders sell winners (insider_net vs off_high/mom +0.12/+0.14),
+sloppy-governance clustering (late_rate vs gesture_buys +0.16), raises
+orthogonal to insider flow (+0.02). Price-only itself decayed 0.19 ->
+0.07 across the regime (its train coefficients loaded on vol - the
+froth factor again).
+
+FINAL READING for the write-up: ASX announcement data does NOT contain
+a broad, stackable cross-sectional edge at daily-price/retail-window
+resolution. Its information is narrow and conditional: event-time in
+specific domains (large-cap clean sales - PR-002/003; raise quality
+among raises), behavioral/predictive (raise hazard, milestone->raise
+pipeline), and risk-side (distress-raise flag, dilution warning,
+hygiene). Aggregated into a company-level factor, it is already in the
+price by the time it is measurable. The forward registrations are the
+study's surviving affirmative claims; everything else is honest
+characterization. Exploration phase CLOSED.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap
