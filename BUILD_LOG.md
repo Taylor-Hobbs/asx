@@ -1475,6 +1475,38 @@ merely scarce, but because where borrow exists the edge doesn't.
 Write-up framing upgraded from "risk screen" to a clean ASX
 limits-to-arbitrage exhibit.
 
+## 2026-07-16 (quartile portrait) - the image: project financiers vs survival raisers
+
+scripts/_raise_quartiles.py: 1,763 raises quartiled by outcome; quant
+profile + LLM classification of +/-90d headline timelines for 50 Q1 + 50
+Q4 events (headlines only, no prices; 67 usable, 33 JSON/API failures).
+Hindsight characterization, labeled as such.
+
+QUANT: Q1 (-55.4%) and Q4 (+40.0%) are the SAME animal - $0.15-0.19
+stocks, vol ~1.0-1.15, 4-14% ASX300 - a lottery barbell. Q3 (+0.3%) is
+the respectable middle: highest price ($0.33), lowest vol (0.76), most
+ASX300 (17%) - institutional raises are non-events. Quant separates
+safe-from-lottery, NOT winners-from-losers.
+
+QUAL (the new axis): winners are MINE DEVELOPERS (41% vs 19%) raising
+to ADVANCE A NAMED PROJECT (83% vs 50%) - post-PFS, construction
+funding, strategic/cornerstone partners (MEI post-PFS $42.5M, TRE $29M
+partnership). Losers are pure explorers + spec tech (65% vs 47%)
+raising against a narrative, with SURVIVAL-type purposes (working
+capital/balance-sheet repair: 23% vs ~0%) and visible problems
+pre-raise (15% vs 0%). The candidate discriminator - "named-project
+developer raise with clear use of proceeds, no survival language, no
+visible problems" - is readable AT the raise (point-in-time legal),
+unlike anything the price features offered.
+
+Bonus methodology finding: post-event headline TONE does not separate
++/-100pp outcomes (85% vs 90% "positive operational news") - small-cap
+announcements are uniformly promotional; losers announce good news all
+the way down. LLM tone-reading of ASX microcap announcements is
+useless as an outcome signal; classification of PURPOSE/STAGE is where
+the information is. If the purpose axis is ever pursued: PR-005 with
+the classifier prompt frozen, forward raises only.
+
 ## 2026-07-15 (cap gradient, EXPLORATORY) - the trailing effect scales with cap
 
 scripts/_cap_gradient.py: pooled 41 clean $1M+ sales (both bands), cap
