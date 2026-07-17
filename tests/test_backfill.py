@@ -286,3 +286,18 @@ class TestUniverse:
         p.write_text("ticker,company,sector\n")
         with pytest.raises(ValueError, match="no tickers"):
             load_universe(p)
+
+
+class TestGuidanceFilter:
+    def test_guidance_headlines_match(self):
+        from asx_engine.ingestion.backfill import is_guidance_candidate
+
+        for headline, want in [
+            ("FY26 Guidance Update", True),
+            ("Trading Update and Outlook Statement", True),
+            ("Profit Warning", True),
+            ("Quarterly Operational Update", True),
+            ("Notice of Annual General Meeting", False),
+            ("Change of Director's Interest Notice", False),
+        ]:
+            assert is_guidance_candidate(listed(headline=headline)) is want, headline

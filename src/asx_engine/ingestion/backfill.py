@@ -106,7 +106,30 @@ def is_p0_candidate(listed: HtmlAnnouncement) -> bool:
     return bool(_APPOINTMENT_HEADLINE.search(listed.headline))
 
 
-FILTERS = {"3y": is_3y_candidate, "broad": is_broad_candidate, "p0": is_p0_candidate}
+# Guidance vertical (decided 2026-07-17): trading updates, guidance changes and
+# profit warnings — the expectations layer ES-1 showed the market actually
+# trades. Deliberately headline-only (no PS gate): guidance WITHDRAWALS and
+# quiet downgrades are sometimes unflagged, and flag-vs-content divergence is
+# itself a finding.
+_GUIDANCE_HEADLINE = re.compile(
+    r"guidance|trading update|market update|profit warning|earnings update"
+    r"|trading performance|outlook (update|statement)"
+    r"|(upgrade|downgrade)s? (to )?(fy|hy|earnings|profit|guidance)"
+    r"|business update|operational update",
+    re.IGNORECASE,
+)
+
+
+def is_guidance_candidate(listed: HtmlAnnouncement) -> bool:
+    return bool(_GUIDANCE_HEADLINE.search(listed.headline))
+
+
+FILTERS = {
+    "3y": is_3y_candidate,
+    "broad": is_broad_candidate,
+    "p0": is_p0_candidate,
+    "guidance": is_guidance_candidate,
+}
 
 # Rows buffered before one BigQuery load job. Sized for the quota (1,500 load
 # jobs/table/day — the 2026-07-06 run tripped it doing one job per row): a
