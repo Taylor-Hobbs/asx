@@ -135,3 +135,16 @@ class TestExtractionRecord:
                 extracted_at=datetime(2026, 6, 11, 12, 0, tzinfo=UTC),
                 payload=NotGuidance(x=1),  # type: ignore[arg-type]
             )
+
+
+class TestGuidanceResult:
+    def test_empty_statements_is_valid(self):
+        from asx_engine.schemas.extraction import GuidanceResult
+
+        assert GuidanceResult(statements=[]).statements == []
+
+    def test_withdrawn_and_initiated_directions_exist(self):
+        from asx_engine.schemas.extraction import GuidanceDirection
+
+        assert GuidanceDirection("withdrawn") is GuidanceDirection.WITHDRAWN
+        assert GuidanceDirection("initiated") is GuidanceDirection.INITIATED

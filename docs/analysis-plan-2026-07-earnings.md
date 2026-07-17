@@ -220,3 +220,47 @@ NOT time-generalization; the regime caveat stands.
 **Commitments.** Frozen before the full-market headline crawl completes
 or is analyzed. Published either way, with the delisting-bias and
 same-regime caveats attached to any supportive result.
+
+---
+
+## GS-1 — Guidance events (frozen 2026-07-17, BEFORE any guidance document was extracted or read)
+
+**Motivation.** ES-1 showed the ASX 200 market trades expectations, not
+reported numbers (reaction vs YoY Spearman +0.12), and that bad news is
+priced same-day while good news shows a mild unconfirmed echo. Guidance
+announcements are where expectations are set, moved and destroyed. This is
+the first study on the guidance vertical; its spec is frozen before the
+first document is extracted.
+
+**Corpus.** All guidance-filter documents (backfill `--filter guidance`) for
+the combined ASX 300 universe, 24 months; extracted with the first
+`guidance_vN` prompt to clear the golden-set gate (≥80% overall field
+accuracy on ≥20 hand-audited documents; the gate value is frozen now).
+Events = one per (ticker, Sydney day, direction), deduped one per (ticker,
+direction) per 7 days.
+
+**Cohorts (by extracted direction).** downgrade (incl. profit warnings),
+upgrade, affirmed, withdrawn, initiated.
+
+**Measurement.** Day 0 = first tradeable day. Day-0 market-adjusted return,
+and CAR over +1..+21 and +1..+63 (both stated now; +21 is primary — ES-1
+located the only live drift in the first month). Full windows required.
+
+**Primary endpoints (Bonferroni within this family, two tests, t ≥ 2.24):**
+- G-DOWN: downgrades show POST-announcement continuation — mean CAR(+1..+21)
+  ≤ −1.5% with t ≤ −2.24. (ES-1 found crashes fully priced same-day; if
+  guidance downgrades drift where results-day crashes don't, the
+  expectations channel is slower than the results channel.)
+- G-UP: upgrades show continuation — mean CAR(+1..+21) ≥ +1.5% with
+  t ≥ +2.24.
+- REFUTED for a cohort if the sign is wrong or |t| < 1. INCONCLUSIVE
+  otherwise. No re-slicing.
+
+**Pre-named secondaries (descriptive, no promotion):** day-0 magnitudes by
+direction; withdrawn-cohort behavior (expected small n); affirmed as the
+placebo cohort (expected ≈ 0 — if "affirmed" drifts, the machinery is
+suspect); flag-vs-content (unflagged downgrades); interaction with the
+director-sales lead (sales within 30d before a downgrade — count only).
+
+**Commitments.** Extraction accuracy gate before any bulk run; endpoints
+frozen at this commit; result published with equal prominence either way.

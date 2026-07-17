@@ -76,11 +76,18 @@ class EarningsResult(BaseModel):
 
 
 class GuidanceDirection(StrEnum):
-    """StrEnum members serialize as plain strings — BigQuery- and JSON-friendly."""
+    """StrEnum members serialize as plain strings — BigQuery- and JSON-friendly.
+
+    WITHDRAWN and INITIATED added 2026-07-17 with the guidance vertical:
+    withdrawal is the most information-dense guidance event there is, and
+    first-time guidance has no prior to be an upgrade or downgrade of.
+    """
 
     UPGRADE = "upgrade"
     DOWNGRADE = "downgrade"
     AFFIRMED = "affirmed"
+    WITHDRAWN = "withdrawn"
+    INITIATED = "initiated"
 
 
 class GuidanceStatement(BaseModel):
@@ -103,6 +110,19 @@ class GuidanceStatement(BaseModel):
         if low is not None and high is not None and low > high:
             raise ValueError(f"guidance range inverted: low {low} > high {high}")
         return self
+
+
+class GuidanceResult(BaseModel):
+    """Document-level extraction target for the guidance vertical.
+
+    A trading update may carry several guidance statements (revenue AND
+    EBITDA, FY26 AND FY27) or none at all — plenty of "business updates"
+    guide nothing. An empty list is a first-class, correct extraction;
+    forcing a statement out of a guidance-free document would fabricate
+    events for the study downstream.
+    """
+
+    statements: list[GuidanceStatement]
 
 
 class ExtractionRecord[PayloadT: BaseModel](BaseModel):
