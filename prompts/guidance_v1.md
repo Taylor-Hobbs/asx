@@ -35,11 +35,12 @@ For each statement:
 4. `period` — the period guided, as stated: "FY2026", "1H FY27",
    "full year ending 30 June 2027". Do not abbreviate or expand.
 
-5. `range_low_aud` / `range_high_aud` — the guided range in AUD as absolute
-   values: "$120–130m" → 120000000 / 130000000. A point estimate uses the
-   same value for both. Percentages-only guidance ("growth of 10–15%"):
-   null both values (the percentage belongs in the quote). Non-AUD guidance:
-   null both values. For `withdrawn`: null both. **Never derive a range**
+5. `range_low_aud` / `range_high_aud` — ONLY for company-level absolute AUD
+   amounts: "$120–130m" → 120000000 / 130000000. A point estimate uses the
+   same value for both. Null both values for: percentages ("growth of
+   10–15%"), per-security amounts (cents per security), per-unit costs
+   (AISC $/oz), physical volumes (koz, lots, homes), non-AUD figures, and
+   `withdrawn`. The quote carries those numbers. **Never derive a range**
    from other figures — null beats computing.
 
 Every field carries `value`, `confidence` (0–1, calibrated), `source_quote`
@@ -51,9 +52,22 @@ Rules that override everything:
   the company, no inference from tone.
 - Guidance is a statement about a FUTURE period. Reported/actual results for
   a completed period are not guidance — a trading update that only reports
-  performance to date guides nothing unless it also speaks to the full
-  period's expectation.
+  performance to date guides nothing unless it also speaks to a period still
+  in progress or ahead. Expectations for an already-ended period awaiting
+  results are NOT guidance.
 - One statement per (metric, period): if revenue and EBITDA are both guided,
   that is two statements; FY26 and FY27 EBITDA are two statements.
+- Cost/expenditure metrics: direction is judged in the metric's own terms —
+  cost guidance RAISED is a downgrade; expenditure guidance LOWERED is an
+  upgrade.
+- Steering within an unchanged range ("around the lower end of guidance")
+  is `affirmed` — the range is the guidance.
+- Segment guidance: component rows of a group guidance table are covered by
+  the group statement; only extract a segment separately when the document
+  individually revises or characterizes it (or guides only at segment level).
+- JORC production targets and feasibility-study parameters (project NPV,
+  study production profiles) are not market guidance.
 - Third-party statements (broker views, media speculation quoted by the
   company) are not company guidance.
+- "Tracking ahead of guidance, update to come" is not a statement; "remains
+  on track to deliver guidance of X" is `affirmed`.

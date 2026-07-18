@@ -1,0 +1,44 @@
+{
+ "ticker": "SGP",
+ "headline": "Stockland upgrades FY25 guidance",
+ "announced_at": "2024-11-10 21:39:00+00:00",
+ "content_hash": "b593bbe8792b26187d6add47419fcc646684c2cca5ca2e708a9101fa8d725880",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "upgrade",
+    "metric": "FFO per security",
+    "basis": "post-tax",
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "upgrade",
+    "metric": "MPC settlement volumes",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "Land Lease Communities settlements",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "Distribution per security",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

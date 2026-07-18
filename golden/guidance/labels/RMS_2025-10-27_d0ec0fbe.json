@@ -1,0 +1,28 @@
+{
+ "ticker": "RMS",
+ "headline": "5 Year Growth Pathway to 500Koz including FY26 Guidance",
+ "announced_at": "2025-10-27 21:14:00+00:00",
+ "content_hash": "d0ec0fbe9a1e5201f26a99e87858cf7fe2964b3a27a9fb36c88a92a71fc05203",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "initiated",
+    "metric": "Gold production",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "AISC",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "ticker": "TNE",
+ "headline": "SaaS Plus - Delivers Upgrades FY Profit Growth to 13%-17%",
+ "announced_at": "2025-05-19 22:25:00+00:00",
+ "content_hash": "16a421f2ba36bdb536687b1009f4f4769f3c88321c7a99d676c8ba7316300ca3",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "upgrade",
+    "metric": "Profit Growth",
+    "basis": "Before Tax",
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

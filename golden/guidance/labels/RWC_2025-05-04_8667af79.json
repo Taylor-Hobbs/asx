@@ -1,0 +1,60 @@
+{
+ "ticker": "RWC",
+ "headline": "Trading Update",
+ "announced_at": "2025-05-04 22:29:00+00:00",
+ "content_hash": "8667af79e7ddf2329caff00f2af0b95bb76c081a826c1a15a71d8e20ab6ca70e",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "initiated",
+    "metric": "net cost impact of tariffs on operating earnings (EBITDA)",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "direct impact of US tariffs on EBITDA",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "Americas external sales",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "downgrade",
+    "metric": "Asia Pacific external sales",
+    "basis": "excluding Holman",
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "EMEA external sales",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "group external sales",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

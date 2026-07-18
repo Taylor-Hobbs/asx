@@ -1,0 +1,20 @@
+{
+ "ticker": "SGM",
+ "headline": "Trading Update",
+ "announced_at": "2024-09-18 22:28:00+00:00",
+ "content_hash": "0fbea995c8c2e84fa316136e032d2bc3be5c081a2fbfb8282853c948adae4142",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "initiated",
+    "metric": "Metal businesses EBIT",
+    "basis": null,
+    "period": "Q1 FY25",
+    "range_low_aud": 55000000,
+    "range_high_aud": 55000000
+   }
+  ]
+ }
+}

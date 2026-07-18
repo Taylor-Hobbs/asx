@@ -1,0 +1,11 @@
+{
+ "ticker": "RYM",
+ "headline": "Second quarter trading update",
+ "announced_at": "2025-10-08 20:31:00+00:00",
+ "content_hash": "994fa303c1fd61f61f72b819554394689260b9a4f071663841ddc1521b5c9ad7",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": []
+ }
+}

@@ -1,0 +1,11 @@
+{
+ "ticker": "RRL",
+ "headline": "Production Near Top End Of Guidance. $517m Cash & Bullion",
+ "announced_at": "2025-07-06 22:22:00+00:00",
+ "content_hash": "41b56969f5d46373f76b9f3b65778c321026294717239048ff2aa1eb6aab8122",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": []
+ }
+}

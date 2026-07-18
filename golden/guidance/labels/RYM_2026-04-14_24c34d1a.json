@@ -1,0 +1,11 @@
+{
+ "ticker": "RYM",
+ "headline": "Fourth quarter trading update",
+ "announced_at": "2026-04-14 21:42:00+00:00",
+ "content_hash": "24c34d1a032d30fc01b23b1cc0510f3baa4cdb6531cffecac3c85440358fc35a",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": []
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "ticker": "RMS",
+ "headline": "FY25 Gold Production and AISC Guidance",
+ "announced_at": "2024-07-28 22:40:00+00:00",
+ "content_hash": "97688298b63e0f950f90296f75d07c5d9a786e9235d3dbdabf4ce1a372d78140",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "initiated",
+    "metric": "Gold production",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "All-in sustaining cost (AISC)",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "Growth capital",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 20000000,
+    "range_high_aud": 30000000
+   },
+   {
+    "direction": "initiated",
+    "metric": "Exploration & Resource definition",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 40000000,
+    "range_high_aud": 50000000
+   }
+  ]
+ }
+}

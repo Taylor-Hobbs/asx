@@ -1,0 +1,52 @@
+{
+ "ticker": "RRL",
+ "headline": "Stronger Production Outlook Lifts FY27 Guidance",
+ "announced_at": "2026-07-16 22:21:00+00:00",
+ "content_hash": "5c723da76bf1259a4a94f4410890dc811dcb20e69ea4090093e11392179e1f0a",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "initiated",
+    "metric": "Production",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "All-In Sustaining Costs (AISC)",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "Growth Capital",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": 250000000,
+    "range_high_aud": 270000000
+   },
+   {
+    "direction": "initiated",
+    "metric": "Exploration",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": 80000000,
+    "range_high_aud": 90000000
+   },
+   {
+    "direction": "initiated",
+    "metric": "McPhillamys",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": 30000000,
+    "range_high_aud": 35000000
+   }
+  ]
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "ticker": "TLX",
+ "headline": "Telix Reports US$206M Revenue, FY 2025 Guidance Upgraded",
+ "announced_at": "2025-10-14 05:31:00+00:00",
+ "content_hash": "7355a948d4d79b6d065ffe85dbbb62ba317fd738b54f29acd6aa10c59bfd5389",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "upgrade",
+    "metric": "revenue",
+    "basis": null,
+    "period": "FY 2025",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

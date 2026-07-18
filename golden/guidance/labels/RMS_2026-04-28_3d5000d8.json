@@ -1,0 +1,28 @@
+{
+ "ticker": "RMS",
+ "headline": "March 2026 Quarterly Report and AISC Guidance Update",
+ "announced_at": "2026-04-28 22:19:00+00:00",
+ "content_hash": "3d5000d8b455043b33ba70b04d33ab9708cfd2eedd359f86afd49ce5946edb6e",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "affirmed",
+    "metric": "Gold production",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "downgrade",
+    "metric": "AISC",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

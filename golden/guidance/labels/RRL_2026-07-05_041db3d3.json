@@ -1,0 +1,11 @@
+{
+ "ticker": "RRL",
+ "headline": "379koz Produced, Top End of Guidance Achieved",
+ "announced_at": "2026-07-05 22:21:00+00:00",
+ "content_hash": "041db3d36d2fc64a68597ca4802670d253a6d5af012addc2db3d5624d4a27dc3",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": []
+ }
+}

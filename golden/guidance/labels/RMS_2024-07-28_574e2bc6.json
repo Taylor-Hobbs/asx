@@ -1,0 +1,36 @@
+{
+ "ticker": "RMS",
+ "headline": "June 2024 Quarterly and FY25 Guidance presentation",
+ "announced_at": "2024-07-28 22:44:00+00:00",
+ "content_hash": "574e2bc6b6936a127a9e2d4714658f680572321c9f75c00da97022a35b3435b9",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "initiated",
+    "metric": "Gold production",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "AISC",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "Exploration expenditure",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 40000000,
+    "range_high_aud": 50000000
+   }
+  ]
+ }
+}

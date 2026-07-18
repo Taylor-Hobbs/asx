@@ -1,0 +1,36 @@
+{
+ "ticker": "TNE",
+ "headline": "Guidance Upgrade-AI driving TNEs confidence in the future",
+ "announced_at": "2026-02-17 22:24:00+00:00",
+ "content_hash": "bac3d6988d22e8b975aea7f799fae51a60b0ea4acf49722b5f68e61ad6213ac6",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "upgrade",
+    "metric": "PBT growth",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "ARR growth",
+    "basis": null,
+    "period": "FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "initiated",
+    "metric": "PBT growth",
+    "basis": null,
+    "period": "H1 FY26",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

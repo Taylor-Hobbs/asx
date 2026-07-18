@@ -1,0 +1,11 @@
+{
+ "ticker": "S32",
+ "headline": "Strategy and Business Update",
+ "announced_at": "2025-05-13 06:03:00+00:00",
+ "content_hash": "5ed5543875fb9e901f8d30f9f3f81047117dcd44a84b326f8d341423c978f0c2",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": []
+ }
+}

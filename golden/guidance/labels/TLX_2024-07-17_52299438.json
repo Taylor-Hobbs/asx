@@ -1,0 +1,28 @@
+{
+ "ticker": "TLX",
+ "headline": "Telix Q2 2024 Revenue/Business Highlights, Guidance Upgrade",
+ "announced_at": "2024-07-17 22:32:00+00:00",
+ "content_hash": "52299438f128ae29385c42b840b5b45b9031aa5e9c6e9d900274430324c50df6",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "upgrade",
+    "metric": "revenue",
+    "basis": null,
+    "period": "FY2024",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "R&D expenditure",
+    "basis": null,
+    "period": "2024",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

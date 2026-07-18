@@ -1,0 +1,52 @@
+{
+ "ticker": "SEK",
+ "headline": "AGM - CEO Presentation incl. Trading Update & FY25 Guidance",
+ "announced_at": "2024-11-18 22:27:00+00:00",
+ "content_hash": "9c144634ca507390993b2b17a0b4644da8c6a68fba1035a7949ddb35c18aa68b",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "affirmed",
+    "metric": "Revenue",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 1020000000,
+    "range_high_aud": 1140000000
+   },
+   {
+    "direction": "affirmed",
+    "metric": "EBITDA",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 430000000,
+    "range_high_aud": 500000000
+   },
+   {
+    "direction": "affirmed",
+    "metric": "Adjusted NPAT",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 130000000,
+    "range_high_aud": 180000000
+   },
+   {
+    "direction": "upgrade",
+    "metric": "total expenditure",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": 760000000,
+    "range_high_aud": 790000000
+   },
+   {
+    "direction": "affirmed",
+    "metric": "yield growth",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

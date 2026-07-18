@@ -1,0 +1,28 @@
+{
+ "ticker": "SCG",
+ "headline": "3rd Quarter Operational Update",
+ "announced_at": "2024-11-06 21:59:00+00:00",
+ "content_hash": "5037db00a569803e9cd5b82b499c8f26e83325cb7df44a9dfdf2865d0526798c",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "affirmed",
+    "metric": "Funds from Operations",
+    "basis": null,
+    "period": "2024",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "Distributions",
+    "basis": null,
+    "period": "2024",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

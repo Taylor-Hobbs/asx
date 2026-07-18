@@ -1,0 +1,28 @@
+{
+ "ticker": "RMS",
+ "headline": "March 2025 Quarterly, refined guidance and drilling results",
+ "announced_at": "2025-04-28 22:17:00+00:00",
+ "content_hash": "10176d574bcda04a227a642f44deed61ad15e69db9be0053c0b68bdb61d58d01",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "upgrade",
+    "metric": "Gold production",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   },
+   {
+    "direction": "affirmed",
+    "metric": "AISC",
+    "basis": null,
+    "period": "FY25",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}

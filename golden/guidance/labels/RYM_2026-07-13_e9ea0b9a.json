@@ -1,0 +1,20 @@
+{
+ "ticker": "RYM",
+ "headline": "First quarter trading update",
+ "announced_at": "2026-07-13 21:30:00+00:00",
+ "content_hash": "e9ea0b9a1b146878730ff2b71a469a4d51b17896e75932de2318d4954a079647",
+ "dataset_version": "guidance_golden_v1",
+ "status": "labeled",
+ "labels": {
+  "statements": [
+   {
+    "direction": "affirmed",
+    "metric": "build guidance (retirement living units and aged care beds)",
+    "basis": null,
+    "period": "FY27",
+    "range_low_aud": null,
+    "range_high_aud": null
+   }
+  ]
+ }
+}
