@@ -1588,6 +1588,36 @@ indicates NOTHING about absolute direction, which the regime owns
 (even Q5 lost 16% in 2026). Ranking != profit; the quality axis is
 real information without being a trade.
 
+## 2026-07-17/18 - the guidance vertical: crawl, goldens, conventions
+
+The expectations layer (ES-1's missing variable) becomes a vertical.
+Built: `--filter guidance` (headline-only, deliberately no PS gate),
+490 docs crawled (0 failures) for the ASX300 universe / 24mo, parse
+swept 1,399 pending docs (incl. the band results backlog). Schema:
+GuidanceDirection += WITHDRAWN/INITIATED; GuidanceResult wrapper makes
+the empty document a first-class correct answer. prompts/guidance_v1.md
+written with all prior convention scars baked in. **GS-1 frozen before
+any document was read**: accuracy gate >=80% on >=20 goldens; primary
+endpoints = downgrade/upgrade CONTINUATION at +1..+21 (t>=2.24,
+Bonferroni pair); affirmed = designated placebo cohort.
+
+Goldens: 25 stratified docs hand-labeled from parsed text (61
+statements + 7 empty hard negatives). Seven conventions forced by real
+documents and locked in README + prompt BEFORE the first eval run:
+per-unit ranges null; cost-metric polarity (raised AISC = downgrade);
+steer-within-unchanged-range = affirmed; completed periods excluded;
+JORC/feasibility targets excluded; segment table rows covered by group
+statements; tracking-ahead != on-track-to-deliver. Labels drafted by
+Claude; Taylor audit (>=20% vs PDFs) pending before the set is trusted.
+scripts/_guidance_labels_apply.py committed as label provenance.
+
+NEXT SESSION PICKUP: (1) guidance eval harness (statement alignment by
+metric/period, detection line like director trades); (2) golden-scoped
+extraction run; (3) eval vs the 80% gate, iterate prompt if needed;
+(4) bulk extraction ~$3-5 (505 remaining docs); (5) GS-1 event study
+against frozen endpoints. Also outstanding: Taylor's golden audit,
+paper-trading dry run + schtasks, IBKR account, Railway deploy.
+
 ## 2026-07-16 (unified model) - the announcement layer adds +0.003 IC over price
 
 scripts/_unified_model.py: the study's capstone question - does the
