@@ -74,10 +74,24 @@ never masquerade as accuracy.
 `n_skipped`, `overall_accuracy`, and a repeated `field_scores` record so any
 field can be tracked across prompt versions in SQL.
 
-## Open questions (still open)
+## Open questions — status
 
-- Confidence calibration: do extraction confidence scores predict actual accuracy?
-- Label provenance: single-labeler for v1; double-labeling a sample to estimate
-  label error rate?
-- Period scoring: is normalized exact-match too strict, or is a canonical
-  period form (e.g. normalize to "1H FY2026") worth enforcing in `earnings_v2`?
+- **Confidence calibration — ANSWERED (2026-07-14).** Do confidence scores
+  predict accuracy? Yes, but the miscalibration is *structured*, not smooth:
+  scores ≥ 0.95 are well-calibrated (95–97% accurate), while the 0.90–0.95
+  bin is only ~21% accurate. Use confidence as a **binary review flag**
+  (< 0.95 → human review), never as a probability. Cross-document
+  disagreement turned out to be the stronger error detector: where sibling
+  documents disagree on a value, it is ~7.7× more likely to be wrong, and
+  ~87% of errors have the correct value present in a sibling document —
+  consensus voting is near-free QA. Details: BUILD_LOG.md (Family-2 entries).
+- **Label provenance — answered in practice, formal study still open.** The
+  first director-trades eval run exposed that 30/36 `director_role` labels
+  had been written from outside knowledge rather than document text — the
+  harness audits the labels as much as the model (see eval-history.md, the
+  v2 corrected-goldens row). Systematic double-labeling to estimate residual
+  label error has not been done.
+- **Period scoring — resolved via the prompt, not the scorer.** `earnings_v6`
+  requires the long-form date and forbids short forms, lifting period from
+  43.5% to 91.3% under unchanged exact-match scoring. One residual hyphen
+  variant ("Half-year" vs "Half year") remains at v7.

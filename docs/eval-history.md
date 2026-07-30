@@ -85,7 +85,11 @@ Scores are per-field accuracy (correct / total scored documents).
 
 ---
 
-## Per-field outcome breakdown — v7 (haiku, 2026-06-23) ← current champion
+## Per-field outcome breakdown — v7 (haiku, 2026-06-23) ← production champion
+
+> "Champion" = the model/prompt pair bulk extraction runs on. Opus v7 scores
+> 88.7% but is the frontier *baseline*, not the production choice — the 0.9pp
+> gap doesn't justify ~20× the working cost.
 
 | field | acc | correct | wrong | missed | halluc |
 |-------|-----|---------|-------|--------|--------|
