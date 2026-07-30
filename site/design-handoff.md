@@ -14,8 +14,9 @@ The honest-nulls framing is the product — never redesign it into a pitch.
   system fonts only. No CDNs, no build step, no external requests (must work
   under a strict CSP and on GitHub Pages).
 - Also published as a Claude Artifact (same content minus the outer
-  `<html>/<head>/<body>` skeleton): the artifact source of truth is the body
-  content; `scripts/_wrap_site.py` wraps it into `docs/index.html`.
+  `<html>/<head>/<body>` skeleton): the artifact-format source of truth is the
+  **committed** `site/src/research-src.html`; the local `scripts/_wrap_site.py`
+  wraps it into `docs/index.html`.
 - Artifact URL (preview): https://claude.ai/code/artifact/b0833637-f29d-4bac-a75d-43d3820fc9a0
   (favicon 📉 — keep it stable across updates).
 
@@ -121,10 +122,10 @@ inversion — add dark values deliberately.
 
 ## Updating workflow
 
-1. Edit the artifact-format file (starts at `<title>`, no
-   doctype/html/head/body) — this is the single source of truth.
-2. Republish the Artifact from that file (same path/URL, new `label`).
-3. Run `scripts/_wrap_site.py` to regenerate `docs/index.html`, commit.
+1. Edit `site/src/research-src.html` (artifact format: starts at `<title>`, no
+   doctype/html/head/body) — this is the single source of truth, committed.
+2. Republish the Artifact from that file (same URL, new `label`).
+3. Run `scripts/_wrap_site.py` to regenerate `docs/index.html`, commit both.
 4. GitHub Pages serves from `main` `/docs` → site URL is
    `https://taylor-hobbs.github.io/asx/` once Pages is enabled.
 5. When numbers change (new analysis runs), update BOTH the chart data arrays
