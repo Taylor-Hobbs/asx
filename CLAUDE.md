@@ -22,13 +22,12 @@ A rigorously-reached "no edge after costs" is a successful outcome. Target quali
 - If the owner proposes deploying **real money / live trading**: flag the line. Paper is the goal; real capital is a separate, much higher bar.
 - **Rigor is the defense against self-deception.** Once the goal is "beat the market," sloppiness stops producing harmless wrong numbers and starts producing a *fake edge you believe in*. If a signal looks real, remind: backtest ≠ live, and paper fills are optimistic.
 
-## Owner context
+## Project constraints
 
 Solo side project, deliberately **time-boxed**. It must not balloon into an
-academic-grade opus and must not eat the focus reserved for the owner's main
-work. Owner background: strong product velocity (React/Node/Postgres); still
-closing gaps in Python, data engineering, LLM evaluation, and quant methods —
-teach non-obvious idioms when introducing them.
+academic-grade opus; scope discipline beats completeness. When introducing
+non-obvious Python, data-engineering, or quant idioms, explain them —
+teaching-quality implementations are a project standard.
 
 ## Scope decisions (settled this cycle)
 

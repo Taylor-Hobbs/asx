@@ -11,6 +11,24 @@ event studies → pre-registered forward tests (paper).**
 The deliverable is the documented study itself, including honest negative results.
 A rigorously-reached "no edge after costs" counts as success.
 
+## Purpose
+
+Commercial ASX announcement summarizers and director-trade trackers exist, but
+none publish extraction accuracy against hand-labeled ground truth, and none
+publish leakage-audited, costed event studies of the signals they imply. This
+study exists to produce that missing evidence, in public:
+
+1. **Can LLM extraction over raw filings be trusted?** Benchmarked per-field
+   against golden datasets, with every prompt version and regression on the
+   record.
+2. **Does the extracted data predict returns?** Tested with point-in-time
+   discipline, adversarial robustness checks, multiple-testing awareness, and
+   pre-registered forward hypotheses — where negative and null results are
+   reported with the same prominence as positive ones.
+
+Everything needed to audit the answers — prompts, labels, methodology, and
+every benchmark number — is in this repo.
+
 ## Results so far
 
 ### Extraction accuracy (per-field, hand-labeled golden sets)
