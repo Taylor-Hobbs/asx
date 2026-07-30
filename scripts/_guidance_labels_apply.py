@@ -12,9 +12,15 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
 
 
-def S(direction, metric, basis, period, lo=None, hi=None):
-    return {"direction": direction, "metric": metric, "basis": basis,
-            "period": period, "range_low_aud": lo, "range_high_aud": hi}
+def S(direction, metric, basis, period, lo=None, hi=None):  # noqa: N802 - label shorthand
+    return {
+        "direction": direction,
+        "metric": metric,
+        "basis": basis,
+        "period": period,
+        "range_low_aud": lo,
+        "range_high_aud": hi,
+    }
 
 
 LABELS = {
@@ -44,8 +50,7 @@ LABELS = {
         S("initiated", "Gold production", None, "FY25"),
         S("initiated", "All-in sustaining cost (AISC)", None, "FY25"),
         S("initiated", "Growth capital", None, "FY25", 20000000, 30000000),
-        S("initiated", "Exploration & Resource definition", None, "FY25",
-          40000000, 50000000),
+        S("initiated", "Exploration & Resource definition", None, "FY25", 40000000, 50000000),
     ],
     "d0ec0fbe": [  # RMS 5-year pathway
         S("initiated", "Gold production", None, "FY26"),
@@ -60,8 +65,7 @@ LABELS = {
         S("downgrade", "AISC", None, "FY26"),
     ],
     "8667af79": [  # RWC tariffs
-        S("initiated", "net cost impact of tariffs on operating earnings (EBITDA)",
-          None, "FY26"),
+        S("initiated", "net cost impact of tariffs on operating earnings (EBITDA)", None, "FY26"),
         S("initiated", "direct impact of US tariffs on EBITDA", None, "FY27"),
         S("affirmed", "Americas external sales", None, "FY25"),
         S("downgrade", "Asia Pacific external sales", "excluding Holman", "FY25"),
@@ -69,8 +73,9 @@ LABELS = {
         S("affirmed", "group external sales", None, "FY25"),
     ],
     "994fa303": [],  # RYM Q2 - tracking ahead, update to come: no statements
-    "e9ea0b9a": [S("affirmed", "build guidance (retirement living units and aged care beds)",
-                   None, "FY27")],  # RYM Q1 FY27
+    "e9ea0b9a": [
+        S("affirmed", "build guidance (retirement living units and aged care beds)", None, "FY27")
+    ],  # RYM Q1 FY27
     "24c34d1a": [],  # RYM Q4 - completed period
     "07a55410": [  # RSG Syama
         S("affirmed", "Syama gold production", None, "2026"),
@@ -101,8 +106,9 @@ LABELS = {
         S("affirmed", "yield growth", None, "FY25"),
     ],
     "650bdff2": [],  # SEK/Xref business update - no guidance
-    "0fbea995": [S("initiated", "Metal businesses EBIT", None, "Q1 FY25",
-                   55000000, 55000000)],  # SGM
+    "0fbea995": [
+        S("initiated", "Metal businesses EBIT", None, "Q1 FY25", 55000000, 55000000)
+    ],  # SGM
 }
 
 label_dir = Path("golden/guidance/labels")
