@@ -68,11 +68,20 @@ Scores are per-field accuracy (correct / total scored documents).
 |---------|---------|--------|-------|-------|--------|--------|-------|-------|-------|-------|----------|-----------|
 | v1 | 62.6% | 43.5% | 43.5% | 43.5% | 69.6% | 56.5% | 65.2% | 65.2% | 82.6% | 73.9% | 82.6% | 2026-06-21 |
 | v3 | 82.2% | 65.2% | 95.7% | 95.7% | 73.9% | 65.2% | 69.6% | 73.9% | 100.0% | 82.6% | 100.0% | 2026-06-20 |
+| **v7** | **88.7%** | 65.2% | **100.0%** | **100.0%** | **95.7%** | **82.6%** | 78.3% | **78.3%** | **100.0%** | **87.0%** | **100.0%** | 2026-07-29 |
 
 > v3 appears in both tables: the 2026-06-20 eval run used haiku extractions and is
 > listed under haiku. The opus v1 run shows the frontier model's baseline on the
-> original schema. v3 haiku ≈ v3 opus (both 82.2%) — model choice has not been a
-> dominant factor in accuracy.
+> original schema.
+>
+> **v7 (2026-07-29) is a genuine opus run** — 23 fresh opus extractions on the
+> final prompt, scored by the same harness. Head-to-head on v7: opus 88.7% vs
+> haiku 87.8% (+0.9pp at ~5× the price). Opus: zero hallucinations, perfect
+> revenue, stronger npat/dividend priors — but `period` collapses to 65.2%
+> (8 wrong vs haiku's 1): the v6 long-form-date rule was tuned against haiku's
+> failure modes and does not transfer. Prompt rules are model-coupled; the
+> "model choice is not the dominant factor" conclusion now rests on a real
+> same-prompt comparison, not the v3 double-listing.
 
 ---
 

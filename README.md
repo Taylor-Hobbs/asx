@@ -1,41 +1,81 @@
-# ASX Announcement Intelligence Engine
+# ASX Announcement Research
 
-A Python research pipeline over ASX company announcements:
-**ingestion → PDF parsing → LLM structured extraction → point-in-time event store → backtested event studies.**
+[![CI](https://github.com/Taylor-Hobbs/asx/actions/workflows/ci.yml/badge.svg)](https://github.com/Taylor-Hobbs/asx/actions/workflows/ci.yml)
 
-Built as a 12-month skills project (June 2026 – June 2027) to demonstrate production-grade
-LLM engineering: evaluation harnesses, regression tracking, leakage-free backtesting, and
-(later) fine-tuning a small open model against a frontier baseline.
+An end-to-end research study testing whether ASX company announcements contain
+exploitable, tradeable signal — **paper-simulated only, no live capital, ever**:
 
-> **This is a research and engineering project — NOT a trading system and NOT a product.**
-> It never places trades, never connects to a brokerage, and its outputs never constitute
-> financial advice.
+**crawl → PDF parsing → benchmarked LLM extraction → point-in-time event store →
+event studies → pre-registered forward tests (paper).**
 
-## Why this exists
+The deliverable is the documented study itself, including honest negative results.
+A rigorously-reached "no edge after costs" counts as success.
 
-Commercial ASX summarizers already exist. This project's differentiation is the public rigor
-they don't show: published extraction accuracy, golden datasets, regression tracking,
-point-in-time backtests, and leakage audits. The deliverables are the repo, the eval
-methodology doc, the leakage audit, benchmark numbers, and public write-ups.
+## Results so far
 
-## Roadmap
+### Extraction accuracy (per-field, hand-labeled golden sets)
 
-| Quarter | Window | Focus |
-|---------|--------|-------|
-| **Q1** *(current)* | Jun–Aug 2026 | Ingestion + parsing + extraction for 2–3 announcement types, eval harness v1, golden dataset (100+ hand-labeled filings) |
-| **Q2** | Sep–Nov 2026 | Point-in-time event store, price-data join, leakage audit, first event studies |
-| **Q3** | Dec 2026–Feb 2027 | Fine-tune a small open model on extraction; benchmark vs frontier; cost analysis |
-| **Q4** | Mar–May 2027 | Significance testing, batch-inference cost optimization, 12-month retro |
+| Vertical | Model | Prompt | Accuracy | Golden set |
+|---|---|---|---|---|
+| Director trades (Appendix 3Y) | claude-haiku-4-5 | v3 | **93.1%** | 28 filings / 36 trades |
+| Company results (Appendix 4D/4E) | claude-haiku-4-5 | v7 | **87.8%** | 23 documents |
+| Company results — frontier head-to-head | claude-opus-4-8 | v7 | **88.7%** | same 23 documents |
+
+Seven measured prompt versions took the bulk model from 67.8% to 87.8%; the
+frontier model ends 0.9pp ahead at ~20× the working cost. Full per-version,
+per-field history (including the regressions): [docs/eval-history.md](docs/eval-history.md).
+Every number is reproducible from a persisted `eval_runs` row —
+methodology in [docs/eval-methodology.md](docs/eval-methodology.md).
+
+### Research findings
+
+- **[Do ASX director trades predict returns?](docs/findings-2026-07-director-trades.md)** —
+  4,743 trades across 24 months / ~200 tickers. **Conclusion: no identifiable
+  edge.** The apparent −7.1% signal after director sales decomposed under
+  adversarial testing into three artifacts (window double-counting,
+  alpha-extrapolation, reporting-season timing). The write-up shows the
+  dismantling step by step.
+- **Three clean nulls on the earnings corpus** (1,440 extracted reports):
+  results news is priced same-day; no exploitable drift from dividend cuts or
+  insider dip-buying ([analysis plan](docs/analysis-plan-2026-07-earnings.md)).
+- **[Pre-registered hypotheses](docs/preregistrations.md)** — four frozen
+  specifications with success/refutation criteria stated in advance, evaluated
+  on post-registration filings only, results published either way (first
+  verdicts due July 2027).
+
+## What's in the repo
+
+| Path | What it is |
+|---|---|
+| [`docs/`](docs/) | Eval history + methodology, findings reports, pre-registrations, architecture |
+| [`prompts/`](prompts/) | Every prompt version as an immutable artifact (v1…v7 — the iteration story) |
+| [`golden/`](golden/) | Hand-labeled golden datasets + labeling conventions (labels only — see redistribution rule) |
+| [`src/asx_engine/`](src/asx_engine/) | Pipeline: ingestion, parsing, extraction, eval harness, event store, event studies, paper-trading |
+| [`tests/`](tests/) | Unit tests for parsing, schemas, eval scoring, event-study math (synthetic-truth) |
+| [`BUILD_LOG.md`](BUILD_LOG.md) | Session-by-session build log — highlights index at the top |
+
+## Reproducibility & boundaries
+
+- **You can't run the pipeline without your own GCP project** (BigQuery +
+  private PDF bucket) and Anthropic API key — see [`.env.example`](.env.example).
+  What you *can* inspect without running anything: the prompts, the golden
+  labels, the eval methodology, every benchmark number, and the findings.
+- **Raw ASX filings are never redistributed here.** Golden labels reference
+  filings by ticker + date + announcement ID so the dataset can be
+  reconstructed from public sources ([`golden/README.md`](golden/README.md)).
+- **Paper trading only.** The forward tests run against an IBKR *paper*
+  account. Nothing here is financial advice, and no live capital is ever
+  involved.
 
 ## Stack
 
-- **Language:** Python end-to-end (pandas/polars, Pydantic schemas, pytest)
-- **Cloud:** GCP — Cloud Run jobs, Cloud Storage (raw PDFs), BigQuery (metadata, extractions, eval runs)
-- **LLM:** Anthropic API for extraction (frontier baseline); HuggingFace ecosystem arrives in Q3
-- **CI:** GitHub Actions, structured logging from day one
-- **Frontend:** none — this is a pipeline
+Python 3.12 (Pydantic, polars/pandas, numpy, pytest) · GCP (BigQuery, Cloud
+Storage) · Anthropic API (Haiku for bulk extraction via the Batch API; Opus as
+the benchmarked frontier baseline) · GitHub Actions CI.
 
-## Project context
+## Status (July 2026)
 
-See [`CLAUDE.md`](./CLAUDE.md) for the full project context, scope discipline, and engineering
-standards that govern this repo.
+Data collection and extraction are complete for two verticals (director
+trades, company results); the in-sample research phase is closed with the
+findings above; a guidance-extraction vertical and the forward paper-trading
+phase are in flight. Day-to-day detail lives in [BUILD_LOG.md](BUILD_LOG.md).

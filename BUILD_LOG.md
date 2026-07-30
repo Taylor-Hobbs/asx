@@ -1,7 +1,47 @@
 # Build Log
 
-Short entry per session: what was built, what broke, what the evals showed.
-Feeds the weekly public build-log posts. Newest entries first.
+Session-by-session working log: what was built, what broke, what the evals
+showed. Raw and unpolished by design — the polished versions are the docs in
+[`docs/`](docs/). Entries are roughly newest-first.
+
+## Highlights (if you only read six entries)
+
+- **2026-07-29** — real Opus-vs-Haiku head-to-head on the final prompt: 88.7% vs 87.8%
+- **2026-07-16** — a 10× less-biased sample flips a Sharpe-1.5 backtest's sign in 36 hours (REP-2)
+- **2026-07-13** — cross-document disagreement is a 7.7× extraction-error detector
+- **2026-07-10** — exact earnings dates invert the seasonal-confound verdict
+- **2026-07-08** — the −7.1% director-sales "signal" found and then dismantled, same day
+- **2026-07-04** — the eval harness catches a bug in the golden labels themselves (director roles)
+
+---
+
+## 2026-07-29 — real Opus v7 eval closes the head-to-head gap in the record
+
+Fact-checking the first public post exposed that "opus v3 = 82.2%" was the
+haiku run double-listed (the eval-history footnote said so; BQ has one opus
+row, v1). Fixed by running the real thing: 23 golden docs extracted with
+claude-opus-4-8 on the v7 prompt (`scripts/_opus_v7_golden.py`, golden-scoped,
+sync, $7 actual vs ~$4 estimated — adaptive thinking bills as output and Opus
+spent ~5k thinking tokens/doc on the dense statutory docs), scored by the
+standard harness, persisted to eval_runs. Per-doc reality check: $0.30/doc
+Opus sync+thinking vs $0.015/doc haiku batch — ~20× in practice, not the 5×
+sticker ratio.
+
+**Result: opus v7 88.7% vs haiku v7 87.8%** — +0.9pp at ~5× the price. Opus:
+zero hallucinations, revenue perfect, npat.prior 82.6% (vs 73.9%). But
+`period` collapsed to 65.2% (8 wrong vs haiku's 1) — the v6 long-form-date
+rule was tuned against haiku's failure modes and doesn't transfer. Lesson for
+the write-up: prompt rules are model-coupled; a prompt iterated on model A is
+not a neutral test harness for model B. The cheap-model thesis survives on
+honest numbers: sub-1pp gap, 5× price.
+
+Also this session: `scripts/viz/` suite (model_comparison, regression_report,
+cost_report, outcome_breakdown + shared style/eval_data) rendering rich tables
+straight from eval_runs and the extract_*.log usage records for post
+screenshots. Cost truth from logs: $43 all-in across 6,226 billed calls (the
+"$31" figure is the two headline bulk runs only). Gotchas: structlog sorts
+kwargs (token fields aren't adjacent), extract_asx300.log is UTF-16
+(PowerShell redirection), rich's measure() clamps to console width.
 
 ---
 

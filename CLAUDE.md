@@ -1,4 +1,4 @@
-# ASX Announcement Alpha Research — Project Context (v3)
+# ASX Announcement Research — Project Context (v3)
 
 > Drop this file in the repo root as CLAUDE.md so Claude Code sessions inherit full context.
 > **v3 supersedes v1/v2.** The project identity changed: the old "intelligence engine"
@@ -24,18 +24,11 @@ A rigorously-reached "no edge after costs" is a successful outcome. Target quali
 
 ## Owner context
 
-Taylor, 22, Deloitte analyst (MDT) in Melbourne. Highest-EV path assessed as
-**founder-operator**; no business idea yet and not forcing a half-baked one.
-
-This project's job is to **sharpen skills, build a public image, and bank credibility
-while between ventures.** It is **not** an academic stepping stone — the UK postgrad
-route was explored and deprioritised.
-
-It is a **whetstone / side-quest. Time-box it.** It must not balloon into an
-academic-grade opus, must not become a comfortable substitute for the founder leap, and
-must not eat the focus the eventual business will need. Strong product velocity
-(React/Node/Postgres); still closing gaps in Python, data engineering, LLM evaluation,
-and quant methods — teach non-obvious idioms when introducing them.
+Solo side project, deliberately **time-boxed**. It must not balloon into an
+academic-grade opus and must not eat the focus reserved for the owner's main
+work. Owner background: strong product velocity (React/Node/Postgres); still
+closing gaps in Python, data engineering, LLM evaluation, and quant methods —
+teach non-obvious idioms when introducing them.
 
 ## Scope decisions (settled this cycle)
 
@@ -127,7 +120,7 @@ inspection: clear README, architecture doc, eval methodology doc, leakage audit 
 - Teaching-quality implementations over clever ones. Present a tradeoff and recommend — don't silently pick.
 - Maintain **BUILD_LOG.md** each session (what was built, what broke, what evals showed) — it feeds public posts, which are load-bearing for the credibility/public-image goal.
 - Flag anything that smells like lookahead, survivorship, revision, or temporal leakage immediately, in any quarter.
-- Keep it **finished-and-honest, not academic-infinite.** If scope is ballooning past "credible flex," say so.
+- Keep it **finished-and-honest, not academic-infinite.** If scope is ballooning past what a finished public study needs, say so.
 - If the owner proposes **live capital / real-money trading**: flag the line (paper only). If a passing backtest tempts real money: remind that backtest ≠ live.
 
 ## Differentiation / context

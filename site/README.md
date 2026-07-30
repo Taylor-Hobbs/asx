@@ -22,7 +22,7 @@ The 10.6MB bundle is a BUILD artifact — never commit it. Only sources live her
 ## Updating
 
 - Terminal content/data (the `DATA` object): edit `src/terminal-src.html`, push.
-- Research page: rebuild `docs/index.html` (see docs/design-handoff.md), push.
+- Research page: rebuild `docs/index.html` (see `site/design-handoff.md`), push.
 - Live paper equity (Q4): a daily job writes the equity series into the
   `DATA.live` block of `terminal-src.html` (or a future `/data/live.json`)
   and pushes — Railway redeploys on push.

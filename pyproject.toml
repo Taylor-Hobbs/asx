@@ -41,6 +41,7 @@ dev = [
     "mypy>=1.13",
     "types-beautifulsoup4>=4.12",
     "pandas-stubs>=3.0.3.260530",
+    "rich>=13.0",
 ]
 
 [build-system]
